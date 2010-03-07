@@ -1,0 +1,7 @@
+[color]
+	status = auto
+	branch = auto
+        diff   = auto
+[user]
+	name = Adam Piper
+	email = adam@ahri.net
