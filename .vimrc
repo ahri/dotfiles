@@ -18,6 +18,8 @@ autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just p
 "syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
+colorscheme desert
+set background=light
 set background=dark
 set ruler                                 " it's nice to know where you are in life
 set showcmd                               " show command in status line
@@ -37,7 +39,6 @@ set guifont=Envy\ Code\ R\ 11
 syntax on
 map  :w!<CR>:!aspell check %<CR>:e! %<CR>
 map <F2> <Esc>:1,$!xmllint --format -<CR>
-colorscheme torte
 filetype on
 filetype plugin on
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
