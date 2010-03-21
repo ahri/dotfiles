@@ -1,0 +1,3 @@
+startup_message off
+vbell off
+caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"

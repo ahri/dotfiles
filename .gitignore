@@ -1,4 +1,5 @@
 *
 !.gitignore
 !.gitconfig
+!.screenrc
 !.vimrc
