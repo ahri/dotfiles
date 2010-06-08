@@ -59,13 +59,13 @@ filetype plugin on
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 " avoid having to press ESC
-imap jj <ESC>
-imap JJ <ESC>
+"imap jj <ESC>
+"imap JJ <ESC>
 
 " allow fingers to stay on the home row
-nnoremap j h
-nnoremap k j
-nnoremap l k
-nnoremap ; l
+"nnoremap j h
+"nnoremap k j
+"nnoremap l k
+"nnoremap ; l
 
 autocmd BufWrite *.c,*.php,*.py %s/\t/        /e | %s/ \+$//e
