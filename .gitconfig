@@ -1,7 +1,7 @@
 [color]
 	status = auto
 	branch = auto
-        diff   = auto
+	diff   = auto
 [user]
-	name = Adam Piper
-	email = adam@ahri.net
+	name   = Adam Piper
+	email  = adam@ahri.net
