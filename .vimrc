@@ -3,10 +3,18 @@ set ff=unix                               " unix file formats
 set bs=2                                  " comfortable backspacing
 
 " anti-tab settings
-set softtabstop=8                         " number of spaces tab counts as
-set shiftwidth=8                          " auto-indent shift
-set tabstop=8                             " how many spaces do tabs look like?
-set expandtab                             " expand a tab into spaces
+function! Tabs(spaces)
+        " number of spaces tab counts as
+        exec "set softtabstop=" . a:spaces
+        " auto-indent shift
+        exec "set shiftwidth=" . a:spaces
+        " how many spaces do tabs look like?
+        exec "set tabstop=" . a:spaces
+        " expand a tab into spaces
+        set expandtab
+endfunction
+" default to 8 spaces for a tab
+call Tabs(8)
 
 " coding oriented settings
 set ai                                    " auto indent
@@ -68,4 +76,6 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 "nnoremap l k
 "nnoremap ; l
 
-autocmd BufWrite *.c,*.php,*.py %s/\t/        /e | %s/ \+$//e
+" set some stuff up per filetype
+autocmd BufEnter *.py call Tabs(4)
+autocmd BufWrite *.c,*.php,*.py retab | %s/ \+$//e
