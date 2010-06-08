@@ -78,4 +78,5 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 " set some stuff up per filetype
 autocmd BufEnter *.py call Tabs(4)
+autocmd BufEnter *.c,*.php,*.py call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 autocmd BufWrite *.c,*.php,*.py retab | %s/ \+$//e
