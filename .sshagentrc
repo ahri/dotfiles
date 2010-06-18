@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Thanks to Mark A. Hershberg, Joseph M. Reagle and Daniel Starin for this;
+# http://mah.everybody.org/docs/ssh
+
 SSH_ENV="$HOME/.ssh/environment"
 
 function start_agent {
