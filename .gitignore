@@ -2,6 +2,7 @@
 !.gitignore
 !.gitconfig
 !.screenrc
+!.vim
 !.vimrc
 !.firefox_addons
 !.sshagentrc
