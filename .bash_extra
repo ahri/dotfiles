@@ -1,0 +1,12 @@
+#!/bin/sh
+
+shopt -s checkwinsize
+shopt -s histappend
+use_color=true
+export PATH="$HOME/bin:$PATH"
+
+. "$HOME/.sshagentrc"
+
+set -o vi
+stty stop undef
+stty start undef

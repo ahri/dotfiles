@@ -25,7 +25,3 @@ if [ -f "${SSH_ENV}" ]; then
 else
      start_agent;
 fi 
-
-set -o vi
-stty stop undef
-stty start undef
