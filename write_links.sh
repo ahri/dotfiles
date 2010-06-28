@@ -5,7 +5,7 @@ dir="`dirname "$script"`"
 find "$dir" -maxdepth 1 | while read file; do
 
         case "$file" in
-        "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README"|*.swp|"$0")
+        "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README"|*.swp|"$script")
                 continue
                 ;;
         esac
