@@ -1,5 +1,6 @@
 #!/bin/sh
-dir="`dirname "$0"`"
+script="`readlink -f "$0"`"
+dir="`dirname "$script"`"
 
 find "$dir" -maxdepth 1 | while read file; do
 
