@@ -1,9 +1,1 @@
-*
-!.bash_extra
-!.firefox_addons
-!.gitconfig
-!.gitignore
-!.screenrc
-!.sshagentrc
-!.vim
-!.vimrc
+.*.swp
