@@ -1,8 +1,19 @@
 Adlock Plus
-Flashblock
-FireGestures
-Vimperator
-Firebug
 Download Statusbar
-Nuke Anything Enhanced
+Elasticfox
+Firebug
+FireGestures
+FireQuery
+Flashblock
+FoxyProxy Standard
+        Work: http://cache1.uk.logica.com:80, matching *.logica.com/*
+        Virtualbox Host Only: Direct connection, matching http://192.168.56.*
+        Default: localhost:9999
+Hostname in Titlebar
 InvisibleHand
+?KeeFox (unstable)
+Nuke Anything Enhanced
+Selenium IDE
+SenSEO
+Vimperator
+YSlow
