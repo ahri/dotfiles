@@ -16,6 +16,16 @@ endfunction
 " default to 8 spaces for a tab
 call Tabs(8)
 
+" clean up the whitespace in a file, as long as it's not switched off with:
+" :let g:unclean=1
+function! CleanWhitespace()
+        if g:unclean == 0
+                retab
+                %s/ \+$//e
+        endif
+endfunction
+let g:unclean = 0
+
 " coding oriented settings
 set ai                                    " auto indent
 set tw=0                                  " text-width, set to zero - I don't want line breaks leaking in
@@ -79,4 +89,4 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " set some stuff up per filetype
 autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.c,*.php,*.py call matchadd('TODO', '\(\t\|[\t ]\+$\)')
-autocmd BufWrite *.c,*.php,*.py retab | %s/ \+$//e
+autocmd BufWrite *.c,*.php,*.py call CleanWhitespace()
