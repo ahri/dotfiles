@@ -19,12 +19,12 @@ call Tabs(8)
 " clean up the whitespace in a file, as long as it's not switched off with:
 " :let g:unclean=1
 function! CleanWhitespace()
-        if g:unclean == 0
+        if g:dirty == 0
                 retab
                 %s/ \+$//e
         endif
 endfunction
-let g:unclean = 0
+let g:dirty = 0
 
 " coding oriented settings
 set ai                                    " auto indent
