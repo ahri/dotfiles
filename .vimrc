@@ -52,7 +52,7 @@ set guioptions=aegirLt                    " set a few gui options
 set mouse=                                " disable the mouse when --with-x was specified
 " select a font; last one wins!
 set guifont=Courier\ New\ 11
-set guifont=Envy\ Code\ R\ 11
+"set guifont=Envy\ Code\ R\ 11
 " and for windows...
 "set guifont=Courier_New:h10:cANSI
 "set guifont=Envy_Code_R:h10
@@ -94,3 +94,5 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.c,*.php,*.py call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 autocmd BufWrite *.c,*.php,*.py call CleanWhitespace()
+
+set colorcolumn=80
