@@ -1,0 +1,12 @@
+Password: 
+Port 22
+Protocol 2
+PermitRootLogin no
+Subsystem sftp /usr/lib/openssh/sftp-server
+PasswordAuthentication no
+GatewayPorts yes
+AllowGroups remote
+# X11 tunneling options
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
