@@ -4,6 +4,7 @@ shopt -s checkwinsize
 shopt -s histappend
 use_color=true
 export PATH="$HOME/bin:$PATH"
+export EDITOR="vi"
 
 . "$HOME/.sshagentrc"
 
