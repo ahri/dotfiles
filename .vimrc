@@ -95,4 +95,8 @@ autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.c,*.php,*.py call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 autocmd BufWrite *.c,*.php,*.py call CleanWhitespace()
 
+" detect vim >= 7.3
+if !has('conceal')
+    finish
+endif
 set colorcolumn=80
