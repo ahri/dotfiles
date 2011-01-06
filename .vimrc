@@ -59,7 +59,9 @@ set guifont=Courier\ New\ 11
 
 "git settings
 set laststatus=2
-set statusline=<%{GitBranch()}>\ 
+if has('GitBranch')
+    set statusline=<%{GitBranch()}>\ 
+endif
 set statusline+=%t       "tail of the filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
@@ -92,7 +94,9 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 " set some stuff up per filetype
 autocmd BufEnter *.py call Tabs(4)
-autocmd BufEnter *.c,*.php,*.py call matchadd('TODO', '\(\t\|[\t ]\+$\)')
+if has('matchadd')
+    autocmd BufEnter *.c,*.php,*.py call matchadd('TODO', '\(\t\|[\t ]\+$\)')
+endif
 autocmd BufWrite *.c,*.php,*.py call CleanWhitespace()
 
 " detect vim >= 7.3
