@@ -6,8 +6,28 @@ use_color=true
 export PATH="$HOME/bin:$PATH"
 export EDITOR="vi"
 
-. "$HOME/.sshagentrc"
+#. "$HOME/.sshagentrc"
 
 set -o vi
 stty stop undef
 stty start undef
+
+if which gvim > /dev/null && [[ $DISPLAY != "" ]]; then
+    export server_name="VIM"
+
+    start_vim_server() {
+        gvim --serverlist | grep -q "^$server_name$" && return
+        wd="$PWD"
+        cd
+        gvim --servername "$server_name" "$@"
+        cd "$wd"
+    }
+
+    vim() {
+        start_vim_server
+
+        if [[ "$@" != "" ]]; then
+            gvim --servername "$server_name" --remote-silent "$@"
+        fi
+    }
+fi
