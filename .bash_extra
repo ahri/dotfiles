@@ -31,3 +31,5 @@ if which gvim > /dev/null 2>&1 && [[ $DISPLAY != "" ]]; then
         fi
     }
 fi
+
+alias todo="$HOME/.todo/todo.sh"
