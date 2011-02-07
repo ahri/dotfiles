@@ -21,6 +21,7 @@ if which gvim > /dev/null 2>&1 && [[ $DISPLAY != "" ]]; then
         cd
         gvim --servername "$server_name" "$@"
         cd "$wd"
+        sleep 1
     }
 
     vim() {
