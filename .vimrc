@@ -10,6 +10,8 @@ Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-vividchalk'
 Bundle 'peaksea'
 Bundle 'bufexplorer'
+Bundle 'matrix.vim'
+Bundle 'snipMate'
 
 filetype plugin indent on
 
