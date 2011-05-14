@@ -1,4 +1,18 @@
 set nocompatible                          " not compatible with VI
+filetype off
+set rtp+=~/.vim/vundle.git/
+call vundle#rc()
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-speeddating'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-vividchalk'
+Bundle 'peaksea'
+Bundle 'bufexplorer'
+
+filetype plugin indent on
+
 set ff=unix                               " unix file formats
 set bs=2                                  " comfortable backspacing
 
