@@ -118,3 +118,37 @@ if !has('conceal')
     finish
 endif
 set colorcolumn=80
+
+function! LowerCase(word)
+        exec "%s/\\<" . a:word . "\\>/\\l&/ge"
+endfunction
+
+function! RipCase()
+        call LowerCase("A")
+        call LowerCase("As")
+        call LowerCase("At")
+        call LowerCase("Be")
+        call LowerCase("By")
+        call LowerCase("In")
+        call LowerCase("Is")
+        call LowerCase("It")
+        call LowerCase("Of")
+        call LowerCase("On")
+        call LowerCase("Or")
+        call LowerCase("So")
+        call LowerCase("To")
+        call LowerCase("And")
+        call LowerCase("But")
+        call LowerCase("For")
+        call LowerCase("The")
+        call LowerCase("Are")
+        call LowerCase("From")
+        call LowerCase("Into")
+        call LowerCase("That")
+        call LowerCase("Them")
+        call LowerCase("They")
+        call LowerCase("This")
+        call LowerCase("With")
+        %s/=[a-z]/\U&/e
+        %s#/ [a-z]#\U&#e
+endfunction
