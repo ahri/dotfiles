@@ -1,0 +1,16 @@
+*bundles* *bundles.txt*            Installed Bundles
+
+
+Last updated by vim-update-bundles on Sat May 14 20:29:13 +0100 2011.
+
+  PLUGIN                           VERSION                RELEASE DATE
+------------------------------------------------------------------------
+  |fugitive|                       v1.2-6-gc872a54        2011-05-09
+  |speeddating|                    v20100301-3-gb0ee6ec   2010-12-28
+  |surround|                       v1.90-5-gd9e6bfd       2011-01-23
+  |abolish|                        v1.0-5-g119b515        2011-04-13
+  |vividchalk|                     v2.0                   2010-02-19
+  |lusty|                          36e5850927639          2011-04-29
+  |peaksea|                        3.4                    2010-02-05
+  |snipMate|                       0.83                   2009-07-13
+

@@ -1,22 +1,17 @@
+" The following are for use with vim-update-bundles
+" Bundle: tpope/vim-fugitive
+" Bundle: tpope/vim-speeddating
+" Bundle: tpope/vim-surround
+" Bundle: tpope/vim-abolish
+" Bundle: tpope/vim-vividchalk
+" Bundle: sjbach/lusty
+" Bundle: peaksea
+" Bundle: snipMate
+
 set nocompatible                          " not compatible with VI
-filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
-
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-speeddating'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'peaksea'
-Bundle 'bufexplorer'
-Bundle 'matrix.vim'
-Bundle 'snipMate'
-
-filetype plugin indent on
-
 set ff=unix                               " unix file formats
 set bs=2                                  " comfortable backspacing
+set hidden
 
 " anti-tab settings
 function! Tabs(spaces)
@@ -154,3 +149,5 @@ function! RipCase()
         %s/=[a-z]/\U&/e
         %s#/ [a-z]#\U&#e
 endfunction
+
+call pathogen#runtime_append_all_bundles()
