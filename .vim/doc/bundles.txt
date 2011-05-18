@@ -1,7 +1,7 @@
 *bundles* *bundles.txt*            Installed Bundles
 
 
-Last updated by vim-update-bundles on Sat May 14 20:29:13 +0100 2011.
+Last updated by vim-update-bundles on Sun May 15 01:36:57 +0100 2011.
 
   PLUGIN                           VERSION                RELEASE DATE
 ------------------------------------------------------------------------
@@ -13,4 +13,6 @@ Last updated by vim-update-bundles on Sat May 14 20:29:13 +0100 2011.
   |lusty|                          36e5850927639          2011-04-29
   |peaksea|                        3.4                    2010-02-05
   |snipMate|                       0.83                   2009-07-13
+  |extradite.vim|                  1.0                    2011-03-18
+  |taglist-plus|                   1.1.1                  2011-03-18
 

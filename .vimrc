@@ -7,6 +7,8 @@
 " Bundle: sjbach/lusty
 " Bundle: peaksea
 " Bundle: snipMate
+" Bundle: extradite.vim
+" Bundle: taglist-plus
 
 set nocompatible                          " not compatible with VI
 set ff=unix                               " unix file formats
