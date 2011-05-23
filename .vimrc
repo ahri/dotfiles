@@ -4,6 +4,7 @@
 " Bundle: tpope/vim-surround
 " Bundle: tpope/vim-abolish
 " Bundle: tpope/vim-vividchalk
+" Bundle: ehamberg/vim-cute-python
 " Bundle: sjbach/lusty
 " Bundle: peaksea
 " Bundle: snipMate
