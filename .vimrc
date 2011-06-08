@@ -1,15 +1,32 @@
 " The following are for use with vim-update-bundles
-" Bundle: tpope/vim-fugitive
+" ### colorschemes
+" Bundle: peaksea
+" Bundle: tpope/vim-vividchalk
+"
 " Bundle: tpope/vim-speeddating
 " Bundle: tpope/vim-surround
+" # :%Subvert/facilit{y,ies}/building{,s}/g (or just :%S)
 " Bundle: tpope/vim-abolish
-" Bundle: tpope/vim-vividchalk
-" Bundle: ehamberg/vim-cute-python
-" Bundle: sjbach/lusty
-" Bundle: peaksea
-" Bundle: snipMate
-" Bundle: extradite.vim
+" Bundle: tpope/vim-repeat
+"
+" ### coding related
+" # insert-mode completions with tab
+" Bundle: ervandew/supertab
+" # :TlistToggle :help taglist-commands
 " Bundle: taglist-plus
+" # TextMate style tab-code-gen
+" Bundle: snipMate
+"
+" ### git related
+" Bundle: tpope/vim-fugitive
+" Bundle: extradite.vim
+"
+" ### python related
+" Bundle: ehamberg/vim-cute-python
+" #Bundle: python_calltips # seems broken??
+"
+" # <leader>l[frbgj] -- \lj seems a bit breakable...
+" Bundle: sjbach/lusty
 
 set nocompatible                          " not compatible with VI
 set ff=unix                               " unix file formats
