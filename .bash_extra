@@ -35,3 +35,4 @@ fi
 
 alias todo="$HOME/.todo/todo.sh"
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
