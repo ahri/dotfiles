@@ -3,11 +3,13 @@
 " Bundle: peaksea
 " Bundle: tpope/vim-vividchalk
 "
+" ### random vim stuff
 " Bundle: tpope/vim-speeddating
 " Bundle: tpope/vim-surround
 " # :%Subvert/facilit{y,ies}/building{,s}/g (or just :%S)
 " Bundle: tpope/vim-abolish
 " Bundle: tpope/vim-repeat
+" Bundle: vimoutliner/vimoutliner
 "
 " ### coding related
 " # insert-mode completions with tab
