@@ -107,6 +107,7 @@ set statusline+=\ %P    "percent through file
 syntax on
 map  :w!<CR>:!aspell check %<CR>:e! %<CR>
 map <F2> <Esc>:1,$!xmllint --format -<CR>
+nnoremap <Leader>t :TlistToggle<CR>
 filetype on
 filetype plugin on
 let g:bufExplorerShowRelativePath=1  " Show relative paths.
