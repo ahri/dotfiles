@@ -36,3 +36,6 @@ fi
 alias todo="$HOME/.todo/todo.sh"
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
+alias screen="set | awk '\$0 ~ /^(DISPLAY|SSH_)/ { print \"export \" \$0 }' > $HOME/.ssh_vars; screen"
+alias ssh-agent="source $HOME/.ssh_vars; echo echo echo"
