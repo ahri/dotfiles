@@ -90,9 +90,7 @@ set guifont=Courier\ New\ 11
 
 "git settings
 set laststatus=2
-if has('fugitive')
-    set statusline=%{fugitive#statusline()}\ 
-endif
+set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
 set statusline+=%t       "tail of the filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
