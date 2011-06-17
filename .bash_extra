@@ -38,4 +38,4 @@ alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 alias screen="set | awk '\$0 ~ /^(DISPLAY|SSH_)/ { print \"export \" \$0 }' > $HOME/.ssh_vars; screen"
-alias ssh="source $HOME/.ssh_vars; ssh"
+alias ssh="[ -e $HOME/.ssh_vars ] && source $HOME/.ssh_vars; ssh"
