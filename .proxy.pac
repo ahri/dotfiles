@@ -6,7 +6,7 @@ function FindProxyForURL(url, host)
             isInNet(host, "10.0.0.0",    "255.0.0.0"))
                 return "DIRECT";
 
-        if (dnsDomainIs(host, ".logica.com"))
+        if (dnsDomainIs(host, ".logica.com") && host != "mail.logica.com")
                 return "DIRECT";
 
         return "SOCKS localhost:9999";
