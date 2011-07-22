@@ -24,7 +24,7 @@
 " Bundle: extradite.vim
 "
 " ### python related
-" Bundle: ehamberg/vim-cute-python
+" #Bundle: ehamberg/vim-cute-python
 " #Bundle: python_calltips # seems broken??
 "
 " # <leader>l[frbgj] -- \lj seems a bit breakable...
