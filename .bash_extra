@@ -12,7 +12,7 @@ set -o vi
 stty stop undef
 stty start undef
 
-if which gvim > /dev/null 2>&1 && [ ! -z $DISPLAY ]; then
+if which gvim > /dev/null 2>&1 && [ "$DISPLAY" = ":0" ]; then
     export server_name="VIM"
 
     start_vim_server() {
