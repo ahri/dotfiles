@@ -5,3 +5,5 @@
 [user]
 	name   = Adam Piper
 	email  = adam@ahri.net
+[core]
+	excludesfile = /home/adam/.gitignore

@@ -84,7 +84,7 @@ set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
 set guioptions=aegirLt                    " set a few gui options
 set mouse=                                " disable the mouse when --with-x was specified
 " select a font; last one wins!
-set guifont=Courier\ New\ 11
+set guifont=Monospace\ 11
 "set guifont=Envy\ Code\ R\ 11
 " and for windows...
 "set guifont=Courier_New:h10:cANSI
@@ -137,7 +137,7 @@ autocmd BufWrite *.c,*.php,*.py,*.java call CleanWhitespace()
 if !has('conceal')
     finish
 endif
-set colorcolumn=80
+autocmd BufEnter * set colorcolumn=80
 
 function! LowerCase(word)
         exec "%s/\\<" . a:word . "\\>/\\l&/ge"

@@ -31,6 +31,8 @@ if which gvim > /dev/null 2>&1 && [[ $DISPLAY = :0* ]]; then
             gvim --servername "$server_name" --remote-silent "$@"
         fi
     }
+
+    export -f vim
 fi
 
 alias todo="$HOME/.todo/todo.sh"
