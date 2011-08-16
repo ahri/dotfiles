@@ -26,6 +26,7 @@
 " ### python related
 " #Bundle: ehamberg/vim-cute-python
 " #Bundle: python_calltips # seems broken??
+" Bundle: kevinw/pyflakes-vim
 "
 " # <leader>l[frbgj] -- \lj seems a bit breakable...
 " Bundle: sjbach/lusty
