@@ -7,7 +7,7 @@ from shutil import rmtree
 
 THIS_FILE = os.path.abspath(__file__)
 BASE = os.path.dirname(os.path.abspath(__file__)) + os.sep
-HOME = os.environ['HOME'] + os.sep + 'test/'
+HOME = os.environ['HOME'] + os.sep
 esc_base = re.escape(BASE)
 
 IGNORE = re.compile(r'|'.join([re.escape(THIS_FILE),
