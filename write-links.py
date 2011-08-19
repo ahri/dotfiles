@@ -20,8 +20,6 @@ def force_link(source, target):
     if os.path.islink(target):
         os.remove(target)
     else:
-        print target
-        print 'blah'
         rmtree(target, True)
 
     os.symlink(source, target)
