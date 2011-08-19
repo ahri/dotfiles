@@ -20,6 +20,8 @@ def force_link(source, target):
     if os.path.islink(target):
         os.remove(target)
     else:
+        print target
+        print 'blah'
         rmtree(target, True)
 
     os.symlink(source, target)
@@ -31,17 +33,16 @@ def linkify(subpath):
     if IGNORE.match(based) is not None:
         return
 
-    # 1. if we have a straight file, just force link it
-    if not os.path.isdir(BASE + subpath):
+    print 'OPERATING ON:', subpath
+
+    if not os.path.isdir(based):
         force_link(based, homed)
         return
 
-    # 2. if we have a dir that doesn't exist as a dir in the homedir, force link it
-    if not os.path.exists(homed):
+    if not os.path.isdir(homed) or os.path.islink(homed):
         force_link(based, homed)
         return
 
-    # 3. if the dir already exists recurse per item in base dir/subpath
     for item in os.listdir(based):
         # recurse
         linkify(subpath + os.sep + item)
