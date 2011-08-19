@@ -108,8 +108,8 @@ set statusline+=\ %P    "percent through file
 
 " misc non-settings
 syntax on
-map  :w!<CR>:!aspell check %<CR>:e! %<CR>
-map <F2> <Esc>:1,$!xmllint --format -<CR>
+" map  :w!<CR>:!aspell check %<CR>:e! %<CR>
+" map <F2> <Esc>:1,$!xmllint --format -<CR>
 nnoremap <Leader>t :TlistToggle<CR>
 nnoremap <Leader>f :NERDTreeToggle<CR>
 nnoremap <Leader>g :NERDTreeToggle ~/Dropbox/GTD<CR>
