@@ -11,8 +11,9 @@ HOME = os.environ['HOME'] + os.sep
 esc_base = re.escape(BASE)
 
 IGNORE = re.compile(r'|'.join([re.escape(THIS_FILE),
-                               esc_base + r'\.git',
-                               esc_base + r'\.gitignore',
+                               esc_base + r'\.git$',
+                               esc_base + r'\.gitmodules$',
+                               esc_base + r'\.gitignore$',
                                esc_base + r'README',
                                esc_base + r'.*\.swp']))
 
