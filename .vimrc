@@ -28,9 +28,6 @@
 " #Bundle: ehamberg/vim-cute-python
 " #Bundle: python_calltips # seems broken??
 " #Bundle: kevinw/pyflakes-vim
-"
-" # <leader>l[frbgj] -- \lj seems a bit breakable...
-" Bundle: sjbach/lusty
 
 set nocompatible                          " not compatible with VI
 set ff=unix                               " unix file formats
