@@ -19,6 +19,8 @@
 " Bundle: taglist-plus
 " # TextMate style tab-code-gen
 " Bundle: snipMate
+" # Nifty alignment
+" Bundle: Align
 "
 " ### git related
 " Bundle: tpope/vim-fugitive
