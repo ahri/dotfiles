@@ -1,4 +1,5 @@
 " The following are for use with vim-update-bundles
+" See http://github.com/vim-scripts
 " ### colorschemes
 " Bundle: peaksea
 " Bundle: tpope/vim-vividchalk
