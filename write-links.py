@@ -27,7 +27,6 @@ def force_link(source, target):
         os.symlink(source, target)
     except OSError:
         print "Could not symlink %s" % target
-        raise
 
 def linkify(subpath):
     based = BASE + subpath
