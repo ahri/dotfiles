@@ -23,7 +23,11 @@ def force_link(source, target):
     else:
         rmtree(target, True)
 
-    os.symlink(source, target)
+    try:
+        os.symlink(source, target)
+    except OSError:
+        print "Could not symlink %s" % target
+        raise
 
 def linkify(subpath):
     based = BASE + subpath

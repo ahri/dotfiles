@@ -84,12 +84,7 @@ set scrolloff=6                           " lines above/below to show for contex
 set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
 set guioptions=aegirLt                    " set a few gui options
 set mouse=                                " disable the mouse when --with-x was specified
-" select a font; last one wins!
 set guifont=Monospace\ 11
-"set guifont=Envy\ Code\ R\ 11
-" and for windows...
-"set guifont=Courier_New:h10:cANSI
-"set guifont=Envy_Code_R:h10
 
 "git settings
 set laststatus=2
