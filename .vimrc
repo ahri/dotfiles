@@ -29,6 +29,10 @@ set ff=unix                               " unix file formats by default
 set bs=2                                  " comfortable backspacing
 set hidden
 
+" mapping for thinkpad
+map <F1> <Esc>
+imap <F1> <Esc>
+
 " anti-tab settings
 function! Tabs(spaces)
         " number of spaces tab counts as
