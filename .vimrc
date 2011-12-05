@@ -30,6 +30,7 @@
 " #Bundle: ehamberg/vim-cute-python
 " #Bundle: python_calltips # seems broken??
 " #Bundle: kevinw/pyflakes-vim
+" Bundle: klen/python-mode
 
 set nocompatible                          " not compatible with VI
 set ff=unix                               " unix file formats
