@@ -35,11 +35,9 @@ if which gvim > /dev/null 2>&1 && [[ $DISPLAY = :0* ]]; then
     export -f vim
 fi
 
-alias todo="$HOME/.todo/todo.sh"
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-alias screen="set | awk '\$0 ~ /^(DISPLAY|SSH_)/ { print \"export \" \$0 }' > $HOME/.ssh_vars; screen"
-alias ssh="[ -e $HOME/.ssh_vars ] && source $HOME/.ssh_vars; ssh"
-
 PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\$(__git_ps1) \$\[\033[00m\] "
+
+# note: "syndaemon -i 1.0 -K -R -t" for laptop
