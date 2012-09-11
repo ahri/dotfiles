@@ -1,2 +1,2 @@
 #!/bin/sh
-dtach -A /tmp/dvtm-session -r winch dvtm
+dtach -A "/tmp/dvtm-session-$USER" -r winch dvtm
