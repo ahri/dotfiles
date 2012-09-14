@@ -1,39 +1,15 @@
 #!/bin/sh
 
+use_color=true
 shopt -s checkwinsize
 shopt -s histappend
-use_color=true
 export PATH="$HOME/bin:$PATH"
 export EDITOR="vi"
-
-#. "$HOME/.sshagentrc"
+export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
 set -o vi
 stty stop undef
 stty start undef
-
-if which gvim > /dev/null 2>&1 && [[ $DISPLAY = :0* ]]; then
-    export server_name="VIM"
-
-    start_vim_server() {
-        gvim --serverlist | grep -q "^$server_name$" && return
-        wd="$PWD"
-        cd
-        gvim --servername "$server_name" "$@"
-        cd "$wd"
-        sleep 1
-    }
-
-    vim() {
-        start_vim_server
-
-        if [[ "$@" != "" ]]; then
-            gvim --servername "$server_name" --remote-silent "$@"
-        fi
-    }
-
-    export -f vim
-fi
 
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
