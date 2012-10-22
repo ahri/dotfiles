@@ -1,7 +1,8 @@
 Port 22
 Protocol 2
 PermitRootLogin no
-Subsystem sftp /usr/lib/openssh/sftp-server
+#Subsystem sftp /usr/lib/openssh/sftp-server
+Subsystem stfp internal-sftp
 PasswordAuthentication no
 GatewayPorts yes
 AllowGroups remote
