@@ -65,6 +65,10 @@ function! Dirty()
         let g:dirty = 1
 endfunction
 
+" backup/recovery related
+set nobackup
+set noswapfile
+
 " coding oriented settings
 set ai                                    " auto indent
 set tw=0                                  " text-width, set to zero - I don't want line breaks leaking in
