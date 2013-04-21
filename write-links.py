@@ -3,7 +3,7 @@
 
 import os
 import re
-from shutil import rmtree
+from shutil import rmtree, copytree, copy2
 
 THIS_FILE = os.path.abspath(__file__)
 BASE = os.path.dirname(os.path.abspath(__file__)) + os.sep
@@ -25,6 +25,11 @@ def force_link(source, target):
 
     try:
         os.symlink(source, target)
+    except AttributeError:
+	if os.path.isdir(source):
+	    copytree(source, target, True)
+	else:
+	    copy2(source, target)
     except OSError:
         print "Could not symlink %s" % target
 
