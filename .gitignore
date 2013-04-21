@@ -1,6 +1,4 @@
 .*.swp
 Trashed-Bundles
 .vim/.netrwhist
-.vim/bundle
-.vim/doc/bundles.txt
 build/

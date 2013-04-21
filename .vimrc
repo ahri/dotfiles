@@ -1,39 +1,38 @@
-" The following are for use with vim-update-bundles
-" See http://github.com/vim-scripts
-" ### colorschemes
-" Bundle: peaksea
-" Bundle: tpope/vim-vividchalk
-"
-" ### random vim stuff
-" Bundle: tpope/vim-speeddating
-" Bundle: tpope/vim-surround
-" # :%Subvert/facilit{y,ies}/building{,s}/g (or just :%S)
-" Bundle: tpope/vim-abolish
-" Bundle: tpope/vim-repeat
-" Bundle: scrooloose/nerdtree
-"
-" ### coding related
-" # insert-mode completions with tab
-" Bundle: ervandew/supertab
-" # :TlistToggle :help taglist-commands
-" Bundle: taglist-plus
-" # TextMate style tab-code-gen
-" Bundle: snipMate
-" # Nifty alignment
-" Bundle: Align
-"
-" ### git related
-" Bundle: tpope/vim-fugitive
-" Bundle: extradite.vim
-"
-" ### python related
-" #Bundle: ehamberg/vim-cute-python
-" #Bundle: python_calltips # seems broken??
-" #Bundle: kevinw/pyflakes-vim
-" Bundle: klen/python-mode
-
 set nocompatible                          " not compatible with VI
-set ff=unix                               " unix file formats
+filetype off
+
+" Call :BundleInstall to use Vundle!
+" https://github.com/gmarik/vundle/blob/master/README.md
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" See http://vim-scripts.org
+" ### colorschemes
+Bundle 'peaksea'
+Bundle 'tpope/vim-vividchalk'
+
+" ### coding related
+Bundle 'ervandew/supertab'
+Bundle 'Tagbar'
+Bundle 'snipMate'
+Bundle 'Align'
+
+" ### git related
+Bundle 'tpope/vim-fugitive'
+Bundle 'extradite.vim'
+
+" ### python related
+Bundle 'klen/python-mode'
+
+filetype plugin indent on " has to be after bundles
+
+nmap <F8> :TagbarToggle<CR>
+
+set ff=unix                               " unix file formats by default
 set bs=2                                  " comfortable backspacing
 set hidden
 
@@ -140,39 +139,3 @@ if !has('conceal')
     finish
 endif
 autocmd BufEnter * set colorcolumn=80
-
-function! LowerCase(word)
-        exec "%s/\\<" . a:word . "\\>/\\l&/ge"
-endfunction
-
-function! RipCase()
-        call LowerCase("A")
-        call LowerCase("As")
-        call LowerCase("At")
-        call LowerCase("Be")
-        call LowerCase("By")
-        call LowerCase("In")
-        call LowerCase("Is")
-        call LowerCase("It")
-        call LowerCase("Of")
-        call LowerCase("On")
-        call LowerCase("Or")
-        call LowerCase("So")
-        call LowerCase("To")
-        call LowerCase("And")
-        call LowerCase("But")
-        call LowerCase("For")
-        call LowerCase("The")
-        call LowerCase("Are")
-        call LowerCase("From")
-        call LowerCase("Into")
-        call LowerCase("That")
-        call LowerCase("Them")
-        call LowerCase("They")
-        call LowerCase("This")
-        call LowerCase("With")
-        %s/=[a-z]/\U&/e
-        %s#/ [a-z]#\U&#e
-endfunction
-
-call pathogen#runtime_append_all_bundles()
