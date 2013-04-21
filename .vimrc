@@ -48,8 +48,9 @@ function! Tabs(spaces)
         " expand a tab into spaces
         set expandtab
 endfunction
-" default to 8 spaces for a tab
-call Tabs(8)
+
+" default to 4 spaces for a tab
+call Tabs(4)
 
 " clean up the whitespace in a file, as long as it's not switched off with:
 " :let g:unclean=1
