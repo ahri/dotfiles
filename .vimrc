@@ -11,15 +11,10 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " See http://vim-scripts.org
-" ### colorschemes
-Bundle 'peaksea'
-Bundle 'tpope/vim-vividchalk'
+Bundle 'bufexplorer.zip'
 
 " ### coding related
 Bundle 'ervandew/supertab'
-Bundle 'Tagbar'
-Bundle 'snipMate'
-Bundle 'Align'
 
 " ### git related
 Bundle 'tpope/vim-fugitive'
