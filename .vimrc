@@ -129,10 +129,11 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 
 " set some stuff up per filetype
 autocmd BufEnter *.py call Tabs(4)
+autocmd BufEnter *.rb call Tabs(2)
 if has('matchadd')
     autocmd BufEnter *.c,*.php,*.py,*.java call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 endif
-autocmd BufWrite *.c,*.php,*.py,*.java call CleanWhitespace()
+autocmd BufWrite *.c,*.php,*.py,*.rb,*.java call CleanWhitespace()
 
 " detect vim >= 7.3
 if !has('conceal')
