@@ -15,6 +15,7 @@ Bundle 'bufexplorer.zip'
 
 " ### coding related
 Bundle 'ervandew/supertab'
+Bundle 'Syntastic'
 
 " ### git related
 Bundle 'tpope/vim-fugitive'
