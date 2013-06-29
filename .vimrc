@@ -20,9 +20,6 @@ Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-fugitive'
 Bundle 'extradite.vim'
 
-" ### python related
-Bundle 'klen/python-mode'
-
 filetype plugin indent on " has to be after bundles
 
 nmap <F8> :TagbarToggle<CR>
