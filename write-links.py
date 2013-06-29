@@ -26,10 +26,10 @@ def force_link(source, target):
     try:
         os.symlink(source, target)
     except AttributeError:
-	if os.path.isdir(source):
-	    copytree(source, target, True)
-	else:
-	    copy2(source, target)
+        if os.path.isdir(source):
+            copytree(source, target, True)
+        else:
+            copy2(source, target)
     except OSError:
         print "Could not symlink %s" % target
 
