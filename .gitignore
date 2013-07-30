@@ -2,3 +2,5 @@
 Trashed-Bundles
 .vim/.netrwhist
 build/
+.vim/bundle/
+.vim/doc/bundles.txt
