@@ -7,7 +7,24 @@ from shutil import rmtree, copytree, copy2
 
 THIS_FILE = os.path.abspath(__file__)
 BASE = os.path.dirname(os.path.abspath(__file__)) + os.sep
-HOME = os.environ['HOME'] + os.sep
+
+def home_linux():
+    return os.environ['HOME']
+
+def home_windows():
+    return os.environ['USERPROFILE']
+
+def get_home():
+    try:
+        home = home_linux()
+        # msys helpfully gives us c:/foo style paths, which I prefer not to use
+        if re.match(r'^[a-z]\:/', home):
+            return home_windows()
+        return home
+    except KeyError:
+        return os.environ['USERPROFILE']
+
+HOME = get_home() + os.sep
 esc_base = re.escape(BASE)
 
 IGNORE = re.compile(r'|'.join([re.escape(THIS_FILE),
