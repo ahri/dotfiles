@@ -36,9 +36,9 @@ IGNORE = re.compile(r'|'.join([re.escape(THIS_FILE),
                                esc_base + r'.*\.swp']))
 
 def force_link(source, target):
-    if os.path.isdir(target):
+    if os.path.isdir(target) and not os.path.islink(target):
         rmtree(target)
-    else:
+    elif os.path.exists(target):
         os.remove(target)
 
     try:
