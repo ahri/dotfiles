@@ -128,6 +128,8 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 " set some stuff up per filetype
 autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.rb call Tabs(2)
+autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
+autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
 if has('matchadd')
     autocmd BufEnter *.c,*.php,*.py,*.java call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 endif
