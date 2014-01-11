@@ -130,6 +130,7 @@ autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.rb call Tabs(2)
 autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
 autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
+autocmd BufEnter build.gradle set syntax=groovy
 if has('matchadd')
     autocmd BufEnter *.c,*.php,*.py,*.java call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 endif
