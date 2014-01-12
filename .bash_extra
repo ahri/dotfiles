@@ -7,7 +7,7 @@ export PATH="$HOME/bin:$ANDROID_HOME/platform-tools:$PATH"
 export EDITOR="vi"
 export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
-set -o vi
+#set -o vi
 stty stop undef
 stty start undef
 
