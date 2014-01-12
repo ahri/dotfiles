@@ -3,7 +3,7 @@
 use_color=true
 shopt -s checkwinsize
 shopt -s histappend
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$ANDROID_HOME/platform-tools:$PATH"
 export EDITOR="vi"
 export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
