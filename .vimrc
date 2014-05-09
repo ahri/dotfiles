@@ -28,6 +28,7 @@ nmap <F8> :TagbarToggle<CR>
 set ff=unix                               " unix file formats by default
 set bs=2                                  " comfortable backspacing
 set hidden
+set smartcase                             " ignore case in searches unless there's a capital in the search
 
 " anti-tab settings
 function! Tabs(spaces)
