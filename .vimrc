@@ -16,6 +16,7 @@ Bundle 'bufexplorer.zip'
 " ### coding related
 Bundle 'ervandew/supertab'
 Bundle 'Syntastic'
+Bundle 'kongo2002/fsharp-vim'
 
 " ### git related
 Bundle 'tpope/vim-fugitive'
