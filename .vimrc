@@ -13,6 +13,8 @@ Bundle 'gmarik/vundle'
 " See http://vim-scripts.org
 " See https://github.com/vim-scripts/
 Bundle 'bufexplorer.zip'
+Bundle 'The-NERD-tree'
+Bundle 'ctrlp.vim'
 
 " ### coding related
 " fsharp syntax
@@ -23,9 +25,13 @@ Bundle 'Syntastic'
 Bundle 'AutoTag'
 " popup ctag completion
 Bundle 'AutoComplPop'
+" hit F8 to toggle the tagbar
+Bundle 'Tagbar'
+" use \\\ to comment stuff
+Bundle 'commentary.vim'
 
 " ### git related
-Bundle 'tpope/vim-fugitive'
+Bundle 'fugitive.vim'
 Bundle 'extradite.vim'
 
 " ### colorscheme
@@ -34,12 +40,14 @@ Bundle 'desert.vim'
 filetype plugin indent on " has to be after bundles
 
 nmap <F8> :TagbarToggle<CR>
+map <leader>y :CtrlPBuffer<cr>
 
 set ff=unix                               " unix file formats by default
 set bs=2                                  " comfortable backspacing
 set backspace=indent,eol,start
 set hidden
 set smartcase                             " ignore case in searches unless there's a capital in the search
+set ignorecase
 
 " anti-tab settings
 function! Tabs(spaces)
