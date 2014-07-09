@@ -16,3 +16,5 @@ alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking
 PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\$(__git_ps1) \$\[\033[00m\] "
 
 # note: "syndaemon -i 1.0 -K -R -t" for laptop
+
+[ -e "$HOME/.bash_local" ] && source "$HOME/.bash_local"
