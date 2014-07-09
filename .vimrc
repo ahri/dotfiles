@@ -40,6 +40,7 @@ Bundle 'desert.vim'
 filetype plugin indent on " has to be after bundles
 
 nmap <F8> :TagbarToggle<CR>
+nmap <F7> :Gstatus<CR>
 map <leader>y :CtrlPBuffer<cr>
 
 set ff=unix                               " unix file formats by default
