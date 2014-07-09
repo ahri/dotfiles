@@ -11,16 +11,25 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " See http://vim-scripts.org
+" See https://github.com/vim-scripts/
 Bundle 'bufexplorer.zip'
 
 " ### coding related
-Bundle 'ervandew/supertab'
-Bundle 'Syntastic'
+" fsharp syntax
 Bundle 'kongo2002/fsharp-vim'
+" run linters etc.
+Bundle 'Syntastic'
+" auto-save ctags
+Bundle 'AutoTag'
+" popup ctag completion
+Bundle 'AutoComplPop'
 
 " ### git related
 Bundle 'tpope/vim-fugitive'
 Bundle 'extradite.vim'
+
+" ### colorscheme
+Bundle 'desert.vim'
 
 filetype plugin indent on " has to be after bundles
 
@@ -28,6 +37,7 @@ nmap <F8> :TagbarToggle<CR>
 
 set ff=unix                               " unix file formats by default
 set bs=2                                  " comfortable backspacing
+set backspace=indent,eol,start
 set hidden
 set smartcase                             " ignore case in searches unless there's a capital in the search
 
@@ -74,7 +84,7 @@ autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just p
 "syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
-colorscheme desert
+silent !colorscheme desert
 set background=light
 set background=dark
 set ruler                                 " it's nice to know where you are in life
@@ -90,12 +100,13 @@ if has("gui_running")
     "set guifont=Inconsolata\ 12
     set guifont=Monospace\ 11
   elseif has("gui_win32")
-    set guifont=Consolas:h14:cANSI
+    set guifont=Consolas:h11:cANSI
   endif
 endif
 
 "git settings
 set laststatus=2
+set statusline=
 set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
 set statusline+=%t       "tail of the filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
