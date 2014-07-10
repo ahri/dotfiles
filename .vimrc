@@ -16,7 +16,8 @@ Plugin 'ctrlp.vim'
 map <leader>y :CtrlPBuffer<cr>
 Plugin 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
+set t_Co=256
 set laststatus=2
 
 " ### coding related
@@ -112,10 +113,11 @@ colorscheme molokai
 
 if has("gui_running")
   if has("gui_gtk2")
-    "set guifont=Inconsolata\ 12
-    set guifont=Monospace\ 11
+    " set anti guifont=Monospace\ 11
+    " set anti guifont=Consolas\ for\ Powerline\ 11
+    set anti guifont=monofur\ for\ Powerline\ 11
   elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
+    set anti guifont=Consolas:h11:cANSI
   endif
 else
 endif
