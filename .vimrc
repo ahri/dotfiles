@@ -33,21 +33,17 @@ Plugin 'Tagbar'
 nmap <F8> :TagbarToggle<CR>
 " use \\\ to comment stuff
 Plugin 'commentary.vim'
+Plugin 'OrangeT/vim-csharp'
 Plugin 'html5.vim'
 
 " ### git related
 Plugin 'fugitive.vim'
 nmap <F7> :Gstatus<CR>
 Plugin 'extradite.vim'
-Plugin 'airblade/vim-gitgutter'
+Plugin 'mhinz/vim-signify'
 
 " ### colorscheme
-Plugin 'desert.vim'
-Plugin 'chriskempson/base16-vim'
 Plugin 'tomasr/molokai'
-colorscheme molokai
-set background=light
-set background=dark
 
 call vundle#end()
 filetype plugin indent on " has to be after bundles
@@ -102,6 +98,8 @@ autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just p
 "syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
+set background=light
+set background=dark
 set ruler                                 " it's nice to know where you are in life
 set showcmd                               " show command in status line
 set incsearch                             " incremental searching - ie. search-as-you-type
@@ -110,6 +108,8 @@ set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
 set guioptions=aegirLt                    " set a few gui options
 set mouse=                                " disable the mouse when --with-x was specified
 
+colorscheme molokai
+
 if has("gui_running")
   if has("gui_gtk2")
     "set guifont=Inconsolata\ 12
@@ -117,6 +117,7 @@ if has("gui_running")
   elseif has("gui_win32")
     set guifont=Consolas:h11:cANSI
   endif
+else
 endif
 
 "git settings
