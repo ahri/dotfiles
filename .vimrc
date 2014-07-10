@@ -120,8 +120,10 @@ if has("gui_running")
   elseif has("gui_win32")
     set anti guifont=Consolas_for_Powerline_FixedD:h11:cANSI
     let g:airline_symbols = {}
-    let g:airline_left_sep = "\u2b80" "use double quotes here
+    let g:airline_left_sep = "\u2b80"
+    let airline#extensions#tabline#left_sep = "\u2b80"
     let g:airline_left_alt_sep = "\u2b81"
+    let airline#extensions#tabline#left_alt_sep = "\u2b81"
     let g:airline_right_sep = "\u2b82"
     let g:airline_right_alt_sep = "\u2b83"
     let g:airline_symbols.branch = "\u2b60"
