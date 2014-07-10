@@ -43,6 +43,11 @@ Plugin 'airblade/vim-gitgutter'
 
 " ### colorscheme
 Plugin 'desert.vim'
+Plugin 'chriskempson/base16-vim'
+Plugin 'tomasr/molokai'
+colorscheme molokai
+set background=light
+set background=dark
 
 call vundle#end()
 filetype plugin indent on " has to be after bundles
@@ -97,9 +102,6 @@ autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just p
 "syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
-colorscheme desert
-set background=light
-set background=dark
 set ruler                                 " it's nice to know where you are in life
 set showcmd                               " show command in status line
 set incsearch                             " incremental searching - ie. search-as-you-type
