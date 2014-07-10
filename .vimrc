@@ -1,42 +1,42 @@
-set nocompatible                          " not compatible with VI
-filetype off
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Call :BundleInstall to use Vundle!
-" https://github.com/gmarik/vundle/blob/master/README.md
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " See http://vim-scripts.org
 " See https://github.com/vim-scripts/
-Bundle 'bufexplorer.zip'
-Bundle 'The-NERD-tree'
-Bundle 'ctrlp.vim'
+Plugin 'bufexplorer.zip'
+Plugin 'The-NERD-tree'
+Plugin 'ctrlp.vim'
 
 " ### coding related
 " fsharp syntax
-Bundle 'kongo2002/fsharp-vim'
+Plugin 'kongo2002/fsharp-vim'
 " run linters etc.
-Bundle 'Syntastic'
+Plugin 'Syntastic'
 " auto-save ctags
-Bundle 'AutoTag'
+Plugin 'AutoTag'
 " popup ctag completion
-Bundle 'AutoComplPop'
+Plugin 'AutoComplPop'
 " hit F8 to toggle the tagbar
-Bundle 'Tagbar'
+Plugin 'Tagbar'
 " use \\\ to comment stuff
-Bundle 'commentary.vim'
+Plugin 'commentary.vim'
 
 " ### git related
-Bundle 'fugitive.vim'
-Bundle 'extradite.vim'
+Plugin 'fugitive.vim'
+Plugin 'extradite.vim'
 
 " ### colorscheme
-Bundle 'desert.vim'
+Plugin 'desert.vim'
 
+call vundle#end()
 filetype plugin indent on " has to be after bundles
 
 nmap <F8> :TagbarToggle<CR>
