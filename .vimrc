@@ -116,7 +116,8 @@ if has("gui_running")
   if has("gui_gtk2")
     " set anti guifont=Monospace\ 11
     " set anti guifont=Consolas\ for\ Powerline\ 11
-    set anti guifont=monofur\ for\ Powerline\ 11
+    set anti guifont=Monaco\ for\ Powerline\ 11
+    " set anti guifont=monofur\ for\ Powerline\ 12
   elseif has("gui_win32")
     set anti guifont=Consolas_for_Powerline_FixedD:h11:cANSI
     let g:airline_symbols = {}
