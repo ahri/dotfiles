@@ -17,6 +17,7 @@ map <leader>y :CtrlPBuffer<cr>
 Plugin 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+set encoding=utf-8
 set t_Co=256
 set laststatus=2
 
@@ -117,7 +118,15 @@ if has("gui_running")
     " set anti guifont=Consolas\ for\ Powerline\ 11
     set anti guifont=monofur\ for\ Powerline\ 11
   elseif has("gui_win32")
-    set anti guifont=Consolas:h11:cANSI
+    set anti guifont=Consolas_for_Powerline_FixedD:h11:cANSI
+    let g:airline_symbols = {}
+    let g:airline_left_sep = "\u2b80" "use double quotes here
+    let g:airline_left_alt_sep = "\u2b81"
+    let g:airline_right_sep = "\u2b82"
+    let g:airline_right_alt_sep = "\u2b83"
+    let g:airline_symbols.branch = "\u2b60"
+    let g:airline_symbols.readonly = "\u2b64"
+    let g:airline_symbols.linenr = "\u2b61"
   endif
 else
 endif
