@@ -12,8 +12,12 @@ Plugin 'gmarik/Vundle.vim'
 " See http://vim-scripts.org
 " See https://github.com/vim-scripts/
 Plugin 'bufexplorer.zip'
-Plugin 'The-NERD-tree'
 Plugin 'ctrlp.vim'
+map <leader>y :CtrlPBuffer<cr>
+Plugin 'bling/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
+" let g:airline_powerline_fonts = 1
+set laststatus=2
 
 " ### coding related
 " fsharp syntax
@@ -26,22 +30,22 @@ Plugin 'AutoTag'
 Plugin 'AutoComplPop'
 " hit F8 to toggle the tagbar
 Plugin 'Tagbar'
+nmap <F8> :TagbarToggle<CR>
 " use \\\ to comment stuff
 Plugin 'commentary.vim'
+Plugin 'html5.vim'
 
 " ### git related
 Plugin 'fugitive.vim'
+nmap <F7> :Gstatus<CR>
 Plugin 'extradite.vim'
+Plugin 'airblade/vim-gitgutter'
 
 " ### colorscheme
 Plugin 'desert.vim'
 
 call vundle#end()
 filetype plugin indent on " has to be after bundles
-
-nmap <F8> :TagbarToggle<CR>
-nmap <F7> :Gstatus<CR>
-map <leader>y :CtrlPBuffer<cr>
 
 set ff=unix                               " unix file formats by default
 set bs=2                                  " comfortable backspacing
@@ -115,19 +119,19 @@ endif
 
 "git settings
 set laststatus=2
-set statusline=
-set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-set statusline+=%t       "tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}] "file format
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%y      "filetype
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
+" set statusline=
+" set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
+" set statusline+=%t       "tail of the filename
+" set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+" set statusline+=%{&ff}] "file format
+" set statusline+=%h      "help file flag
+" set statusline+=%m      "modified flag
+" set statusline+=%r      "read only flag
+" set statusline+=%y      "filetype
+" set statusline+=%=      "left/right separator
+" set statusline+=%c,     "cursor column
+" set statusline+=%l/%L   "cursor line/total lines
+" set statusline+=\ %P    "percent through file
 
 " misc non-settings
 syntax on
