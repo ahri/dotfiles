@@ -37,7 +37,6 @@ def create_dotfiles_tasks
 
     if File.directory? f
       # Ignore directories for now
-      puts f
     else
       target = "#{HOME}/#{f}"
       task :dotfiles => target
