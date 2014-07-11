@@ -1,7 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -20,6 +21,7 @@ let g:airline_powerline_fonts = 1
 set encoding=utf-8
 set t_Co=256
 set laststatus=2
+Plugin 'Peeja/vim-cdo'
 
 " ### coding related
 " fsharp syntax
@@ -43,6 +45,7 @@ Plugin 'fugitive.vim'
 nmap <F7> :Gstatus<CR>
 Plugin 'extradite.vim'
 Plugin 'mhinz/vim-signify'
+Plugin 'henrik/git-grep-vim'
 
 " ### colorscheme
 Plugin 'tomasr/molokai'
