@@ -6,7 +6,7 @@ VUNDLE_IDENTIFIER = "#{BUNDLE_DIR}/Vundle.vim/.gitignore"
 task :default => [:required_tooling, :dotfiles, :vundle]
 
 task :required_tooling do
-  ['git'].each do |tool|
+  ['vim', 'git'].each do |tool|
     next if has_program? tool
 
     puts "ERROR: Install #{tool}"
@@ -57,6 +57,7 @@ end
 
 file VUNDLE_IDENTIFIER => [BUNDLE_DIR] do
   `git clone https://github.com/gmarik/Vundle.vim.git "#{BUNDLE_DIR}/Vundle.vim"`
+  `vim +PluginInstall +qall`
 end
 
 directory BUNDLE_DIR
