@@ -1,8 +1,0 @@
-.*.swp
-Trashed-Bundles
-.vim/.netrwhist
-build/
-.vim/bundle/
-.vim/doc/bundles.txt
-.ssh/id_rsa*
-.ssh/known_hosts

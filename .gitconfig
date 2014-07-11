@@ -4,7 +4,7 @@
 	diff   = auto
 [user]
 	name   = Adam Piper
-	email  = adam@ahri.net
+	email  = adam.piper@advancedcomputersoftware.com
 [core]
 	excludesfile = /home/adam/.gitignore
 [push]
