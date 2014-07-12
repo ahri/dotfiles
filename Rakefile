@@ -56,8 +56,8 @@ def has_program?(program)
 end
 
 file VUNDLE_IDENTIFIER => [BUNDLE_DIR] do
-  `git clone https://github.com/gmarik/Vundle.vim.git "#{BUNDLE_DIR}/Vundle.vim"`
-  `vim +PluginInstall +qall`
+  sh "git clone https://github.com/gmarik/Vundle.vim.git '#{BUNDLE_DIR}/Vundle.vim'"
+  sh "vim +PluginInstall +qall"
 end
 
 directory BUNDLE_DIR
