@@ -133,6 +133,7 @@ if has("gui_running")
     let g:airline_symbols.branch = "\u2b60"
     let g:airline_symbols.readonly = "\u2b64"
     let g:airline_symbols.linenr = "\u2b61"
+    let g:airline_symbols.whitespace = "\u2736"
   endif
 else
 endif
