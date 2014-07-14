@@ -23,6 +23,10 @@ def multiplatform_symlink(source, target)
   source = File.absolute_path source
   target = File.absolute_path target
 
+  if File.exist? target
+    rm target
+  end
+
   begin
     symlink source, target
   rescue NotImplementedError
