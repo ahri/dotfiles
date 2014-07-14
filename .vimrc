@@ -22,6 +22,8 @@ set encoding=utf-8
 set t_Co=256
 set laststatus=2
 Plugin 'Peeja/vim-cdo'
+" Support .lvimrc files in sandboxes
+Plugin 'localvimrc'
 
 " ### coding related
 " fsharp syntax
