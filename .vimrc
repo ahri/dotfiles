@@ -181,6 +181,18 @@ let g:bufExplorerShowRelativePath=1  " Show relative paths.
 "nnoremap l k
 "nnoremap ; l
 
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
+" Don't use ex mode
+noremap Q <NOP>
+
 " set some stuff up per filetype
 autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.rb call Tabs(2)
@@ -198,15 +210,3 @@ if !has('conceal')
     finish
 endif
 autocmd BufEnter * set colorcolumn=80
-
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-noremap! <Up> <NOP>
-noremap! <Down> <NOP>
-noremap! <Left> <NOP>
-noremap! <Right> <NOP>
-
-" Don't use ex mode
-noremap Q <NOP>
