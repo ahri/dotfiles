@@ -120,12 +120,7 @@ set mouse=                                " disable the mouse when --with-x was 
 silent! colorscheme molokai
 
 if has("gui_running")
-  if has("gui_gtk2")
-    " set anti guifont=Monospace\ 11
-    " set anti guifont=Consolas\ for\ Powerline\ 11
-    set anti guifont=Monaco\ for\ Powerline\ 11
-    " set anti guifont=monofur\ for\ Powerline\ 12
-  elseif has("gui_win32")
+  if has("win32")
     set anti guifont=Consolas_for_Powerline_FixedD:h11:cANSI
     let g:airline_symbols = {}
     let g:airline_left_sep = "\u2b80"
@@ -138,8 +133,18 @@ if has("gui_running")
     let g:airline_symbols.readonly = "\u2b64"
     let g:airline_symbols.linenr = "\u2b61"
     let g:airline_symbols.whitespace = "\u2736"
+  else
+    " set anti guifont=Monospace\ 11
+    " set anti guifont=Consolas\ for\ Powerline\ 11
+    set anti guifont=Monaco\ for\ Powerline\ 11
+    " set anti guifont=monofur\ for\ Powerline\ 12
   endif
 else
+  if has("win32")
+    let g:airline_powerline_fonts = 0
+    set t_Co=16
+    set encoding=ansi
+  endif
 endif
 
 "git settings
