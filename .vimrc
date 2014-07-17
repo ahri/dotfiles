@@ -41,6 +41,8 @@ nmap <F8> :TagbarToggle<CR>
 Plugin 'commentary.vim'
 Plugin 'OrangeT/vim-csharp'
 Plugin 'html5.vim'
+Plugin 'surround.vim'
+Plugin 'endwise.vim'
 
 " ### git related
 Plugin 'fugitive.vim'
@@ -115,7 +117,7 @@ set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
 set guioptions=aegirLt                    " set a few gui options
 set mouse=                                " disable the mouse when --with-x was specified
 
-colorscheme molokai
+silent! colorscheme molokai
 
 if has("gui_running")
   if has("gui_gtk2")
@@ -191,3 +193,15 @@ if !has('conceal')
     finish
 endif
 autocmd BufEnter * set colorcolumn=80
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+noremap! <Up> <NOP>
+noremap! <Down> <NOP>
+noremap! <Left> <NOP>
+noremap! <Right> <NOP>
+
+" Don't use ex mode
+noremap Q <NOP>
