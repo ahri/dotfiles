@@ -26,8 +26,8 @@ Plugin 'Peeja/vim-cdo'
 Plugin 'localvimrc'
 
 " ### coding related
-" fsharp syntax
 Plugin 'kongo2002/fsharp-vim'
+Plugin 'vim-markdown'
 " run linters etc.
 Plugin 'Syntastic'
 " auto-save ctags
