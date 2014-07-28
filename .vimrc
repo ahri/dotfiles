@@ -27,7 +27,7 @@ Plugin 'localvimrc'
 
 " ### coding related
 Plugin 'kongo2002/fsharp-vim'
-Plugin 'vim-markdown'
+Plugin 'markdown'
 " run linters etc.
 Plugin 'Syntastic'
 " auto-save ctags
