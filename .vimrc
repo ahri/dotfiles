@@ -140,11 +140,9 @@ if has("gui_running")
     " set anti guifont=monofur\ for\ Powerline\ 12
   endif
 else
-  if has("win32")
-    let g:airline_powerline_fonts = 0
-    set t_Co=16
-    set encoding=ansi
-  endif
+  let g:airline_powerline_fonts = 0
+  set t_Co=16
+  set encoding=ansi
 endif
 
 "git settings
