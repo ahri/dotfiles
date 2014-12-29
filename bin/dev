@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# keys          action
+#
+# MOD-c         Create a new shell window.
+# Mod-x         Close focused window.
+# Mod-l         Increases the master area width about 5% (all except grid and fullscreen layout).
+# Mod-h         Decreases the master area width about 5% (all except grid and fullscreen layout).
+# Mod-j         Focus next window.
+# Mod-k         Focus previous window.
+# Mod-[1..n]    Focus the nth window.
+# Mod-.         Toggle minimization of current window.
+# Mod-u         Focus next non minimized window.
+# Mod-i         Focus prev non minimized window.
+# Mod-m         Maximize current window (change to fullscreen layout).
+# Mod-PageUp    Scroll up.
+# Mod-PageDown  Scroll down.
+# Mod-Space     Toggle between defined layouts (affects all windows).
+# Mod-Enter     Zooms/cycles current window to/from master area.
+# Mod-t         Change to vertical stack tiling layout.
+# Mod-b         Change to bottom stack tiling layout.
+# Mod-g         Change to grid layout.
+# Mod-s         Shows/hides the status bar.
+# Mod-r         Redraw whole screen.
+# Mod-G         Escape the next typed key.
+# Mod-a         Toggle keyboard multiplexing mode, if activated keypresses are sent to all non minimized windows.
+# Mod-X         Lock screen.
+# Mod-B         Toggle bell (off by default).
+# Mod-M         Toggle dvtm mouse grabbing.
+# Mod-q         Quit dvtm.
+
+set -ue
+
+if abduco -a dev 2> /dev/null; then
+    exit
+fi
+
+FIFO="/tmp/dvtm-status.$$"
+
+[ -e "$FIFO" ] || mkfifo "$FIFO"
+chmod 600 $FIFO
+ 
+while :; do
+    date +%H:%M
+    sleep 60
+done > $FIFO &
+
+STATUS_PID=$!
+abduco -c dev dvtm -s $FIFO 2> /dev/null
+kill $STATUS_PID
+rm $FIFO

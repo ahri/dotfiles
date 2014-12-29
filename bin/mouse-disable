@@ -1,0 +1,4 @@
+#!/bin/bash
+for mouse in 11 13; do
+    xinput set-prop $mouse "Device Enabled" 0
+done

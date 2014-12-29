@@ -2,8 +2,9 @@ HOME = ENV['HOME'] || ENV['USERPROFILE']
 
 BUNDLE_DIR = "#{HOME}/.vim/bundle"
 VUNDLE_IDENTIFIER = "#{BUNDLE_DIR}/Vundle.vim/.gitignore"
+BIN_DIR = "#{HOME}/bin"
 
-task :default => [:required_tooling, :dotfiles, :vundle]
+task :default => [:required_tooling, :dotfiles, :bin, :vundle]
 
 task :required_tooling do
   ['vim', 'git'].each do |tool|
@@ -51,7 +52,21 @@ def create_dotfiles_tasks
   end
 end
 
+def create_bin_tasks
+  Dir.foreach './bin' do |f|
+    next if f == '.' or f == '..' or f == '.git'
+
+    target = "#{HOME}/bin/#{f}"
+    from = "bin/#{f}"
+    task :bin => target
+    file target => [BIN_DIR, from] do
+      multiplatform_symlink from, target
+    end
+  end
+end
+
 create_dotfiles_tasks
+create_bin_tasks
 
 def has_program?(program)
   ENV['PATH'].split(File::PATH_SEPARATOR).any? do |directory|
@@ -65,3 +80,4 @@ file VUNDLE_IDENTIFIER => [BUNDLE_DIR] do
 end
 
 directory BUNDLE_DIR
+directory BIN_DIR
