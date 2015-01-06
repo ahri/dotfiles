@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -ue
+
+amixer set Master 0%
