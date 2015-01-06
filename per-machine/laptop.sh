@@ -15,3 +15,8 @@ grep -q pcie_aspm < /etc/default/grub || (awk '/^GRUB_CMDLINE_LINUX/ { sub(/"$/,
 
 # Enable the brightness function keys
 grep -q acpi_osi < /etc/default/grub || (awk '/^GRUB_CMDLINE_LINUX/ { sub(/"$/, " acpi_osi=\""); } { print; }' < /etc/default/grub > /tmp/__grub && mv /tmp/__grub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg)
+
+# Nicer font rendering
+cd /etc/fonts/conf.d
+ln -sf /usr/share/fontconfig/conf.avail/10-autohint.conf
+ln -sf /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
