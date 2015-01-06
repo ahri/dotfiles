@@ -136,7 +136,7 @@ if has("gui_running")
   else
     " set anti guifont=Monospace\ 11
     " set anti guifont=Consolas\ for\ Powerline\ 11
-    set anti guifont=Monaco\ for\ Powerline\ 11
+    set anti guifont=Monaco\ for\ Powerline\ 10
     " set anti guifont=monofur\ for\ Powerline\ 12
   endif
 else
