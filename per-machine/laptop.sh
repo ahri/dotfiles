@@ -11,10 +11,18 @@ fi
 ([ ! -e /etc/modprobe.d/iwlwifi.conf ] || grep -qv led_mode < /etc/modprobe.d/iwlwifi.conf) && echo "options iwlwifi led_mode=1" >> /etc/modprobe.d/iwlwifi.conf
 
 # Apparently yields battery-life benefits, or maybe freezes...
-grep -q pcie_aspm < /etc/default/grub || (awk '/^GRUB_CMDLINE_LINUX/ { sub(/"$/, " pcie_aspm=force\""); } { print; }' < /etc/default/grub > /tmp/__grub && mv /tmp/__grub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg)
+grep -q pcie_aspm < /etc/default/grub || (awk '/^GRUB_CMDLINE_LINUX/ { sub(/"$/, " pcie_aspm=force\""); } { print; }' < /etc/default/grub > /tmp/__grub && mv /tmp/__grub /etc/default/grub && grub2-mkconfig)
 
 # Enable the brightness function keys
 grep -q acpi_osi < /etc/default/grub || (awk '/^GRUB_CMDLINE_LINUX/ { sub(/"$/, " acpi_osi=\""); } { print; }' < /etc/default/grub > /tmp/__grub && mv /tmp/__grub /etc/default/grub && grub2-mkconfig -o /boot/grub2/grub.cfg)
+[ ! -e /etc/X11/xorg.conf.d/20-intel.conf ] && cat <<EOF > /etc/X11/xorg.conf.d/20-intel.conf
+Section "Device"
+    Identifier  "Intel Graphics"
+    Driver      "intel"
+    BusID       "PCI:0:2:0"
+    Option      "Backlight"       "intel_backlight"
+EndSection
+EOF
 
 # Nicer font rendering
 cd /etc/fonts/conf.d
