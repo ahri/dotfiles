@@ -133,6 +133,8 @@ if has("gui_running")
     let g:airline_symbols.readonly = "\u2b64"
     let g:airline_symbols.linenr = "\u2b61"
     let g:airline_symbols.whitespace = "\u2736"
+  elseif has("macvim")
+    set anti guifont=*
   else
     " set anti guifont=Monospace\ 11
     " set anti guifont=Consolas\ for\ Powerline\ 11
