@@ -2,4 +2,4 @@
 
 set -ue
 
-xrandr --output LVDS1 --brightness 1.0
+screen-set 1.0

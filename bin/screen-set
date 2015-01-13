@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -ue
+
+xrandr --output LVDS1 --brightness $1
