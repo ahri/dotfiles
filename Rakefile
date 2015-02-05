@@ -41,7 +41,17 @@ def create_dotfiles_tasks
     next unless f.start_with? '.'
 
     if File.directory? f
-      # Ignore directories for now
+      FileList["#{f}/**/*"]
+          .each do |f|
+        next if File.directory? f
+        target = "#{HOME}/#{f}"
+        d = File.dirname target
+        directory d
+        task :dotfiles => target
+        file target => d do
+          multiplatform_symlink f, target
+        end
+      end
     else
       target = "#{HOME}/#{f}"
       task :dotfiles => target
