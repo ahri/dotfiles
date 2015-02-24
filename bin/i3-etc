@@ -1,4 +1,7 @@
 #!/bin/bash
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+setxkbmap gb
+
 synclient VertScrollDelta=-111
 synclient HorizScrollDelta=-111
 for p in unclutter dunst notify-osd; do
