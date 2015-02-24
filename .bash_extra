@@ -19,4 +19,4 @@ PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\$(__git_ps1) \$\[\033[00m\] "
 
 [ -e "$HOME/.bash_local" ] && source "$HOME/.bash_local"
 
-. "/usr/share/git-core/contrib/completion/git-prompt.sh"
+. "$HOME/.git-prompt.sh"
