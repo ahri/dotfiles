@@ -12,4 +12,4 @@ xft.hinting:      true
 
 URxvt.iso14755:   false
 *.scrollBar:      false
-*.depth:          32
+URxvt.depth:      32
