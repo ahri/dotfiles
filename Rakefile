@@ -91,3 +91,20 @@ end
 
 directory BUNDLE_DIR
 directory BIN_DIR
+
+task :vim_tern do
+  Dir.chdir "#{HOME}/.vim/bundle/tern_for_vim" do
+    sh "npm install"
+  end
+end
+
+task :vim_ycm do
+  Dir.chdir "#{HOME}/.vim/bundle/YouCompleteMe" do
+    sh "apt-get install cmake python-dev"
+    sh "./install.sh"
+  end
+end
+
+task :vim_install do
+  sh "vim +PluginInstall +qall"
+end

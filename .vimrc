@@ -13,43 +13,38 @@ Plugin 'gmarik/Vundle.vim'
 " See http://vim-scripts.org
 " See https://github.com/vim-scripts/
 Plugin 'bufexplorer.zip'
-Plugin 'ctrlp.vim'
-map <leader>y :CtrlPBuffer<cr>
+" Plugin 'ctrlp.vim'
+" map <leader>y :CtrlPBuffer<cr>
 Plugin 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 set encoding=utf-8
 set t_Co=256
 set laststatus=2
-Plugin 'Peeja/vim-cdo'
-" Support .lvimrc files in sandboxes
-Plugin 'localvimrc'
 
 " ### coding related
-Plugin 'kongo2002/fsharp-vim'
 Plugin 'markdown'
+Plugin 'html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
+" completion
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
+let g:tern_map_keys=1
+let g:tern_show_argument_hints='on_hold'
+let g:tern#command = ["/home/adam/iojs-v1.3.0-linux-x64/bin/node", '/home/adam/.vim/bundle/tern_for_vim/node_modules/tern/bin/tern', '--no-port-file']
+
 " run linters etc.
-Plugin 'Syntastic'
-" auto-save ctags
-Plugin 'AutoTag'
-" popup ctag completion
-Plugin 'AutoComplPop'
-" hit F8 to toggle the tagbar
-Plugin 'Tagbar'
-nmap <F8> :TagbarToggle<CR>
+Plugin 'scrooloose/syntastic'
 " use \\\ to comment stuff
 Plugin 'commentary.vim'
-Plugin 'OrangeT/vim-csharp'
-Plugin 'html5.vim'
-Plugin 'surround.vim'
-Plugin 'endwise.vim'
+" close quotes etc.
+Plugin 'Raimondi/delimitMate'
+" help to see indenting
+Plugin 'nathanaelkane/vim-indent-guides'
 
 " ### git related
-Plugin 'fugitive.vim'
-nmap <F7> :Gstatus<CR>
-Plugin 'extradite.vim'
 Plugin 'mhinz/vim-signify'
-Plugin 'henrik/git-grep-vim'
 
 " ### colorscheme
 Plugin 'tomasr/molokai'
