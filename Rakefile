@@ -100,7 +100,7 @@ end
 
 task :vim_ycm do
   Dir.chdir "#{HOME}/.vim/bundle/YouCompleteMe" do
-    sh "apt-get install cmake python-dev"
+    #sh "apt-get install cmake python-dev"
     sh "./install.sh"
   end
 end
