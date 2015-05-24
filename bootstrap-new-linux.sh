@@ -2,7 +2,7 @@
 
 set -ue
 
-packages="git vim ruby rake rxvt-unicode i3 i3status unclutter"
+packages="git vim ruby rake rxvt-unicode i3 i3status unclutter dtrx htop"
 params=""
 
 pkgmgr="`(which apt-get || which yum) 2> /dev/null || (echo "No supported package manager found" 1>&2 && false)`"
