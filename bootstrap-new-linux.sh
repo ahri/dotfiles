@@ -5,7 +5,7 @@ set -ue
 misc="dtrx htop"
 build="rake build-essential cmake git"
 languages="python python-dev ruby"
-console_dev="vim dvtm abduco"
+console_dev="vim dvtm"
 windowing="i3 i3status unclutter rxvt-unicode"
 
 packages="$misc $languages $console_dev $windowing"
