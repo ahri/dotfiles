@@ -1,10 +1,15 @@
+# TODO:
+# system dependencies (support multiple package managers)
+# split off os-specific stuff (like the stuff in ~/bin that's only relevant to linux)
+# only enable ternjs in vim if it's built, same for ycm
+
 HOME = ENV['HOME'] || ENV['USERPROFILE']
 
 BUNDLE_DIR = "#{HOME}/.vim/bundle"
 VUNDLE_IDENTIFIER = "#{BUNDLE_DIR}/Vundle.vim/.gitignore"
 BIN_DIR = "#{HOME}/bin"
 
-task :default => [:required_tooling, :dotfiles, :bin, :vundle]
+task :default => [:required_tooling, :dotfiles, :bin, :vim]
 
 task :required_tooling do
   ['vim', 'git'].each do |tool|
@@ -16,6 +21,8 @@ task :required_tooling do
 end
 
 task :dotfiles
+
+task :vim => [:vundle, :vim_ycm, :vim_tern]
 
 task :vundle => [VUNDLE_IDENTIFIER]
 
@@ -100,7 +107,7 @@ end
 
 task :vim_ycm do
   Dir.chdir "#{HOME}/.vim/bundle/YouCompleteMe" do
-    sh "apt-get install cmake python-dev"
+    #sh "apt-get install cmake python-dev"
     sh "./install.sh"
   end
 end
