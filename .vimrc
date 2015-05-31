@@ -38,7 +38,6 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
-let g:tern#command = ["/home/adam/iojs-v1.3.0-linux-x64/bin/node", '/home/adam/.vim/bundle/tern_for_vim/node_modules/tern/bin/tern', '--no-port-file']
 
 " run linters etc.
 Plugin 'scrooloose/syntastic'
