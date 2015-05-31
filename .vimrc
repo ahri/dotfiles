@@ -29,6 +29,12 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
 " completion
 Plugin 'Valloric/YouCompleteMe'
+" tern js
+" \tt - type hint
+" \td - jump to definition (remember that ctrl+o/i goes back/forward)
+" \tsd - defn in new split
+" \tr - list references to var
+" \tR - rename var
 Plugin 'marijnh/tern_for_vim'
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'

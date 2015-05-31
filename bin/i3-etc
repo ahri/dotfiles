@@ -4,10 +4,12 @@ setxkbmap gb
 
 synclient VertScrollDelta=-111
 synclient HorizScrollDelta=-111
+
 for p in unclutter dunst notify-osd; do
     killall "$p" 2> /dev/null
 done
-unclutter -idle 1 -jitter 2 -root &
 (dunst || /usr/lib/x86_64-linux-gnu/notify-osd) &
+
+unclutter -idle 1 -jitter 2 -root &
 
 mouse-disable
