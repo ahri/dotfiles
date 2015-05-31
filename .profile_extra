@@ -4,7 +4,7 @@ use_color=true
 shopt -s checkwinsize
 shopt -s histappend
 
-if [ -d "$HOME/bin" ]; then
+if [ -d "$HOME/bin" ] && echo $PATH | grep -qv "\(^\|:\)$HOME/bin\($\|:\)"; then
     export PATH="$HOME/bin:$PATH"
 fi
 export EDITOR="vi"
