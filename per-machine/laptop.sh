@@ -17,3 +17,5 @@ grep -q pcie_aspm < /etc/default/grub || (awk '/^GRUB_CMDLINE_LINUX/ { sub(/"$/,
 cd /etc/fonts/conf.d
 ln -sf /usr/share/fontconfig/conf.avail/10-autohint.conf
 ln -sf /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
+
+# note: "syndaemon -i 1.0 -K -R -t" for laptop

@@ -7,6 +7,7 @@ shopt -s histappend
 if [ -d "$HOME/bin" ] && echo $PATH | grep -qv "\(^\|:\)$HOME/bin\($\|:\)"; then
     export PATH="$HOME/bin:$PATH"
 fi
+
 export EDITOR="vi"
 export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
@@ -16,11 +17,4 @@ which stty > /dev/null && (stty stop undef; stty start undef)
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-# TODO: should move to .bashrc really
-PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\$(__git_ps1) \$\[\033[00m\] "
-
-# note: "syndaemon -i 1.0 -K -R -t" for laptop
-
 [ -e "$HOME/.profile_local" ] && source "$HOME/.profile_local"
-
-. "$HOME/.git-prompt.sh"
