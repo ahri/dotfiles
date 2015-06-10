@@ -51,8 +51,7 @@ def create_dotfiles_tasks
     next unless f.start_with? '.'
 
     if File.directory? f
-      FileList["#{f}/**/*"]
-          .each do |f|
+      FileList["#{f}/**/*"].each do |f|
         next if File.directory? f
         target = "#{HOME}/#{f}"
         d = File.dirname target

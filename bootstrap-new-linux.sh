@@ -2,7 +2,7 @@
 
 set -ue
 
-misc="dtrx htop"
+misc="dtrx htop curl wget"
 build="rake build-essential cmake git"
 languages="python python-dev ruby"
 console_dev="vim dvtm"
