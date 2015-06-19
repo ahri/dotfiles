@@ -121,25 +121,11 @@ silent! colorscheme molokai
 
 if has("gui_running")
   if has("win32")
-    set anti guifont=Consolas_for_Powerline_FixedD:h11:cANSI
-    let g:airline_symbols = {}
-    let g:airline_left_sep = "\u2b80"
-    let airline#extensions#tabline#left_sep = "\u2b80"
-    let g:airline_left_alt_sep = "\u2b81"
-    let airline#extensions#tabline#left_alt_sep = "\u2b81"
-    let g:airline_right_sep = "\u2b82"
-    let g:airline_right_alt_sep = "\u2b83"
-    let g:airline_symbols.branch = "\u2b60"
-    let g:airline_symbols.readonly = "\u2b64"
-    let g:airline_symbols.linenr = "\u2b61"
-    let g:airline_symbols.whitespace = "\u2736"
+    set anti guifont=Monaco_for_Powerline:h12:cANSI
   elseif has("macvim")
     set anti guifont=*
   else
-    " set anti guifont=Monospace\ 11
-    " set anti guifont=Consolas\ for\ Powerline\ 11
     set anti guifont=Monaco\ for\ Powerline\ 11
-    " set anti guifont=monofur\ for\ Powerline\ 12
   endif
 else
   let g:airline_powerline_fonts = 0
