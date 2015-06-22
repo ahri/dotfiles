@@ -2,11 +2,11 @@
 
 set -ue
 
-misc="dtrx htop curl wget"
+misc="dtrx htop curl wget silversearcher-ag"
 build="rake build-essential cmake git openjdk-8-jdk"
 languages="python python-dev ruby"
 console_dev="vim dvtm"
-windowing="i3 i3status unclutter rxvt-unicode"
+windowing="i3 i3status unclutter rxvt-unicode-256color"
 
 packages="$misc $build $languages $console_dev $windowing"
 params=""
