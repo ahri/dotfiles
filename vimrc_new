@@ -39,6 +39,21 @@ if !empty(glob($HOME . "/.vim/bundle/Vundle.vim"))
         Plugin 'chriskempson/base16'
 
         " ### Usability
+        Plugin 'Shougo/unite.vim'
+        let g:unite_source_file_rec_max_cache_files = 0
+        let g:unite_source_history_yank_enable = 1
+        let g:unite_source_grep_command = 'ag'
+        let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
+        let g:unite_source_grep_recursive_opt = ''
+        " call unite#filters#matcher_default#use(['matcher_fuzzy'])
+        nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=grep    -start-insert grep:<cr>
+        nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec<cr>
+        nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+        nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+        nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+        nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+        nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+
         Plugin 'kien/ctrlp.vim'
         let g:ctrlp_custom_ignore = {
           \ 'dir':  '\v[\/](\.(git|hg|svn))$',
@@ -73,8 +88,8 @@ if !empty(glob($HOME . "/.vim/bundle/Vundle.vim"))
 
         " ### General Code
         " completion
-        Plugin 'ajh17/VimCompletesMe'
-        Plugin 'Valloric/YouCompleteMe'
+        Plugin 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
+        Plugin 'Valloric/YouCompleteMe' " Tab completion without tab - so intellisense-style, requires compilation
         " tern js
         " \tt - type hint
         " \td - jump to definition (remember that ctrl+o/i goes back/forward)
