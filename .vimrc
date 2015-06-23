@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+let mapleader = "\<Space>"
+
 " TODO: github markdown live preview
 
 " Mapping in vim:
@@ -10,11 +12,7 @@ filetype off                  " required
 
 " $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-function! FileExists(file)
-        return !empty(glob(a:file))
-endfunction
-
-if FileExists($HOME . "/.vim/bundle/Vundle.vim")
+if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         " set the runtime path to include Vundle and initialize
         set rtp+=~/.vim/bundle/Vundle.vim
         call vundle#begin()
@@ -34,7 +32,7 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
 
         if &t_Co >= 88
                 Plugin 'CSApprox' " approximate gvim colours
-                Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours
+                Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
         endif
 
         Plugin 'tomasr/molokai'
@@ -43,20 +41,14 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
         Plugin 'chriskempson/base16-vim'
 
         " ### Usability
-        Plugin 'Shougo/unite.vim'
-        let g:unite_source_file_rec_max_cache_files = 0
-        let g:unite_source_history_yank_enable = 1
-        let g:unite_source_grep_command = 'ag'
-        let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
-        let g:unite_source_grep_recursive_opt = ''
-        " call unite#filters#matcher_default#use(['matcher_fuzzy'])
-        nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=grep    -start-insert grep:<cr>
-        nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec<cr>
-        nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-        nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-        nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-        nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-        nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+        Plugin 'terryma/vim-expand-region'
+        map K <Plug>(expand_region_expand)
+        map J <Plug>(expand_region_shrink)
+
+        Plugin 'terryma/vim-multiple-cursors'
+        " ctrl+n
+        " ctrl+p - go back
+        " ctrl+x - exclude this one
 
         Plugin 'kien/ctrlp.vim'
         let g:ctrlp_custom_ignore = {
@@ -66,8 +58,22 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
         let g:ctrlp_show_hidden = 1
         let g:ctrlp_working_path_mode = 'r' " use .git as the root
         set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.tmp/*,*/.sass-cache/*,*/node_modules/*,*.keep,*.DS_Store,*/.git/*
-        nmap <leader>p :CtrlPMixed<cr>
-        nmap <leader>p :CtrlPMixed<cr>
+
+        nmap <leader>o :CtrlP<cr>
+        nmap <leader>b :CtrlPBuffer<cr>
+        nmap <leader>r :CtrlPMRUFiles<cr>
+
+        let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
+        function! CtrlPMappings()
+                nnoremap <buffer> <silent> <C-@> :call <sid>DeleteBuffer()<cr>
+        endfunction
+        function! s:DeleteBuffer()
+                let path = fnamemodify(getline('.')[2:], ':p')
+                let bufn = matchstr(path, '\v\d+\ze\*No Name')
+                exec "bd" bufn ==# "" ? path : bufn
+                exec "norm \<F5>"
+        endfunction
+
         if executable("ag")
                 set grepprg=ag\ --nogroup\ --nocolor
                 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
@@ -76,9 +82,12 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
                       \ --ignore .hg
                       \ --ignore .DS_Store
                       \ --ignore "**/*.pyc"
+                      \ --ignore "**/*.class"
                       \ -g ""'
         endif
+
         Plugin 'rking/ag.vim'
+        nmap <leader>g :Ag \\b<cword>\\b<cr>
         Plugin 'justinmk/vim-sneak' " Jump to characters: s<chr><chr>, S<chr>chr> (backwards), ; = next, 3; = next*3, 3dzqt = delete up until the 3rd instance of qt
 
         " ### Source Control
@@ -92,11 +101,11 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
 
         " ### General Code
         " completion
-        Plugin 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
-
-        if (!FileExists($HOME . "/.vim/bundle/YouCompleteMe") || FileExists($HOME . "/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so")) && (v:version > 703 || (v:version == 703 && has('patch584')))
-                Plugin 'Valloric/YouCompleteMe' " Tab completion without tab - so intellisense-style, requires compilation
+        if (!isdirectory($HOME . "/.vim/bundle/YouCompleteMe") || filereadable($HOME . "/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so")) && (v:version > 703 || (v:version == 703 && has('patch584')))
+                Plugin 'Valloric/YouCompleteMe' " Auto-completion, intellisense-style, requires compilation
         endif
+
+        Plugin 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
 
         " tern js
         " \tt - type hint
@@ -104,10 +113,12 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
         " \tsd - defn in new split
         " \tr - list references to var
         " \tR - rename var
-        if !FileExists($HOME . "/.vim/bundle/tern_for_vim") || FileExists($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
+        if !isdirectory($HOME . "/.vim/bundle/tern_for_vim") || filereadable($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
                 Plugin 'marijnh/tern_for_vim'
-                let g:tern_map_keys=1
-                let g:tern_show_argument_hints='on_hold'
+                nmap <leader>tR :TernRename<cr>
+                nmap <leader>tt :TernType<cr>
+                nmap <leader>tr :TernRefs<cr>
+                nmap <leader>td :TernDef<cr>
         endif
 
         " run linters etc.
@@ -115,12 +126,10 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
         " use \\\ to comment stuff
         Plugin 'commentary.vim'
         Plugin 'Raimondi/delimitMate' " add delimiters
-        Plugin 'nathanaelkane/vim-indent-guides' " <leader>ig
 
         call vundle#end()
         filetype plugin indent on " has to be after bundles
 
-        " colorscheme jellybeans
         colorscheme molokai
 endif
 
