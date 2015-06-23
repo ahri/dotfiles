@@ -3,7 +3,8 @@ filetype off                  " required
 
 let mapleader = "\<Space>"
 
-" TODO: github markdown live preview
+map <leader>vr :so $MYVIMRC<cr>
+map <leader>ve :e $MYVIMRC<cr>
 
 " Mapping in vim:
 " map, noremap (non recursive map, similar to by-reference passing) - normal, visual & operator modes
@@ -22,6 +23,14 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         " See http://vim-scripts.org
         " See https://github.com/vim-scripts/
+
+        function! InstallingOrCompiled(compiled_file)
+                let plugin_dir = matchstr(a:compiled_file, '\zs.*\.vim/bundle/[^/]\+\ze/')
+                if empty(plugin_dir)
+                        throw "no plugin_dir"
+                endif
+                return !isdirectory(plugin_dir) || filereadable(a:compiled_file)
+        endfunction
 
         " ### Look & Feel
         Plugin 'bling/vim-airline'
@@ -56,11 +65,11 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
           \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|.pyc)$',
           \}
         let g:ctrlp_show_hidden = 1
-        let g:ctrlp_working_path_mode = 'r' " use .git as the root
+        let g:ctrlp_working_path_mode = 'ra' " use .git as the root
         set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.tmp/*,*/.sass-cache/*,*/node_modules/*,*.keep,*.DS_Store,*/.git/*
 
         nmap <leader>o :CtrlP<cr>
-        nmap <leader>b :CtrlPBuffer<cr>
+        nmap <leader>e :CtrlPBuffer<cr>
         nmap <leader>r :CtrlPMRUFiles<cr>
 
         let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
@@ -87,11 +96,23 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         endif
 
         Plugin 'rking/ag.vim'
-        nmap <leader>g :Ag \\b<cword>\\b<cr>
-        Plugin 'justinmk/vim-sneak' " Jump to characters: s<chr><chr>, S<chr>chr> (backwards), ; = next, 3; = next*3, 3dzqt = delete up until the 3rd instance of qt
+        nmap <leader>s :Ag \\b<cword>\\b<cr>
+
+        Plugin 'justinmk/vim-sneak'
+        " Jump to characters: s<chr><chr>, S<chr>chr> (backwards), ; = next,
+        " 3; = next*3, 3dzqt = delete up until the 3rd instance of qt
 
         " ### Source Control
         Plugin 'airblade/vim-gitgutter'
+        Plugin 'tpope/vim-fugitive'
+        nmap <leader>gs :Gstatus<cr>
+        nmap <leader>gb :Gblame<cr>
+        nmap <leader>gc :Gcommit<cr>
+        nmap <leader>gl :Glog<cr>
+        nmap <leader>gj :Gpull<cr>
+        nmap <leader>gk :Gpush<cr>
+        nmap <leader>gd :Gdiff<cr>
+        nmap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
         Plugin 'markdown'
@@ -101,19 +122,14 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         " ### General Code
         " completion
-        if (!isdirectory($HOME . "/.vim/bundle/YouCompleteMe") || filereadable($HOME . "/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so")) && (v:version > 703 || (v:version == 703 && has('patch584')))
+        if InstallingOrCompiled($HOME . "/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so") && (v:version > 703 || (v:version == 703 && has('patch584')))
                 Plugin 'Valloric/YouCompleteMe' " Auto-completion, intellisense-style, requires compilation
         endif
 
         Plugin 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
 
         " tern js
-        " \tt - type hint
-        " \td - jump to definition (remember that ctrl+o/i goes back/forward)
-        " \tsd - defn in new split
-        " \tr - list references to var
-        " \tR - rename var
-        if !isdirectory($HOME . "/.vim/bundle/tern_for_vim") || filereadable($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
+        if InstallingOrCompiled($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
                 Plugin 'marijnh/tern_for_vim'
                 nmap <leader>tR :TernRename<cr>
                 nmap <leader>tt :TernType<cr>
@@ -126,6 +142,13 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         " use \\\ to comment stuff
         Plugin 'commentary.vim'
         Plugin 'Raimondi/delimitMate' " add delimiters
+
+        " ### Writing
+        if InstallingOrCompiled($HOME . "/.vim/bundle/vim-livedown/node_modules/.bin/livedown")
+                Plugin 'shime/vim-livedown'
+                " LivedownPreview
+                " LivedownKill
+        endif
 
         call vundle#end()
         filetype plugin indent on " has to be after bundles
