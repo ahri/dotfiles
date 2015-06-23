@@ -104,6 +104,12 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         " ### Source Control
         Plugin 'airblade/vim-gitgutter'
+        nmap <leader>hj :GitGutterNextHunk<cr>
+        nmap <leader>hk :GitGutterPrevHunk<cr>
+        nmap <leader>hs :GitGutterStageHunk<cr>
+        nmap <leader>hr :GitGutterRevertHunk<cr>
+        nmap <leader>hp :GitGutterPreviewHunk<cr>
+
         Plugin 'tpope/vim-fugitive'
         nmap <leader>gs :Gstatus<cr>
         nmap <leader>gb :Gblame<cr>
