@@ -1,66 +1,135 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" TODO: github markdown live preview
+
+" Mapping in vim:
+" map, noremap (non recursive map, similar to by-reference passing) - normal, visual & operator modes
+" nmap = only normal mode
+" vmap = only visual mode
+
 " $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+function! FileExists(file)
+        return !empty(glob(a:file))
+endfunction
 
-" let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+if FileExists($HOME . "/.vim/bundle/Vundle.vim")
+        " set the runtime path to include Vundle and initialize
+        set rtp+=~/.vim/bundle/Vundle.vim
+        call vundle#begin()
 
-" See http://vim-scripts.org
-" See https://github.com/vim-scripts/
-Plugin 'bufexplorer.zip'
-" Plugin 'ctrlp.vim'
-" map <leader>y :CtrlPBuffer<cr>
-Plugin 'bling/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-set encoding=utf-8
-set t_Co=256
-set laststatus=2
+        " let Vundle manage Vundle
+        Plugin 'gmarik/Vundle.vim'
 
-" ### coding related
-Plugin 'markdown'
-Plugin 'html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'jelera/vim-javascript-syntax'
-" completion
-Plugin 'Valloric/YouCompleteMe'
-" tern js
-" \tt - type hint
-" \td - jump to definition (remember that ctrl+o/i goes back/forward)
-" \tsd - defn in new split
-" \tr - list references to var
-" \tR - rename var
-Plugin 'marijnh/tern_for_vim'
-let g:tern_map_keys=1
-let g:tern_show_argument_hints='on_hold'
+        " See http://vim-scripts.org
+        " See https://github.com/vim-scripts/
 
-" run linters etc.
-Plugin 'scrooloose/syntastic'
-" use \\\ to comment stuff
-Plugin 'commentary.vim'
-" close quotes etc.
-Plugin 'Raimondi/delimitMate'
-" help to see indenting
-Plugin 'nathanaelkane/vim-indent-guides'
+        " ### Look & Feel
+        Plugin 'bling/vim-airline'
+        let g:airline_powerline_fonts = 1
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline#extensions#tabline#fnamemod = ':t'
+        set laststatus=2
 
-" ### git related
-Plugin 'mhinz/vim-signify'
+        if &t_Co >= 88
+                Plugin 'CSApprox' " approximate gvim colours
+                Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours
+        endif
 
-" ### colorscheme
-Plugin 'tomasr/molokai'
+        Plugin 'tomasr/molokai'
+        Plugin 'nanotech/jellybeans.vim'
+        Plugin 'altercation/solarized'
+        Plugin 'chriskempson/base16'
 
-call vundle#end()
-filetype plugin indent on " has to be after bundles
+        " ### Usability
+        Plugin 'Shougo/unite.vim'
+        let g:unite_source_file_rec_max_cache_files = 0
+        let g:unite_source_history_yank_enable = 1
+        let g:unite_source_grep_command = 'ag'
+        let g:unite_source_grep_default_opts = '--nocolor --nogroup --column'
+        let g:unite_source_grep_recursive_opt = ''
+        " call unite#filters#matcher_default#use(['matcher_fuzzy'])
+        nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=grep    -start-insert grep:<cr>
+        nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec<cr>
+        nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+        nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+        nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+        nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+        nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
-set ff=unix                               " unix file formats by default
+        Plugin 'kien/ctrlp.vim'
+        let g:ctrlp_custom_ignore = {
+          \ 'dir':  '\v[\/](\.(git|hg|svn))$',
+          \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|.pyc)$',
+          \}
+        let g:ctrlp_show_hidden = 1
+        let g:ctrlp_working_path_mode = 'r' " use .git as the root
+        set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.tmp/*,*/.sass-cache/*,*/node_modules/*,*.keep,*.DS_Store,*/.git/*
+        nmap <leader>p :CtrlPMixed<cr>
+        nmap <leader>p :CtrlPMixed<cr>
+        if executable("ag")
+                set grepprg=ag\ --nogroup\ --nocolor
+                let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+                      \ --ignore .git
+                      \ --ignore .svn
+                      \ --ignore .hg
+                      \ --ignore .DS_Store
+                      \ --ignore "**/*.pyc"
+                      \ -g ""'
+        endif
+        Plugin 'rking/ag.vim'
+        Plugin 'justinmk/vim-sneak' " Jump to characters: s<chr><chr>, S<chr>chr> (backwards), ; = next, 3; = next*3, 3dzqt = delete up until the 3rd instance of qt
+
+        " ### Source Control
+        Plugin 'airblade/vim-gitgutter'
+
+        " ### Code highlighting
+        Plugin 'markdown'
+        Plugin 'html5.vim'
+        Plugin 'pangloss/vim-javascript'
+        Plugin 'jelera/vim-javascript-syntax'
+
+        " ### General Code
+        " completion
+        Plugin 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
+
+        if (!FileExists($HOME . "/.vim/bundle/YouCompleteMe") || FileExists($HOME . "/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so")) && (v:version > 703 || (v:version == 703 && has('patch584')))
+                Plugin 'Valloric/YouCompleteMe' " Tab completion without tab - so intellisense-style, requires compilation
+        endif
+
+        " tern js
+        " \tt - type hint
+        " \td - jump to definition (remember that ctrl+o/i goes back/forward)
+        " \tsd - defn in new split
+        " \tr - list references to var
+        " \tR - rename var
+        if !FileExists($HOME . "/.vim/bundle/tern_for_vim") || FileExists($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
+                Plugin 'marijnh/tern_for_vim'
+                let g:tern_map_keys=1
+                let g:tern_show_argument_hints='on_hold'
+        endif
+
+        " run linters etc.
+        Plugin 'scrooloose/syntastic'
+        " use \\\ to comment stuff
+        Plugin 'commentary.vim'
+        Plugin 'Raimondi/delimitMate' " add delimiters
+        Plugin 'nathanaelkane/vim-indent-guides' " <leader>ig
+
+        call vundle#end()
+        filetype plugin indent on " has to be after bundles
+
+        " colorscheme jellybeans
+        colorscheme molokai
+endif
+
+set background=dark
+syntax on
+
 set bs=2                                  " comfortable backspacing
 set backspace=indent,eol,start
-set hidden
+set hidden                                " allow modified buffers to be hidden
 set smartcase                             " ignore case in searches unless there's a capital in the search
 set ignorecase
 
@@ -107,66 +176,26 @@ autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just p
 "syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
-set background=light
-set background=dark
 set ruler                                 " it's nice to know where you are in life
 set showcmd                               " show command in status line
 set incsearch                             " incremental searching - ie. search-as-you-type
 set scrolloff=6                           " lines above/below to show for context
-set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
-set guioptions=aegirLt                    " set a few gui options
-set mouse=                                " disable the mouse when --with-x was specified
-
-silent! colorscheme molokai
 
 if has("gui_running")
-  if has("win32")
-    set anti guifont=Monaco_for_Powerline:h12:cANSI
-  elseif has("macvim")
-    set anti guifont=*
-  else
-    set anti guifont=Monaco\ for\ Powerline\ 11
-  endif
-else
-  let g:airline_powerline_fonts = 0
-  set t_Co=16
-  set encoding=ansi
+	set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
+	set guioptions=aegirLt                    " set a few gui options
+	set mouse=                                " disable the mouse when --with-x was specified
+
+	if has("win32")
+		set anti guifont=Monaco_for_Powerline:h12:cANSI
+	elseif has("macvim")
+		set anti guifont=*
+	else
+		set anti guifont=Monaco\ for\ Powerline\ 11
+	endif
 endif
 
-"git settings
-set laststatus=2
-" set statusline=
-" set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
-" set statusline+=%t       "tail of the filename
-" set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-" set statusline+=%{&ff}] "file format
-" set statusline+=%h      "help file flag
-" set statusline+=%m      "modified flag
-" set statusline+=%r      "read only flag
-" set statusline+=%y      "filetype
-" set statusline+=%=      "left/right separator
-" set statusline+=%c,     "cursor column
-" set statusline+=%l/%L   "cursor line/total lines
-" set statusline+=\ %P    "percent through file
-
-" misc non-settings
-syntax on
-" map  :w!<CR>:!aspell check %<CR>:e! %<CR>
-" map <F2> <Esc>:1,$!xmllint --format -<CR>
-filetype on
-filetype plugin on
-let g:bufExplorerShowRelativePath=1  " Show relative paths.
-
-" avoid having to press ESC
-"imap jj <ESC>
-"imap JJ <ESC>
-
-" allow fingers to stay on the home row
-"nnoremap j h
-"nnoremap k j
-"nnoremap l k
-"nnoremap ; l
-
+" Disable cursor keys so I'm not tempted
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -183,11 +212,12 @@ noremap Q <NOP>
 autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.rb call Tabs(2)
 autocmd BufEnter *.js call Tabs(2)
+autocmd BufEnter .vimrc call Tabs(8)
 autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
 autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
 autocmd BufEnter build.gradle set syntax=groovy
 if has('matchadd')
-    autocmd BufEnter *.c,*.php,*.py,*.java call matchadd('TODO', '\(\t\|[\t ]\+$\)')
+    autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 endif
 autocmd BufWrite *.c,*.php,*.py,*.rb,*.java call CleanWhitespace()
 
