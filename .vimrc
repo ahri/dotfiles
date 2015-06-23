@@ -39,8 +39,8 @@ if FileExists($HOME . "/.vim/bundle/Vundle.vim")
 
         Plugin 'tomasr/molokai'
         Plugin 'nanotech/jellybeans.vim'
-        Plugin 'altercation/solarized'
-        Plugin 'chriskempson/base16'
+        Plugin 'altercation/vim-colors-solarized'
+        Plugin 'chriskempson/base16-vim'
 
         " ### Usability
         Plugin 'Shougo/unite.vim'
