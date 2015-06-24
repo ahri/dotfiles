@@ -139,7 +139,7 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         nnoremap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
-        Plugin 'markdown'
+        Plugin 'gabrielelana/vim-markdown'
         Plugin 'html5.vim'
         Plugin 'pangloss/vim-javascript'
         Plugin 'jelera/vim-javascript-syntax'
@@ -166,13 +166,6 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         " use \\\ to comment stuff
         Plugin 'commentary.vim'
         Plugin 'Raimondi/delimitMate' " add delimiters
-
-        " ### Writing
-        if InstallingOrCompiled($HOME . "/.vim/bundle/vim-livedown/node_modules/.bin/livedown")
-                Plugin 'shime/vim-livedown'
-                " LivedownPreview
-                " LivedownKill
-        endif
 
         call vundle#end()
         filetype plugin indent on " has to be after bundles
