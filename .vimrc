@@ -3,13 +3,15 @@ filetype off                  " required
 
 let mapleader = "\<Space>"
 
-map <leader>vr :so $MYVIMRC<cr>
-map <leader>ve :e $MYVIMRC<cr>
+nnoremap <leader>vr :so $MYVIMRC<cr>
+nnoremap <leader>ve :e $MYVIMRC<cr>
 
 " Mapping in vim:
 " map, noremap (non recursive map, similar to by-reference passing) - normal, visual & operator modes
 " nmap = only normal mode
 " vmap = only visual mode
+
+set background=dark
 
 " $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
@@ -68,9 +70,9 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         let g:ctrlp_working_path_mode = 'ra' " use .git as the root
         set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.tmp/*,*/.sass-cache/*,*/node_modules/*,*.keep,*.DS_Store,*/.git/*
 
-        nmap <leader>o :CtrlP<cr>
-        nmap <leader>e :CtrlPBuffer<cr>
-        nmap <leader>r :CtrlPMRUFiles<cr>
+        nnoremap <leader>o :CtrlP<cr>
+        nnoremap <leader>e :CtrlPBuffer<cr>
+        nnoremap <leader>r :CtrlPMRUFiles<cr>
 
         let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
         function! CtrlPMappings()
@@ -96,7 +98,7 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         endif
 
         Plugin 'rking/ag.vim'
-        nmap <leader>s :Ag \\b<cword>\\b<cr>
+        nnoremap <leader>s :Ag \\b<cword>\\b<cr>
 
         Plugin 'justinmk/vim-sneak'
         " Jump to characters: s<chr><chr>, S<chr>chr> (backwards), ; = next,
@@ -104,21 +106,21 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         " ### Source Control
         Plugin 'airblade/vim-gitgutter'
-        nmap <leader>hj :GitGutterNextHunk<cr>
-        nmap <leader>hk :GitGutterPrevHunk<cr>
-        nmap <leader>hs :GitGutterStageHunk<cr>
-        nmap <leader>hr :GitGutterRevertHunk<cr>
-        nmap <leader>hp :GitGutterPreviewHunk<cr>
+        nnoremap <C-J> :GitGutterNextHunk<cr>
+        nnoremap <C-K> :GitGutterPrevHunk<cr>
+        nnoremap <C-L> :GitGutterStageHunk<cr>
+        nnoremap <C-H> :GitGutterRevertHunk<cr>
+        nnoremap <leader>gh :GitGutterPreviewHunk<cr>
 
         Plugin 'tpope/vim-fugitive'
-        nmap <leader>gs :Gstatus<cr>
-        nmap <leader>gb :Gblame<cr>
-        nmap <leader>gc :Gcommit<cr>
-        nmap <leader>gl :Glog<cr>
-        nmap <leader>gj :Gpull<cr>
-        nmap <leader>gk :Gpush<cr>
-        nmap <leader>gd :Gdiff<cr>
-        nmap <leader>gm :Gmerge<cr>
+        nnoremap <leader>gs :Gstatus<cr>
+        nnoremap <leader>gb :Gblame<cr>
+        nnoremap <leader>gc :Gcommit<cr>
+        nnoremap <leader>gl :Glog<cr>
+        nnoremap <leader>gj :Gpull<cr>
+        nnoremap <leader>gk :Gpush<cr>
+        nnoremap <leader>gd :Gdiff<cr>
+        nnoremap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
         Plugin 'markdown'
@@ -137,10 +139,10 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         " tern js
         if InstallingOrCompiled($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
                 Plugin 'marijnh/tern_for_vim'
-                nmap <leader>tR :TernRename<cr>
-                nmap <leader>tt :TernType<cr>
-                nmap <leader>tr :TernRefs<cr>
-                nmap <leader>td :TernDef<cr>
+                nnoremap <leader>tR :TernRename<cr>
+                nnoremap <leader>tt :TernType<cr>
+                nnoremap <leader>tr :TernRefs<cr>
+                nnoremap <leader>td :TernDef<cr>
         endif
 
         " run linters etc.
@@ -162,7 +164,6 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         colorscheme molokai
 endif
 
-set background=dark
 syntax on
 
 set bs=2                                  " comfortable backspacing
