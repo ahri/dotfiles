@@ -41,7 +41,7 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         let g:airline#extensions#tabline#fnamemod = ':t'
         set laststatus=2
 
-        if &t_Co >= 88
+        if empty(&t_Co) || &t_Co >= 88
                 Plugin 'CSApprox' " approximate gvim colours
                 " :CSApproxSnapshot ~/.vim/colors/foobar.vim
                 " :colorscheme foobar
