@@ -8,7 +8,7 @@ if [ -d "$HOME/bin" ] && echo $PATH | grep -qv "\(^\|:\)$HOME/bin\($\|:\)"; then
     export PATH="$HOME/bin:$PATH"
 fi
 
-export EDITOR="vi"
+export EDITOR="`which vi`"
 export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
 #set -o vi
