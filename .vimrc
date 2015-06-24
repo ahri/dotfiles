@@ -43,13 +43,29 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         if &t_Co >= 88
                 Plugin 'CSApprox' " approximate gvim colours
+                " :CSApproxSnapshot ~/.vim/colors/foobar.vim
+                " :colorscheme foobar
+
                 Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
+                " :CSExactColors (to reset... doesn't seem to work that well in practise!)
         endif
 
         Plugin 'tomasr/molokai'
         Plugin 'nanotech/jellybeans.vim'
         Plugin 'altercation/vim-colors-solarized'
         Plugin 'chriskempson/base16-vim'
+        " -bespin
+        " -eighties
+        " -embers
+        " -flat
+        " -harmonic16
+        " -mocha
+        " -monokai
+        " -ocean
+        " -railscasts
+        " -solarized
+        " -tomorrow
+        " -twilight
 
         " ### Usability
         Plugin 'terryma/vim-expand-region'
