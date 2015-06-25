@@ -2,7 +2,7 @@
 
 set -ue
 
-misc="dtrx htop curl wget silversearcher-ag"
+misc="dtrx htop curl wget silversearcher-ag xclip"
 build="rake build-essential cmake git openjdk-8-jdk"
 languages="python python-dev ruby"
 console_dev="vim dvtm"
