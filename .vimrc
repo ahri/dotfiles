@@ -13,6 +13,14 @@ nnoremap <leader>ve :e $MYVIMRC<cr>
 
 set background=dark
 
+set spell spelllang=en_gb
+set nospell
+" ]s and [s to navigate through spelling errors
+" z= to suggest a change
+" zg to mark a word "good"
+" zw to mark a work "wrong"
+" zug, zuw - undo
+
 " $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
