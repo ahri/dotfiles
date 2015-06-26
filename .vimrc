@@ -16,11 +16,33 @@ set background=dark
 " TODO: consider https://github.com/vim-scripts/LanguageTool
 set spell spelllang=en_gb
 set nospell
-" ]s and [s to navigate through spelling errors
+nnoremap ]z ]s
+nnoremap [z [s
+" ]z and [z to navigate through spelling errors
 " z= to suggest a change
 " zg to mark a word "good"
 " zw to mark a work "wrong"
 " zug, zuw - undo
+
+let g:writingmode=0
+function! ToggleWriting()
+        if (g:writingmode == 0)
+                let g:writingmode=1
+                let g:writingmode_normalfont=&guifont
+                set background=light
+                colorscheme solarized
+                " TODO: different specification per platform
+                set anti guifont=Fantasque\ Sans\ Mono\ Regular:h24
+                echo "Writing mode ON"
+        else
+                let g:writingmode=0
+                let &guifont=g:writingmode_normalfont
+                set background=dark
+                colorscheme molokai
+                echo "Writing mode OFF"
+        endif
+endfunction
+nnoremap zt :call ToggleWriting()<CR>
 
 " $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
