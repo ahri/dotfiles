@@ -13,6 +13,7 @@ nnoremap <leader>ve :e $MYVIMRC<cr>
 
 set background=dark
 
+" TODO: consider https://github.com/vim-scripts/LanguageTool
 set spell spelllang=en_gb
 set nospell
 " ]s and [s to navigate through spelling errors
@@ -50,11 +51,12 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         set laststatus=2
 
         if empty(&t_Co) || &t_Co >= 88
-                Plugin 'CSApprox' " approximate gvim colours
+                " Plugin 'CSApprox' " approximate gvim colours
                 " :CSApproxSnapshot ~/.vim/colors/foobar.vim
                 " :colorscheme foobar
 
-                Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
+                let g:csexact_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
+                " Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
                 " :CSExactColors (to reset... doesn't seem to work that well in practise!)
         endif
 
