@@ -1,7 +1,6 @@
 # TODO:
 # system dependencies (support multiple package managers)
 # split off os-specific stuff (like the stuff in ~/bin that's only relevant to linux)
-# only enable ternjs in vim if it's built, same for ycm
 
 HOME = ENV['HOME'] || ENV['USERPROFILE']
 
@@ -23,9 +22,17 @@ task :required_tooling do
   end
 end
 
+desc "Sort out the dotfiles"
 task :dotfiles
 
-task :vim => [:vundle, VIM_YCM, VIM_TERN]
+desc "Configure vim with plugins"
+task :vim => :vundle
+
+desc "Build YouCompleteMe for vim"
+task :vim_ycm => VIM_YCM
+
+desc "Build ternjs plugin for vim"
+task :vim_tern => VIM_TERN
 
 task :vundle => [VUNDLE_IDENTIFIER]
 
