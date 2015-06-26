@@ -73,12 +73,12 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         set laststatus=2
 
         if empty(&t_Co) || &t_Co >= 88
-                " Plugin 'CSApprox' " approximate gvim colours
+                Plugin 'CSApprox' " approximate gvim colours
                 " :CSApproxSnapshot ~/.vim/colors/foobar.vim
                 " :colorscheme foobar
 
                 let g:csexact_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
-                " Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
+                Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
                 " :CSExactColors (to reset... doesn't seem to work that well in practise!)
         endif
 
