@@ -292,6 +292,7 @@ noremap Q <NOP>
 autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.rb call Tabs(2)
 autocmd BufEnter *.js call Tabs(2)
+autocmd BufEnter *.md setlocal textwidth=80
 autocmd BufEnter .vimrc call Tabs(8)
 autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
 autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
