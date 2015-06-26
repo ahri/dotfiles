@@ -39,7 +39,7 @@ def multiplatform_symlink(source, target)
   end
 
   begin
-    symlink source, target
+    ln_sf source, target
   rescue NotImplementedError
     `cmd /C mklink /H "#{target.gsub '/', '\\'}" "#{source.gsub '/', '\\'}"`
   end
@@ -47,7 +47,7 @@ end
 
 def create_dotfiles_tasks
   Dir.foreach '.' do |f|
-    next if f == '.' or f == '..' or f == '.git'
+    next if f == '.' or f == '..' or f == '.git' or f == '.DS_Store'
     next unless f.start_with? '.'
 
     if File.directory? f
