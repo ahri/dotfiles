@@ -77,7 +77,9 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
                 " :CSApproxSnapshot ~/.vim/colors/foobar.vim
                 " :colorscheme foobar
 
-                let g:csexact_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
+                if has("gui_macvim")
+                        let g:csexact_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
+                endif
                 Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
                 " :CSExactColors (to reset... doesn't seem to work that well in practise!)
         endif
