@@ -1,15 +1,39 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-let mapleader = "\<Space>"
-
-nnoremap <leader>vr :so $MYVIMRC<cr>
-nnoremap <leader>ve :e $MYVIMRC<cr>
+set relativenumber " display numbers relative to current line
 
 " Mapping in vim:
 " map, noremap (non recursive map, similar to by-reference passing) - normal, visual & operator modes
 " nmap = only normal mode
 " vmap = only visual mode
+
+let mapleader = "\<Space>"
+
+nnoremap <leader>vr :so $MYVIMRC<cr>
+nnoremap <leader>ve :e $MYVIMRC<cr>
+
+" map <leader>d to duplicate text, commenting out the first one
+vnoremap <leader>d YP`[V`]:Commentary<cr>`]<cr>
+nnoremap <leader>d YP`[V`]:Commentary<cr>`]<cr>
+
+" Disable cursor keys so I'm not tempted
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
+nnoremap K <C-w>k
+nnoremap J <C-w>j
+nnoremap H <C-w>h
+nnoremap L <C-w>l
+
+nnoremap j gj
+nnoremap k gk
 
 set background=dark
 
@@ -24,25 +48,30 @@ nnoremap [z [s
 " zw to mark a work "wrong"
 " zug, zuw - undo
 
+nnoremap <leader>q gqip "  hard re-wrap paragraph
+nnoremap <leader>p `[v`] " select last paste
+
+autocmd FocusLost * :wall " Write file when focus lost
+
 let g:writingmode=0
 function! ToggleWriting()
         if (g:writingmode == 0)
                 let g:writingmode=1
                 let g:writingmode_normalfont=&guifont
+                let g:writingmode_normalcolorscheme=g:colors_name
                 set background=light
                 colorscheme solarized
-                " TODO: different specification per platform
                 set anti guifont=Fantasque\ Sans\ Mono\ Regular:h24
                 echo "Writing mode ON"
         else
                 let g:writingmode=0
-                let &guifont=g:writingmode_normalfont
                 set background=dark
-                colorscheme molokai
+                let &guifont=g:writingmode_normalfont
+                colorscheme g:writingmode_normalcolorscheme
                 echo "Writing mode OFF"
         endif
 endfunction
-nnoremap zt :call ToggleWriting()<CR>
+nnoremap zt :call ToggleWriting()<cr>
 
 " $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
@@ -103,8 +132,11 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         " ### Usability
         Plugin 'terryma/vim-expand-region'
-        map K <Plug>(expand_region_expand)
-        map J <Plug>(expand_region_shrink)
+        nnoremap K <Plug>(expand_region_expand)
+        nnoremap J <Plug>(expand_region_shrink)
+
+        Plugin 'vim-scripts/YankRing.vim'
+        nnoremap <leader>y :YRShow<cr>
 
         Plugin 'terryma/vim-multiple-cursors'
         " ctrl+n
@@ -160,21 +192,22 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         nnoremap <C-K> :GitGutterPrevHunk<cr>
         nnoremap <C-L> :GitGutterStageHunk<cr>
         nnoremap <C-H> :GitGutterRevertHunk<cr>
-        nnoremap <leader>gh :GitGutterPreviewHunk<cr>
+        nnoremap <C-g> :GitGutterPreviewHunk<cr>
 
         Plugin 'tpope/vim-fugitive'
         nnoremap <leader>gs :Gstatus<cr>
         nnoremap <leader>gb :Gblame<cr>
         nnoremap <leader>gc :Gcommit<cr>
         nnoremap <leader>gl :Glog<cr>
-        nnoremap <leader>gj :Gpull<cr>
-        nnoremap <leader>gk :Gpush<cr>
         nnoremap <leader>gd :Gdiff<cr>
         nnoremap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
+        Plugin 'kien/rainbow_parentheses.vim'
+        nnoremap <leader>r :RainbowParenthesesToggle<cr>
+
         Plugin 'gabrielelana/vim-markdown'
-        Plugin 'html5.vim'
+        Plugin 'othree/html5.vim'
         Plugin 'pangloss/vim-javascript'
         Plugin 'jelera/vim-javascript-syntax'
 
@@ -198,7 +231,7 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         " run linters etc.
         Plugin 'scrooloose/syntastic'
         " use \\\ to comment stuff
-        Plugin 'commentary.vim'
+        Plugin 'tpope/vim-commentary'
         Plugin 'Raimondi/delimitMate' " add delimiters
 
         call vundle#end()
@@ -277,16 +310,6 @@ if has("gui_running")
 		set anti guifont=Monaco\ for\ Powerline\ 11
 	endif
 endif
-
-" Disable cursor keys so I'm not tempted
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
 
 " Don't use ex mode
 noremap Q <NOP>
