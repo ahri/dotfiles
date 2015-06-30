@@ -6,10 +6,11 @@ HOME = ENV['HOME'] || ENV['USERPROFILE']
 
 BUNDLE_DIR = "#{HOME}/.vim/bundle"
 VUNDLE_IDENTIFIER = "#{BUNDLE_DIR}/Vundle.vim/.gitignore"
+VIM_PLUG_IDENTIFIER = "#{HOME}/.vim/autoload/plug.vim"
 BIN_DIR = "#{HOME}/bin"
 
-VIM_TERN = "#{HOME}/.vim/bundle/tern_for_vim/node_modules/.bin/tern"
-VIM_YCM = "#{HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so"
+VIM_TERN = "#{BUNDLE_DIR}/tern_for_vim/node_modules/.bin/tern"
+VIM_YCM = "#{BUNDLE_DIR}/YouCompleteMe/third_party/ycmd/ycm_core.so"
 
 task :default => [:required_tooling, :dotfiles, :bin, :vim]
 
@@ -26,7 +27,7 @@ desc "Sort out the dotfiles"
 task :dotfiles
 
 desc "Configure vim with plugins"
-task :vim => :vundle
+task :vim => :vim_plug
 
 desc "Build YouCompleteMe for vim"
 task :vim_ycm => VIM_YCM
@@ -34,7 +35,14 @@ task :vim_ycm => VIM_YCM
 desc "Build ternjs plugin for vim"
 task :vim_tern => VIM_TERN
 
-task :vundle => [VUNDLE_IDENTIFIER]
+task :vundle => VUNDLE_IDENTIFIER
+
+task :vim_plug => VIM_PLUG_IDENTIFIER
+
+file VIM_PLUG_IDENTIFIER do |t|
+  sh "curl -fLo #{t.name} --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  sh "vim +PlugInstall +qall"
+end
 
 
 def multiplatform_symlink(source, target)
@@ -54,7 +62,7 @@ end
 
 def create_dotfiles_tasks
   Dir.foreach '.' do |f|
-    next if f == '.' or f == '..' or f == '.git' or f == '.DS_Store'
+    next if f == '.' or f == '..' or f == '.git' or f == '.gitignore' or f =~ /^\..*~$/ or f == '.DS_Store'
     next unless f.start_with? '.'
 
     if File.directory? f
@@ -109,13 +117,13 @@ directory BUNDLE_DIR
 directory BIN_DIR
 
 file VIM_TERN do
-  Dir.chdir "#{HOME}/.vim/bundle/tern_for_vim" do
+  Dir.chdir "#{BUNDLE_DIR}/tern_for_vim" do
     sh "npm install"
   end
 end
 
 file VIM_YCM do
-  Dir.chdir "#{HOME}/.vim/bundle/YouCompleteMe" do
+  Dir.chdir "#{BUNDLE_DIR}/YouCompleteMe" do
     #sh "apt-get install cmake python-dev"
     sh "./install.sh"
   end
