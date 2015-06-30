@@ -27,10 +27,10 @@ inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
 
-nnoremap K <C-w>k
-nnoremap J <C-w>j
-nnoremap H <C-w>h
-nnoremap L <C-w>l
+nnoremap <leader>k <C-w>k
+nnoremap <leader>j <C-w>j
+nnoremap <leader>h <C-w>h
+nnoremap <leader>l <C-w>l
 
 nnoremap j gj
 nnoremap k gk
@@ -133,8 +133,8 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
 
         " ### Usability
         Plugin 'terryma/vim-expand-region'
-        nnoremap K <Plug>(expand_region_expand)
-        nnoremap J <Plug>(expand_region_shrink)
+        map K <Plug>(expand_region_expand)
+        map J <Plug>(expand_region_shrink)
 
         Plugin 'vim-scripts/YankRing.vim'
         nnoremap <leader>y :YRShow<cr>
