@@ -6,6 +6,7 @@ HOME = ENV['HOME'] || ENV['USERPROFILE']
 
 BUNDLE_DIR = "#{HOME}/.vim/bundle"
 VUNDLE_IDENTIFIER = "#{BUNDLE_DIR}/Vundle.vim/.gitignore"
+VIM_PLUG_IDENTIFIER = "#{HOME}/.vim/autoload/plug.vim"
 BIN_DIR = "#{HOME}/bin"
 
 VIM_TERN = "#{HOME}/.vim/bundle/tern_for_vim/node_modules/.bin/tern"
@@ -26,7 +27,7 @@ desc "Sort out the dotfiles"
 task :dotfiles
 
 desc "Configure vim with plugins"
-task :vim => :vundle
+task :vim => :vim_plug
 
 desc "Build YouCompleteMe for vim"
 task :vim_ycm => VIM_YCM
@@ -34,7 +35,14 @@ task :vim_ycm => VIM_YCM
 desc "Build ternjs plugin for vim"
 task :vim_tern => VIM_TERN
 
-task :vundle => [VUNDLE_IDENTIFIER]
+task :vundle => VUNDLE_IDENTIFIER
+
+task :vim_plug => VIM_PLUG_IDENTIFIER
+
+file VIM_PLUG_IDENTIFIER do |t|
+  sh "curl -fLo #{t.name} --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  sh "vim +PlugInstall +qall"
+end
 
 
 def multiplatform_symlink(source, target)

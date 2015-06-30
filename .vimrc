@@ -73,16 +73,11 @@ function! ToggleWriting()
 endfunction
 nnoremap zt :call ToggleWriting()<cr>
 
-" $ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+let g:bundledir = $HOME . "/.vim/bundle"
 
-if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
-        " set the runtime path to include Vundle and initialize
-        set rtp+=~/.vim/bundle/Vundle.vim
-        call vundle#begin()
-
-        " let Vundle manage Vundle
-        Plugin 'gmarik/Vundle.vim'
-
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if filereadable($HOME . "/.vim/autoload/plug.vim")
+        call plug#begin(g:bundledir)
         " See http://vim-scripts.org
         " See https://github.com/vim-scripts/
 
@@ -95,14 +90,14 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         endfunction
 
         " ### Look & Feel
-        Plugin 'bling/vim-airline'
+        Plug 'bling/vim-airline'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline#extensions#tabline#fnamemod = ':t'
         set laststatus=2
 
         if empty(&t_Co) || &t_Co >= 88
-                Plugin 'CSApprox' " approximate gvim colours
+                Plug 'CSApprox' " approximate gvim colours
                 " :CSApproxSnapshot ~/.vim/colors/foobar.vim
                 " :colorscheme foobar
 
@@ -110,14 +105,14 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
                 if filereadable(potential_rgbtxt)
                         let g:csexact_rgbtxt = potential_rgbtxt
                 endif
-                Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
+                Plug 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
                 " :CSExactColors (to reset... doesn't seem to work that well in practise!)
         endif
 
-        Plugin 'tomasr/molokai'
-        Plugin 'nanotech/jellybeans.vim'
-        Plugin 'altercation/vim-colors-solarized'
-        Plugin 'chriskempson/base16-vim'
+        Plug 'tomasr/molokai'
+        Plug 'nanotech/jellybeans.vim'
+        Plug 'altercation/vim-colors-solarized'
+        Plug 'chriskempson/base16-vim'
         " -bespin
         " -eighties
         " -embers
@@ -132,19 +127,22 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         " -twilight
 
         " ### Usability
-        Plugin 'terryma/vim-expand-region'
+        Plug 'terryma/vim-expand-region'
         nnoremap K <Plug>(expand_region_expand)
         nnoremap J <Plug>(expand_region_shrink)
 
-        Plugin 'vim-scripts/YankRing.vim'
+        Plug 'sjl/gundo.vim'
+        nnoremap <leader>u :GundoToggle<CR>
+
+        Plug 'vim-scripts/YankRing.vim'
         nnoremap <leader>y :YRShow<cr>
 
-        Plugin 'terryma/vim-multiple-cursors'
+        Plug 'terryma/vim-multiple-cursors'
         " ctrl+n
         " ctrl+p - go back
         " ctrl+x - exclude this one
 
-        Plugin 'kien/ctrlp.vim'
+        Plug 'kien/ctrlp.vim'
         let g:ctrlp_custom_ignore = {
           \ 'dir':  '\v[\/](\.(git|hg|svn))$',
           \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|.pyc)$',
@@ -180,22 +178,22 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
                       \ -g ""'
         endif
 
-        Plugin 'rking/ag.vim'
+        Plug 'rking/ag.vim'
         nnoremap <leader>s :Ag \\b<cword>\\b<cr>
 
-        Plugin 'justinmk/vim-sneak'
+        Plug 'justinmk/vim-sneak'
         " Jump to characters: s<chr><chr>, S<chr>chr> (backwards), ; = next,
         " 3; = next*3, 3dzqt = delete up until the 3rd instance of qt
 
         " ### Source Control
-        Plugin 'airblade/vim-gitgutter'
+        Plug 'airblade/vim-gitgutter'
         nnoremap <C-J> :GitGutterNextHunk<cr>
         nnoremap <C-K> :GitGutterPrevHunk<cr>
         nnoremap <C-L> :GitGutterStageHunk<cr>
         nnoremap <C-H> :GitGutterRevertHunk<cr>
         nnoremap <C-g> :GitGutterPreviewHunk<cr>
 
-        Plugin 'tpope/vim-fugitive'
+        Plug 'tpope/vim-fugitive'
         nnoremap <leader>gs :Gstatus<cr>
         nnoremap <leader>gb :Gblame<cr>
         nnoremap <leader>gc :Gcommit<cr>
@@ -204,25 +202,25 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         nnoremap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
-        Plugin 'kien/rainbow_parentheses.vim'
+        Plug 'kien/rainbow_parentheses.vim'
         nnoremap <leader>r :RainbowParenthesesToggle<cr>
 
-        Plugin 'gabrielelana/vim-markdown'
-        Plugin 'othree/html5.vim'
-        Plugin 'pangloss/vim-javascript'
-        Plugin 'jelera/vim-javascript-syntax'
+        Plug 'gabrielelana/vim-markdown'
+        Plug 'othree/html5.vim'
+        Plug 'pangloss/vim-javascript'
+        Plug 'jelera/vim-javascript-syntax'
 
         " ### General Code
         " completion
-        if InstallingOrCompiled($HOME . "/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so") && (v:version > 703 || (v:version == 703 && has('patch584')))
-                Plugin 'Valloric/YouCompleteMe' " Auto-completion, intellisense-style, requires compilation
+        if InstallingOrCompiled(g:bundledir . "/YouCompleteMe/third_party/ycmd/ycm_core.so") && (v:version > 703 || (v:version == 703 && has('patch584')))
+                Plug 'Valloric/YouCompleteMe' " Auto-completion, intellisense-style, requires compilation
         endif
 
-        Plugin 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
+        Plug 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
 
         " tern js
-        if InstallingOrCompiled($HOME . "/.vim/bundle/tern_for_vim/node_modules/.bin/tern")
-                Plugin 'marijnh/tern_for_vim'
+        if InstallingOrCompiled(g:bundledir . "/tern_for_vim/node_modules/.bin/tern")
+                Plug 'marijnh/tern_for_vim'
                 nnoremap <leader>tR :TernRename<cr>
                 nnoremap <leader>tt :TernType<cr>
                 nnoremap <leader>tr :TernRefs<cr>
@@ -230,12 +228,12 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
         endif
 
         " run linters etc.
-        Plugin 'scrooloose/syntastic'
+        Plug 'scrooloose/syntastic'
         " use \\\ to comment stuff
-        Plugin 'tpope/vim-commentary'
-        Plugin 'Raimondi/delimitMate' " add delimiters
+        Plug 'tpope/vim-commentary'
+        Plug 'Raimondi/delimitMate' " add delimiters
 
-        call vundle#end()
+        call plug#end()
         filetype plugin indent on " has to be after bundles
 
         colorscheme molokai
