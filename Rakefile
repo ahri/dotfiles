@@ -9,8 +9,8 @@ VUNDLE_IDENTIFIER = "#{BUNDLE_DIR}/Vundle.vim/.gitignore"
 VIM_PLUG_IDENTIFIER = "#{HOME}/.vim/autoload/plug.vim"
 BIN_DIR = "#{HOME}/bin"
 
-VIM_TERN = "#{HOME}/.vim/bundle/tern_for_vim/node_modules/.bin/tern"
-VIM_YCM = "#{HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so"
+VIM_TERN = "#{BUNDLE_DIR}/tern_for_vim/node_modules/.bin/tern"
+VIM_YCM = "#{BUNDLE_DIR}/YouCompleteMe/third_party/ycmd/ycm_core.so"
 
 task :default => [:required_tooling, :dotfiles, :bin, :vim]
 
@@ -117,13 +117,13 @@ directory BUNDLE_DIR
 directory BIN_DIR
 
 file VIM_TERN do
-  Dir.chdir "#{HOME}/.vim/bundle/tern_for_vim" do
+  Dir.chdir "#{BUNDLE_DIR}/tern_for_vim" do
     sh "npm install"
   end
 end
 
 file VIM_YCM do
-  Dir.chdir "#{HOME}/.vim/bundle/YouCompleteMe" do
+  Dir.chdir "#{BUNDLE_DIR}/YouCompleteMe" do
     #sh "apt-get install cmake python-dev"
     sh "./install.sh"
   end
