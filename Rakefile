@@ -62,7 +62,7 @@ end
 
 def create_dotfiles_tasks
   Dir.foreach '.' do |f|
-    next if f == '.' or f == '..' or f == '.git' or f == '.DS_Store'
+    next if f == '.' or f == '..' or f == '.git' or f == '.gitignore' or f =~ /^\..*~$/ or f == '.DS_Store'
     next unless f.start_with? '.'
 
     if File.directory? f
