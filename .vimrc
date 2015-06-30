@@ -67,7 +67,7 @@ function! ToggleWriting()
                 let g:writingmode=0
                 set background=dark
                 let &guifont=g:writingmode_normalfont
-                colorscheme g:writingmode_normalcolorscheme
+                execute "colorscheme " . g:writingmode_normalcolorscheme
                 echo "Writing mode OFF"
         endif
 endfunction
@@ -106,8 +106,9 @@ if isdirectory($HOME . "/.vim/bundle/Vundle.vim")
                 " :CSApproxSnapshot ~/.vim/colors/foobar.vim
                 " :colorscheme foobar
 
-                if has("gui_macvim")
-                        let g:csexact_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
+                let potential_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
+                if filereadable(potential_rgbtxt)
+                        let g:csexact_rgbtxt = potential_rgbtxt
                 endif
                 Plugin 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
                 " :CSExactColors (to reset... doesn't seem to work that well in practise!)
