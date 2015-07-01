@@ -327,6 +327,21 @@ if has('matchadd')
 endif
 autocmd BufWrite *.c,*.php,*.py,*.rb,*.java call CleanWhitespace()
 
+set sessionoptions=buffers
+function! SaveAutoSession()
+        mksession! .vimsession~
+endfunction
+
+function! LoadAutoSession()
+        if filereadable(".vimsession~")
+                source .vimsession~
+                filetype detect
+        endif
+endfunction
+
+autocmd VimLeave * call SaveAutoSession()
+autocmd VimEnter * call LoadAutoSession()
+
 " detect vim >= 7.3
 if !has('conceal')
     finish
