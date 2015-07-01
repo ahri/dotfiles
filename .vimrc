@@ -328,19 +328,32 @@ endif
 autocmd BufWrite *.c,*.php,*.py,*.rb,*.java call CleanWhitespace()
 
 set sessionoptions=buffers
-function! SaveAutoSession()
-        mksession! .vimsession~
+
+function! SessionLocation()
+        " TODO: find project root (.git dir) and put it there
+        return ".vimsession~"
 endfunction
 
-function! LoadAutoSession()
-        if filereadable(".vimsession~")
-                source .vimsession~
+function! SaveSession()
+        execute "mksession! " . SessionLocation()
+endfunction
+
+function! AutoSaveSession()
+        if filereadable(SessionLocation())
+            call SaveSession()
+        endif
+endfunction
+
+function! LoadSession()
+        let session_location = SessionLocation()
+        if filereadable(session_location)
+                execute "source " . session_location
                 filetype detect
         endif
 endfunction
 
-autocmd VimLeave * call SaveAutoSession()
-autocmd VimEnter * call LoadAutoSession()
+autocmd VimLeave * call AutoSaveSession()
+autocmd VimEnter * call LoadSession()
 
 " detect vim >= 7.3
 if !has('conceal')
