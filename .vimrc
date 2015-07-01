@@ -1,5 +1,5 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+set runtimepath=~/.vim,$VIMRUNTIME
 
 set relativenumber " display numbers relative to current line
 
@@ -234,13 +234,11 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         Plug 'Raimondi/delimitMate' " add delimiters
 
         call plug#end()
-        filetype plugin indent on " has to be after bundles
 
         colorscheme molokai
 endif
 
 syntax on
-
 set bs=2                                  " comfortable backspacing
 set backspace=indent,eol,start
 set hidden                                " allow modified buffers to be hidden
