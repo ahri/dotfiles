@@ -325,7 +325,7 @@ autocmd BufEnter build.gradle set syntax=groovy
 if has('matchadd')
     autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 endif
-autocmd BufWrite *.c,*.php,*.py,*.rb,*.java call CleanWhitespace()
+autocmd BufWrite *.c,*.php,*.py,*.rb,*.java,*.js call CleanWhitespace()
 
 set sessionoptions=buffers
 
