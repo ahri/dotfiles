@@ -333,8 +333,18 @@ autocmd BufWrite *.c,*.php,*.py,*.rb,*.java call CleanWhitespace()
 set sessionoptions=buffers
 
 function! SessionLocation()
-        " TODO: find project root (.git dir) and put it there
-        return ".vimsession~"
+        let filename = ".vimsession~"
+
+        let testpath = "./"
+        while isdirectory(testpath)
+                if isdirectory(testpath . ".git")
+                        return testpath . filename
+                endif
+
+                let testpath .= "../"
+        endwhile
+
+        return filename
 endfunction
 
 function! SaveSession()
