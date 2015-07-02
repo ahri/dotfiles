@@ -357,7 +357,11 @@ endfunction
 function! LoadSession()
         let session_location = SessionLocation()
         if filereadable(session_location)
+                let cur = @%
                 execute "source " . session_location
+                if !empty(cur)
+                        execute "edit " . cur
+                end
                 filetype detect
         endif
 endfunction
