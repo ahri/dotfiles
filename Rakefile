@@ -7,9 +7,6 @@ HOME = ENV['HOME'] || ENV['USERPROFILE']
 BUNDLE_DIR = "#{HOME}/.vim/bundle"
 BIN_DIR = "#{HOME}/bin"
 
-VIM_TERN = "#{BUNDLE_DIR}/tern_for_vim/node_modules/.bin/tern"
-VIM_YCM = "#{BUNDLE_DIR}/YouCompleteMe/third_party/ycmd/ycm_core.so"
-
 task :default => [:required_tooling, :dotfiles, :bin, :vim]
 
 task :required_tooling do
@@ -27,13 +24,8 @@ task :dotfiles
 desc "Configure vim with plugins"
 task :vim do
   sh "vim +PlugInstall +qall"
+  sh "vim +PlugClean! +qall"
 end
-
-desc "Build YouCompleteMe for vim"
-task :vim_ycm => VIM_YCM
-
-desc "Build ternjs plugin for vim"
-task :vim_tern => VIM_TERN
 
 def multiplatform_symlink(source, target)
   source = File.absolute_path source
@@ -56,14 +48,14 @@ def create_dotfiles_tasks
     next unless f.start_with? '.'
 
     if File.directory? f
-      FileList["#{f}/**/*"].each do |f|
-        next if File.directory? f
-        target = "#{HOME}/#{f}"
+      FileList["#{f}/**/*"].each do |g|
+        next if File.directory? g
+        target = "#{HOME}/#{g}"
         d = File.dirname target
         directory d
         task :dotfiles => target
         file target => d do
-          multiplatform_symlink f, target
+          multiplatform_symlink g, target
         end
       end
     else
@@ -100,19 +92,6 @@ end
 
 directory BUNDLE_DIR
 directory BIN_DIR
-
-file VIM_TERN do
-  Dir.chdir "#{BUNDLE_DIR}/tern_for_vim" do
-    sh "npm install"
-  end
-end
-
-file VIM_YCM do
-  Dir.chdir "#{BUNDLE_DIR}/YouCompleteMe" do
-    #sh "apt-get install cmake python-dev"
-    sh "./install.sh"
-  end
-end
 
 task :vim_install do
   sh "vim +PluginInstall +qall"

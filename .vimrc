@@ -73,13 +73,19 @@ function! ToggleWriting()
 endfunction
 nnoremap zt :call ToggleWriting()<cr>
 
-let g:bundledir = $HOME . "/.vim/bundle"
+function! BundleDir(...)
+        let bundledir = $HOME . "/.vim/bundle"
+
+        if a:0 == 0
+                return bundledir
+        endif
+
+        return bundledir . "/" . a:1
+endfunction
 
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 if filereadable($HOME . "/.vim/autoload/plug.vim")
-        call plug#begin(g:bundledir)
-        " See http://vim-scripts.org
-        " See https://github.com/vim-scripts/
+        call plug#begin(BundleDir())
 
         function! InstallingOrCompiled(compiled_file)
                 let plugin_dir = matchstr(a:compiled_file, '\zs.*\.vim/bundle/[^/]\+\ze/')
@@ -212,15 +218,14 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
 
         " ### General Code
         " completion
-        if InstallingOrCompiled(g:bundledir . "/YouCompleteMe/third_party/ycmd/ycm_core.so") && (v:version > 703 || (v:version == 703 && has('patch584')))
-                Plug 'Valloric/YouCompleteMe' " Auto-completion, intellisense-style, requires compilation
+        Plug 'ajh17/VimCompletesMe'
+
+        if InstallingOrCompiled(BundleDir("YouCompleteMe/third_party/ycmd/ycm_core.so")) && (v:version > 703 || (v:version == 703 && has('patch584')))
+                Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
         endif
 
-        Plug 'ajh17/VimCompletesMe' " Tab completion without compiling stuff
-
-        " tern js
-        if InstallingOrCompiled(g:bundledir . "/tern_for_vim/node_modules/.bin/tern")
-                Plug 'marijnh/tern_for_vim'
+        if InstallingOrCompiled(BundleDir("tern_for_vim/node_modules/.bin/tern"))
+                Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
                 nnoremap <leader>tR :TernRename<cr>
                 nnoremap <leader>tt :TernType<cr>
                 nnoremap <leader>tr :TernRefs<cr>
