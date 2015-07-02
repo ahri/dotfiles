@@ -208,9 +208,6 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         nnoremap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
-        Plug 'kien/rainbow_parentheses.vim'
-        nnoremap <leader>r :RainbowParenthesesToggle<cr>
-
         Plug 'gabrielelana/vim-markdown'
         Plug 'othree/html5.vim'
         Plug 'pangloss/vim-javascript'
