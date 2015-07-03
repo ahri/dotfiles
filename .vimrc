@@ -61,7 +61,11 @@ function! ToggleWriting()
                 let g:writingmode_normalcolorscheme=g:colors_name
                 set background=light
                 colorscheme solarized
-                set anti guifont=Fantasque\ Sans\ Mono\ Regular:h24
+                if has("win32") || has("gui_macvim")
+                        set anti guifont=Fantasque\ Sans\ Mono\ Regular:h24
+                else
+                        set anti guifont=Fantasque\ Sans\ Mono\ 15
+                endif
                 echo "Writing mode ON"
         else
                 let g:writingmode=0
@@ -133,6 +137,8 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         " -twilight
 
         " ### Usability
+        Plug 'ahri/vim-sesspit'
+
         Plug 'terryma/vim-expand-region'
         map K <Plug>(expand_region_expand)
         map J <Plug>(expand_region_shrink)
@@ -318,7 +324,7 @@ autocmd BufEnter *.py call Tabs(4)
 autocmd BufEnter *.rb call Tabs(2)
 autocmd BufEnter *.js call Tabs(2)
 autocmd BufEnter *.md setlocal textwidth=80
-autocmd BufEnter .vimrc call Tabs(8)
+autocmd BufEnter *.vim* call Tabs(8)
 autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
 autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
 autocmd BufEnter build.gradle set syntax=groovy
@@ -326,48 +332,6 @@ if has('matchadd')
     autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 endif
 autocmd BufWrite *.c,*.php,*.py,*.rb,*.java,*.js call CleanWhitespace()
-
-set sessionoptions=buffers
-
-function! SessionLocation()
-        let filename = ".vimsession~"
-
-        let testpath = "./"
-        while isdirectory(testpath)
-                if isdirectory(testpath . ".git")
-                        return testpath . filename
-                endif
-
-                let testpath .= "../"
-        endwhile
-
-        return filename
-endfunction
-
-function! SaveSession()
-        execute "mksession! " . SessionLocation()
-endfunction
-
-function! AutoSaveSession()
-        if filereadable(SessionLocation())
-            call SaveSession()
-        endif
-endfunction
-
-function! LoadSession()
-        let session_location = SessionLocation()
-        if filereadable(session_location)
-                let cur = @%
-                execute "source " . session_location
-                if !empty(cur)
-                        execute "edit " . cur
-                end
-                filetype detect
-        endif
-endfunction
-
-autocmd VimLeave * call AutoSaveSession()
-autocmd VimEnter * call LoadSession()
 
 " detect vim >= 7.3
 if !has('conceal')
