@@ -135,9 +135,11 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         " -solarized
         " -tomorrow
         " -twilight
+        Plug 'reedes/vim-colors-pencil'
 
         " ### Usability
         Plug 'ahri/vim-sesspit'
+        Plug 'myusuf3/numbers.vim.git '
 
         Plug 'terryma/vim-expand-region'
         map K <Plug>(expand_region_expand)
@@ -214,10 +216,7 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         nnoremap <leader>gm :Gmerge<cr>
 
         " ### Code highlighting
-        Plug 'gabrielelana/vim-markdown'
-        Plug 'othree/html5.vim'
-        Plug 'pangloss/vim-javascript'
-        Plug 'jelera/vim-javascript-syntax'
+        Plug 'sheerun/vim-polyglot'
 
         " ### General Code
         " completion
@@ -240,6 +239,14 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         " use \\\ to comment stuff
         Plug 'tpope/vim-commentary'
         Plug 'Raimondi/delimitMate' " add delimiters
+
+        " Writing
+        Plug 'reedes/vim-wordy'
+        Plug 'reedes/vim-lexical'
+        Plug 'kana/vim-textobject-user' | Plug 'reedes/vim-textobj-quote'
+        Plug 'kana/vim-textobject-user' | Plug 'reedes/vim-textobj-sentence'
+        Plug 'junegunn/goyo.vim'
+        Plug 'junegunn/limelight.vim'
 
         call plug#end()
 
