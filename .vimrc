@@ -38,8 +38,7 @@ nnoremap k gk
 set background=dark
 
 " TODO: consider https://github.com/vim-scripts/LanguageTool
-set spell spelllang=en_gb
-set nospell
+set nospell spelllang=en_gb
 nnoremap ]z ]s
 nnoremap [z [s
 " ]z and [z to navigate through spelling errors
@@ -51,31 +50,7 @@ nnoremap [z [s
 nnoremap <leader>q gqip "  hard re-wrap paragraph
 nnoremap <leader>p `[v`] " select last paste
 
-autocmd FocusLost * :wall " Write file when focus lost
-
-let g:writingmode=0
-function! ToggleWriting()
-        if (g:writingmode == 0)
-                let g:writingmode=1
-                let g:writingmode_normalfont=&guifont
-                let g:writingmode_normalcolorscheme=g:colors_name
-                set background=light
-                colorscheme solarized
-                if has("win32") || has("gui_macvim")
-                        set anti guifont=Fantasque\ Sans\ Mono\ Regular:h24
-                else
-                        set anti guifont=Fantasque\ Sans\ Mono\ 15
-                endif
-                echo "Writing mode ON"
-        else
-                let g:writingmode=0
-                set background=dark
-                let &guifont=g:writingmode_normalfont
-                execute "colorscheme " . g:writingmode_normalcolorscheme
-                echo "Writing mode OFF"
-        endif
-endfunction
-nnoremap zt :call ToggleWriting()<cr>
+autocmd FocusLost * :silent! wall " Write files when focus lost
 
 function! BundleDir(...)
         let bundledir = $HOME . "/.vim/bundle"
@@ -135,11 +110,10 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         " -solarized
         " -tomorrow
         " -twilight
-        Plug 'reedes/vim-colors-pencil'
 
         " ### Usability
         Plug 'ahri/vim-sesspit'
-        Plug 'myusuf3/numbers.vim.git '
+        Plug 'myusuf3/numbers.vim'
 
         Plug 'terryma/vim-expand-region'
         map K <Plug>(expand_region_expand)
@@ -240,13 +214,8 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         Plug 'tpope/vim-commentary'
         Plug 'Raimondi/delimitMate' " add delimiters
 
-        " Writing
-        Plug 'reedes/vim-wordy'
-        Plug 'reedes/vim-lexical'
-        Plug 'kana/vim-textobject-user' | Plug 'reedes/vim-textobj-quote'
-        Plug 'kana/vim-textobject-user' | Plug 'reedes/vim-textobj-sentence'
-        Plug 'junegunn/goyo.vim'
-        Plug 'junegunn/limelight.vim'
+        " So that I can manage my deps all in one place
+        source ~/.vim/writingdeps.vim
 
         call plug#end()
 
@@ -263,13 +232,13 @@ set ignorecase
 " anti-tab settings
 function! Tabs(spaces)
         " number of spaces tab counts as
-        exec "set softtabstop=" . a:spaces
+        exec "setlocal softtabstop=" . a:spaces
         " auto-indent shift
-        exec "set shiftwidth=" . a:spaces
+        exec "setlocal shiftwidth=" . a:spaces
         " how many spaces do tabs look like?
-        exec "set tabstop=" . a:spaces
+        exec "setlocal tabstop=" . a:spaces
         " expand a tab into spaces
-        set expandtab
+        setlocal expandtab
 endfunction
 
 " default to 4 spaces for a tab
@@ -310,7 +279,7 @@ set scrolloff=6                           " lines above/below to show for contex
 
 if has("gui_running")
 	set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
-	set guioptions=aegirLt                    " set a few gui options
+	set guioptions=aei                        " set a few gui options
 	set mouse=                                " disable the mouse when --with-x was specified
 
 	if has("win32")
