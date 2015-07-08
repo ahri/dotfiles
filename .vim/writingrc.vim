@@ -3,7 +3,8 @@ set runtimepath=~/.vim,$VIMRUNTIME
 
 if filereadable($HOME . "/.vim/autoload/plug.vim")
         call plug#begin("~/.vim/bundle")
-        source ~/.vim/writingdeps.vim
+        source ~/.vim/common-deps.vim
+        source ~/.vim/writing-deps.vim
         call plug#end()
 endif
 

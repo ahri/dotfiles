@@ -66,6 +66,8 @@ endfunction
 if filereadable($HOME . "/.vim/autoload/plug.vim")
         call plug#begin(BundleDir())
 
+        source ~/.vim/common-deps.vim
+
         function! InstallingOrCompiled(compiled_file)
                 let plugin_dir = matchstr(a:compiled_file, '\zs.*\.vim/bundle/[^/]\+\ze/')
                 if empty(plugin_dir)
@@ -112,7 +114,6 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         " -twilight
 
         " ### Usability
-        Plug 'ahri/vim-sesspit'
         Plug 'myusuf3/numbers.vim'
 
         Plug 'terryma/vim-expand-region'
@@ -215,7 +216,7 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         Plug 'Raimondi/delimitMate' " add delimiters
 
         " So that I can manage my deps all in one place
-        source ~/.vim/writingdeps.vim
+        source ~/.vim/writing-deps.vim
 
         call plug#end()
 
