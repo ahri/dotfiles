@@ -8,8 +8,10 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
         call plug#end()
 endif
 
-if has("win32") || has("gui_macvim")
+if has("win32")
         set anti guifont=Fantasque\ Sans\ Mono\ Regular:h18
+elseif has("gui_macvim")
+        set anti guifont=Fantasque\ Sans\ Mono\ Regular:h32
 else
         set anti guifont=Fantasque\ Sans\ Mono\ 15
 endif
@@ -39,12 +41,13 @@ colorscheme pencil
 
 filetype plugin indent on
 
-autocmd VimEnter,BufEnter * Goyo 90x20
+" autocmd VimEnter,BufEnter * Goyo 90x20
 autocmd VimEnter * Limelight
 autocmd VimEnter * call lexical#init()
 autocmd VimEnter * call textobj#sentence#init()
 autocmd VimEnter * call textobj#quote#init()
 autocmd BufEnter *.md setlocal syntax=markdown | setlocal textwidth=80
 
-cd ~/repos/blog
-silent! edit _posts/
+autocmd! User GoyoLeave nested quit
+
+let g:netrw_banner=0
