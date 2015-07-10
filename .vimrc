@@ -47,6 +47,26 @@ nnoremap [z [s
 " zw to mark a work "wrong"
 " zug, zuw - undo
 
+let g:focus = 0
+function! FocusToggle()
+        if !g:focus
+                set nonumber
+                set norelativenumber
+                NumbersDisable
+                Goyo 90x40
+                Limelight
+                let g:focus = 1
+        else
+                Limelight!
+                Goyo!
+                set relativenumber
+                set number
+                NumbersEnable
+                let g:focus = 0
+        endif
+endfunction
+nnoremap <leader>f :call FocusToggle()<CR>
+
 nnoremap <leader>q gqip "  hard re-wrap paragraph
 nnoremap <leader>p `[v`] " select last paste
 
