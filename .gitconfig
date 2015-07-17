@@ -9,3 +9,5 @@
 	default = simple
 [alias]
     ctags = !gitdir="`git rev-parse --git-dir`" tags="$gitdir/tags" tmp="$tags.tmp" export tmp tags && [ -e "$tmp" ] || (git ls-files | ctags --tag-relative --languages=-javascript,sql -L - -f "$tmp" && mv "$tmp" "$tags") &
+[core]
+	excludesfile = ~/.gitignore_global
