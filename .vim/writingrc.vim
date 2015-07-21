@@ -1,8 +1,7 @@
-set nocompatible
-set runtimepath=~/.vim,$VIMRUNTIME
+source ~/.vim/common.vim
 
 if filereadable($HOME . "/.vim/autoload/plug.vim")
-        call plug#begin("~/.vim/bundle")
+        call plug#begin(BundleDir())
         source ~/.vim/common-deps.vim
         source ~/.vim/writing-deps.vim
         call plug#end()
@@ -16,33 +15,26 @@ else
         set anti guifont=Fantasque\ Sans\ Mono\ 15
 endif
 
-if has("win32")
-        autocmd GUIEnter * simalt ~x
-endif
-
 set background=light
-
 set wrap
 set nonumber
 set norelativenumber
-set nobackup
-set noswapfile
-set incsearch
-set scrolloff=6
-set gcr=a:blinkon0
 set guioptions=aei
 set mouse=
 
 set spell spelllang=en_gb
 nnoremap ]z ]s
 nnoremap [z [s
+" ]z and [z to navigate through spelling errors
+" z= to suggest a change
+" zg to mark a word "good"
+" zw to mark a work "wrong"
+" zug, zuw - undo
 
 colorscheme pencil
 
 filetype plugin indent on
 
-" autocmd VimEnter,BufEnter * Goyo 90x20
-autocmd VimEnter * Limelight
 autocmd VimEnter * call lexical#init()
 autocmd VimEnter * call textobj#sentence#init()
 autocmd VimEnter * call textobj#quote#init()
@@ -51,3 +43,13 @@ autocmd BufEnter *.md setlocal syntax=markdown | setlocal textwidth=80
 autocmd! User GoyoLeave nested quit
 
 let g:netrw_banner=0
+
+function! Focus()
+        Goyo 90x40
+        Limelight
+endfunction
+
+" TODO: consider https://github.com/vim-scripts/LanguageTool
+
+nnoremap <leader>f :call Focus()<CR>
+nnoremap <leader>q gqip "  hard re-wrap paragraph

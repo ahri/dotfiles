@@ -23,8 +23,8 @@ task :dotfiles
 
 desc "Configure vim with plugins"
 task :vim do
-  sh "vim +PlugInstall +qall"
-  sh "vim +PlugClean! +qall"
+  sh "vim -u .vim/installrc.vim +PlugInstall +qall"
+  sh "vim -u .vim/installrc.vim +PlugClean! +qall"
 end
 
 def multiplatform_symlink(source, target)
