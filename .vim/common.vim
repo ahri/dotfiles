@@ -5,7 +5,6 @@ let mapleader = "\<Space>"
 
 " Don't use ex mode
 noremap Q <NOP>
-set backspace= " use vi backspace behaviour. gJ in normal mode will join lines
 
 " backup/recovery related
 set nobackup
@@ -34,7 +33,11 @@ function! BundleDir(...)
         return bundledir . "/" . a:1
 endfunction
 
-" Disable cursor keys so I'm not tempted
+" Habit breaking/making
+inoremap <ESC> <NOP>
+inoremap jk <ESC>
+set backspace= " use vi backspace behaviour. gJ in normal mode will join lines
+
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -44,5 +47,6 @@ inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
 
+" when wrapped, move to the expected location
 nnoremap j gj
 nnoremap k gk
