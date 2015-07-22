@@ -35,10 +35,13 @@ colorscheme pencil
 
 filetype plugin indent on
 
-autocmd VimEnter * call lexical#init()
-autocmd VimEnter * call textobj#sentence#init()
-autocmd VimEnter * call textobj#quote#init()
-autocmd BufEnter *.md setlocal syntax=markdown | setlocal textwidth=80
+augroup writing
+	autocmd!
+	autocmd VimEnter * call lexical#init()
+	autocmd VimEnter * call textobj#sentence#init()
+	autocmd VimEnter * call textobj#quote#init()
+	autocmd BufEnter *.md setlocal syntax=markdown | setlocal textwidth=80
+augroup END
 
 autocmd! User GoyoLeave nested quit
 
@@ -53,3 +56,5 @@ endfunction
 
 nnoremap <leader>f :call Focus()<CR>
 nnoremap <leader>q gqip "  hard re-wrap paragraph
+
+nnoremap <leader>b :cd ~/repos/blog \| silent edit _posts/ \| normal r<cr>

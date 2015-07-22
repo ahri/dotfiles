@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -ue
+
+gvim -u ~/.vim/writingrc.vim
