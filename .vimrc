@@ -47,7 +47,6 @@ set tw=0                                  " text-width, set to zero - I don't wa
 set nowrap                                " i just don't like it wrapping
 set nu                                    " number lines
 set nocuc nocul                           " vt/hz line highlight -- I'm always losing my place
-autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just parse the whole file
 "syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
@@ -65,18 +64,33 @@ if has("gui_running")
 endif
 
 " set some stuff up per filetype
-autocmd BufEnter *.py call Tabs(4)
-autocmd BufEnter *.rb call Tabs(2)
-autocmd BufEnter *.js call Tabs(2)
-autocmd BufEnter *.md setlocal textwidth=80
-autocmd BufEnter *.vim* call Tabs(8)
-autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
-autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
-autocmd BufEnter build.gradle set syntax=groovy
+augroup filetypes
+        autocmd!
+        autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just parse the whole file
+        autocmd BufEnter *.py call Tabs(4)
+        autocmd BufEnter *.rb call Tabs(2)
+        autocmd BufEnter *.js call Tabs(2)
+        autocmd BufEnter *.md setlocal textwidth=80
+        autocmd BufEnter *.vim* call Tabs(8)
+        autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
+        autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
+        autocmd BufEnter build.gradle set syntax=groovy
+        autocmd BufWrite *.c,*.php,*.py,*.rb,*.java,*.js call CleanWhitespace()
+augroup END
+
 if has('matchadd')
-    autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
+        augroup todo
+                autocmd!
+                autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
+        augroup END
 endif
-autocmd BufWrite *.c,*.php,*.py,*.rb,*.java,*.js call CleanWhitespace()
+
+if has('conceal')
+        augroup margin
+                autocmd!
+                autocmd BufEnter * set colorcolumn=80
+        augroup END
+endif
 
 set relativenumber " display numbers relative to current line
 
@@ -97,9 +111,3 @@ nnoremap <leader>l <C-w>l
 " noremap <leader>O O<Esc>j
 
 nnoremap <leader>p `[v`] " select last paste
-
-" detect vim >= 7.3
-if !has('conceal')
-    finish
-endif
-autocmd BufEnter * set colorcolumn=80
