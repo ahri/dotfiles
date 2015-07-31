@@ -1,7 +1,7 @@
 function! InstallingOrCompiled(compiled_file)
         let plugin_dir = matchstr(a:compiled_file, '\zs.*\.vim/bundle/[^/]\+\ze/')
         if empty(plugin_dir)
-                throw "no plugin_dir"
+                throw 'no plugin_dir'
         endif
         return !isdirectory(plugin_dir) || filereadable(a:compiled_file)
 endfunction
@@ -18,7 +18,7 @@ if empty(&t_Co) || &t_Co >= 88
         " :CSApproxSnapshot ~/.vim/colors/foobar.vim
         " :colorscheme foobar
 
-        let potential_rgbtxt = "/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt"
+        let potential_rgbtxt = '/Applications/MacVim.app/Contents/Resources/vim/runtime/rgb.txt'
         if filereadable(potential_rgbtxt)
                 let g:csexact_rgbtxt = potential_rgbtxt
         endif
@@ -27,6 +27,7 @@ if empty(&t_Co) || &t_Co >= 88
 endif
 
 Plug 'tomasr/molokai'
+Plug 'romainl/Apprentice'
 Plug 'nanotech/jellybeans.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
@@ -75,20 +76,20 @@ endfunction
 function! s:DeleteBuffer()
         let path = fnamemodify(getline('.')[2:], ':p')
         let bufn = matchstr(path, '\v\d+\ze\*No Name')
-        exec "bd" bufn ==# "" ? path : bufn
-        exec "norm \<F5>"
+        exec 'bd' bufn ==# '' ? path : bufn
+        exec 'norm \<F5>'
 endfunction
 
-if executable("ag")
+if executable('ag')
         set grepprg=ag\ --nogroup\ --nocolor
         let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
               \ --ignore .git
               \ --ignore .svn
               \ --ignore .hg
               \ --ignore .DS_Store
-              \ --ignore "**/*.pyc"
-              \ --ignore "**/*.class"
-              \ -g ""'
+              \ --ignore '**/*.pyc'
+              \ --ignore '**/*.class'
+              \ -g '''
 endif
 
 Plug 'rking/ag.vim'
@@ -121,11 +122,11 @@ Plug 'sheerun/vim-polyglot'
 " completion
 Plug 'ajh17/VimCompletesMe'
 
-if InstallingOrCompiled(BundleDir("YouCompleteMe/third_party/ycmd/ycm_core.so")) && (v:version > 703 || (v:version == 703 && has('patch584')))
+if InstallingOrCompiled(BundleDir('YouCompleteMe/third_party/ycmd/ycm_core.so')) && executable('cmake') && (v:version > 703 || (v:version == 703 && has('patch584')))
         Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
 endif
 
-if InstallingOrCompiled(BundleDir("tern_for_vim/node_modules/.bin/tern"))
+if InstallingOrCompiled(BundleDir('tern_for_vim/node_modules/.bin/tern'))
         Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
         nnoremap <leader>tR :TernRename<cr>
         nnoremap <leader>tt :TernType<cr>
@@ -142,4 +143,3 @@ vnoremap <leader>d YP`[V`]:Commentary<cr>`]<cr>
 nnoremap <leader>d YP`[V`]:Commentary<cr>`]<cr>
 
 Plug 'Raimondi/delimitMate' " add delimiters
-
