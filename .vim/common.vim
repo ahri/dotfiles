@@ -50,3 +50,5 @@ inoremap <Right> <NOP>
 " when wrapped, move to the expected location
 nnoremap j gj
 nnoremap k gk
+
+nnoremap <leader>w :write<cr>

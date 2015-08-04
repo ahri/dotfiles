@@ -126,7 +126,7 @@ if InstallingOrCompiled(BundleDir('YouCompleteMe/third_party/ycmd/ycm_core.so'))
         Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
 endif
 
-if InstallingOrCompiled(BundleDir('tern_for_vim/node_modules/.bin/tern'))
+if InstallingOrCompiled(BundleDir('tern_for_vim/node_modules/.bin/tern')) && executable('npm')
         Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
         nnoremap <leader>tR :TernRename<cr>
         nnoremap <leader>tt :TernType<cr>
