@@ -82,14 +82,14 @@ endfunction
 
 if executable('ag')
         set grepprg=ag\ --nogroup\ --nocolor
-        let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+        let g:ctrlp_user_command = "ag %s -i --nocolor --nogroup --hidden
               \ --ignore .git
               \ --ignore .svn
               \ --ignore .hg
               \ --ignore .DS_Store
               \ --ignore '**/*.pyc'
               \ --ignore '**/*.class'
-              \ -g '''
+              \ -g ''"
 endif
 
 Plug 'rking/ag.vim'
