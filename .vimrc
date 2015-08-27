@@ -54,7 +54,7 @@ set ruler                                 " it's nice to know where you are in l
 
 if has("gui_running")
 	if has("win32")
-		set anti guifont=Monaco_for_Powerline:h12:cANSI
+		set anti guifont=Powerline_Consolas:h12:cANSI
                 set encoding=utf8
 	elseif has("gui_macvim")
 		set anti guifont=Monaco_for_Powerline:h18
