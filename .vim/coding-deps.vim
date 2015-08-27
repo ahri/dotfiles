@@ -141,5 +141,3 @@ Plug 'tpope/vim-commentary'
 " map <leader>d to duplicate text, commenting out the first one
 vnoremap <leader>d YP`[V`]:Commentary<cr>`]<cr>
 nnoremap <leader>d YP`[V`]:Commentary<cr>`]<cr>
-
-Plug 'Raimondi/delimitMate' " add delimiters
