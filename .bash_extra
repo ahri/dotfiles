@@ -2,4 +2,6 @@
 
 PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\$(__git_ps1) \$\[\033[00m\] "
 
+source "$HOME/.git-completion.bash"
+
 [ -e "$HOME/.bash_local" ] && source "$HOME/.bash_local"
