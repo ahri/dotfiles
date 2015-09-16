@@ -59,7 +59,7 @@ if has("gui_running")
 	elseif has("gui_macvim")
 		set anti guifont=Monaco_for_Powerline:h18
 	else
-		set anti guifont=Monaco\ for\ Powerline\ 11
+		set anti guifont=Fantasque\ Sans\ Mono\ 13
 	endif
 endif
 
