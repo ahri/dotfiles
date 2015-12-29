@@ -22,7 +22,7 @@ if empty(&t_Co) || &t_Co >= 88
         if filereadable(potential_rgbtxt)
                 let g:csexact_rgbtxt = potential_rgbtxt
         endif
-        Plug 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
+        " Plug 'KevinGoodsell/vim-csexact' " now get as close as possible to gvim's colours (takes longer to start and quit)
         " :CSExactColors (to reset... doesn't seem to work that well in practise!)
 endif
 
@@ -116,7 +116,9 @@ nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gm :Gmerge<cr>
 
 " ### Code highlighting
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot' " breaks HTML5
+Plug 'othree/html5.vim'
+Plug 'ekalinin/Dockerfile.vim'
 
 " ### General Code
 " completion
