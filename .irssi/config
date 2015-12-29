@@ -1,0 +1,16 @@
+servers = (
+  {
+    address = "chat.freenode.net";
+    chatnet = "freenode";
+    port = "6697";
+    use_ssl = "yes";
+    ssl_verify = "yes";
+    ssl_capath = "/etc/ssl/certs";
+    autoconnect = "yes";
+  }
+);
+settings = {
+  core = { real_name = "Adam"; user_name = "ahri"; nick = "ahri"; };
+  "fe-text" = { actlist_sort = "refnum"; };
+};
+chatnets = { freenode = { type = "IRC"; }; };
