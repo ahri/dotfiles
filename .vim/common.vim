@@ -34,8 +34,6 @@ function! BundleDir(...)
 endfunction
 
 " Habit breaking/making
-inoremap <ESC> <NOP>
-inoremap jk <ESC>
 set backspace= " use vi backspace behaviour. gJ in normal mode will join lines
 
 noremap <Up> <NOP>
@@ -50,5 +48,3 @@ inoremap <Right> <NOP>
 " when wrapped, move to the expected location
 nnoremap j gj
 nnoremap k gk
-
-nnoremap <leader>w :write<cr>
