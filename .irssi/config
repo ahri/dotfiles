@@ -1,6 +1,6 @@
 servers = (
   {
-    address = "chat.freenode.net";
+    address = "irc.freenode.net";
     chatnet = "freenode";
     port = "6697";
     use_ssl = "yes";
@@ -12,5 +12,11 @@ servers = (
 settings = {
   core = { real_name = "Adam"; user_name = "ahri"; nick = "ahri"; };
   "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = {
+    beep_when_window_active = "yes";
+    beep_when_away = "yes";
+    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
+    bell_beeps = "yes";
+  };
 };
 chatnets = { freenode = { type = "IRC"; }; };
