@@ -119,9 +119,11 @@ nnoremap <leader>gm :Gmerge<cr>
 " Plug 'sheerun/vim-polyglot' " breaks HTML5
 Plug 'othree/html5.vim'
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'othree/yajs.vim'
 
 " ### General Code
 " completion
+Plug 'vim-scripts/SyntaxComplete'
 Plug 'ajh17/VimCompletesMe'
 
 if InstallingOrCompiled(BundleDir('YouCompleteMe/third_party/ycmd/ycm_core.so')) && executable('cmake') && (v:version > 703 || (v:version == 703 && has('patch584')))
