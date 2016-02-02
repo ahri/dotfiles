@@ -11,9 +11,6 @@ fi
 export EDITOR="`which vi`"
 export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
-#set -o vi
-which stty > /dev/null && (stty stop undef; stty start undef)
-
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
