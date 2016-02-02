@@ -8,7 +8,7 @@ if [ -d "$HOME/bin" ] && echo $PATH | grep -qv "\(^\|:\)$HOME/bin\($\|:\)"; then
     export PATH="$HOME/bin:$PATH"
 fi
 
-export EDITOR="`which vi`"
+export EDITOR="`which vim`"
 export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
