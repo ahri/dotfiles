@@ -2,8 +2,13 @@
 [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 setxkbmap gb
 
-synclient VertScrollDelta=-111
-synclient HorizScrollDelta=-111
+synclient VertScrollDelta=-150
+synclient HorizScrollDelta=-150
+
+## If syclient is unavailable this works:
+# device=`xinput list | grep 'Synaptics' | sed 's,.*id=,,;s,\t.*,,'`
+# prop=`xinput list-props $device | grep 'Synaptics Scrolling Distance' | sed 's,.*(,,;s,).*,,'`
+# xinput set-prop $device $prop -150 -150
 
 for p in unclutter dunst notify-osd; do
     killall "$p" 2> /dev/null
