@@ -8,7 +8,7 @@ xft.rgb:          true
 xft.antialias:    false
 xft.hinting:      true
 
-*.font:           xft:monaco for powerline:size=10,style=regular
+URxvt.font:           xft:monaco for powerline:size=10,style=regular
 
 URxvt.iso14755:   false
 *.scrollBar:      false

@@ -115,17 +115,32 @@ nnoremap <leader>gl :Glog<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gm :Gmerge<cr>
 
-" ### Code highlighting
+" ### Highlighting
 " Plug 'sheerun/vim-polyglot' " breaks HTML5
-Plug 'othree/html5.vim'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'othree/yajs.vim'
+Plug 'othree/html5.vim', { for: 'html' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
 
-" ### General Code
-" completion
-Plug 'vim-scripts/SyntaxComplete'
+" ### Completion
+if executable('flow')
+        Plug 'flowtype/vim-flow', { 'for': 'javascript' }
+endif
+
+" " ### TypeScript
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'Shougo/vimproc.vim', {
+" \ 'build' : {
+" \     'windows' : 'tools\\update-dll-mingw',
+" \     'cygwin' : 'make -f make_cygwin.mak',
+" \     'mac' : 'make',
+" \     'linux' : 'make',
+" \     'unix' : 'gmake',
+" \    },
+" \ }
+" Plug 'Quramy/tsuquyomi'
+
 Plug 'ajh17/VimCompletesMe'
-
 if InstallingOrCompiled(BundleDir('YouCompleteMe/third_party/ycmd/ycm_core.so')) && executable('cmake') && (v:version > 703 || (v:version == 703 && has('patch584')))
         Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
 endif
@@ -139,7 +154,14 @@ if InstallingOrCompiled(BundleDir('tern_for_vim/node_modules/.bin/tern')) && exe
 endif
 
 " run linters etc.
-Plug 'scrooloose/syntastic'
+if has('nvim')
+        Plug 'benekastah/neomake'
+        autocmd! BufWritePost * Neomake
+        Plug 'janko-m/vim-test'
+else
+        Plug 'scrooloose/syntastic'
+endif
+
 " use \\\ to comment stuff
 Plug 'tpope/vim-commentary'
 " map <leader>d to duplicate text, commenting out the first one
