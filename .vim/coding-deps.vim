@@ -118,13 +118,14 @@ nnoremap <leader>gm :Gmerge<cr>
 " ### Highlighting
 " Plug 'sheerun/vim-polyglot' " breaks HTML5
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'othree/html5.vim', { for: 'html' }
+Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 
 " ### Completion
 if executable('flow')
         Plug 'flowtype/vim-flow', { 'for': 'javascript' }
 endif
+autocmd BufEnter *.js setl omnifunc=flowcomplete#Complete
 
 " " ### TypeScript
 " Plug 'HerringtonDarkholme/yats.vim'
@@ -141,9 +142,9 @@ endif
 " Plug 'Quramy/tsuquyomi'
 
 Plug 'ajh17/VimCompletesMe'
-if InstallingOrCompiled(BundleDir('YouCompleteMe/third_party/ycmd/ycm_core.so')) && executable('cmake') && (v:version > 703 || (v:version == 703 && has('patch584')))
-        Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
-endif
+" if InstallingOrCompiled(BundleDir('YouCompleteMe/third_party/ycmd/ycm_core.so')) && executable('cmake') && (v:version > 703 || (v:version == 703 && has('patch584')))
+"         Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+" endif
 
 if InstallingOrCompiled(BundleDir('tern_for_vim/node_modules/.bin/tern')) && executable('npm')
         Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
