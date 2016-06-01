@@ -121,6 +121,19 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+let g:elm_setup_keybindings = 0
+let g:elm_format_autosave = 1
+nnoremap <Leader>lm :ElmMake<cr>
+nnoremap <Leader>lb :ElmMakeMain<cr>
+nnoremap <Leader>lt :ElmTest<cr>
+nnoremap <Leader>lr :ElmRepl<cr>
+nnoremap <Leader>le :ElmErrorDetail<cr>
+nnoremap <Leader>ld :ElmShowDocs<cr>
+nnoremap <Leader>lw :ElmBrowseDocs<cr>
+" TODO: add completion, maybe consider neocomplete w/neovim
+" See: https://github.com/ElmCast/elm-vim
+
 " ### Completion
 if executable('flow')
         Plug 'flowtype/vim-flow', { 'for': 'javascript' }
