@@ -1,6 +1,0 @@
-Plug 'reedes/vim-colors-pencil'
-Plug 'reedes/vim-wordy'
-Plug 'reedes/vim-lexical'
-Plug 'reedes/vim-pencil'
-Plug 'kana/vim-textobj-user' | Plug 'reedes/vim-textobj-quote'
-Plug 'kana/vim-textobj-user' | Plug 'reedes/vim-textobj-sentence'

@@ -1,0 +1,5 @@
+http://vim.wikia.com/wiki/Keep_your_vimrc_file_clean
+move all the language-specific stuff from your .vimrc file into a file named .vim/ftplugin/language.vim
+If you like most of what Vim's filetype plugin is doing, but you want to override something specific, you can place your settings in .vim/after/ftplugin/language.vim
+
+http://tedlogan.com/techblog3.html

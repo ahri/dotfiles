@@ -1,61 +1,77 @@
+autocmd ColorScheme * highlight Todo ctermbg=darkyellow guibg=darkyellow
+
 source ~/.vim/common.vim
 
-if filereadable($HOME . "/.vim/autoload/plug.vim")
-        call plug#begin(BundleDir())
-        source ~/.vim/common-deps.vim
-        source ~/.vim/coding-deps.vim
-        call plug#end()
+syntax on
 
-        colorscheme molokai
+set background=dark
+let macvim_skip_colorscheme=1
+
+if has("termguicolors")
+	set termguicolors
 endif
 
-syntax on
-set background=dark
+" For Neovim 0.1.3 and 0.1.4
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-" anti-tab settings
+if !has('gui_running') && $TERM =~ "-256color"
+	set t_Co=256 " breaks my mintty settings
+endif
+
+function! DefaultColorscheme(scheme)
+	try
+		if (g:colors_name == "default")
+			execute 'colorscheme ' . a:scheme
+		endif
+	catch /\<E121\>/
+		execute 'colorscheme ' . a:scheme
+	endtry
+endfunction
+
+if filereadable($HOME . "/.vim/autoload/plug.vim")
+	call plug#begin(BundleDir())
+	source ~/.vim/common-deps.vim
+	source ~/.vim/coding-deps.vim
+	call plug#end()
+endif
+
+if has('gui_running') || $TERM =~ "-256color$"
+	call DefaultColorscheme("happy_hacking")
+else
+	call DefaultColorscheme("elflord")
+endif
+
 function! Tabs(spaces)
-        " number of spaces tab counts as
-        exec "setlocal softtabstop=" . a:spaces
-        " auto-indent shift
-        exec "setlocal shiftwidth=" . a:spaces
-        " how many spaces do tabs look like?
-        exec "setlocal tabstop=" . a:spaces
-        " expand a tab into spaces
-        setlocal expandtab
+	" number of spaces tab counts as
+	exec "setlocal softtabstop=" . a:spaces
+	" auto-indent shift
+	exec "setlocal shiftwidth=" . a:spaces
+	" how many spaces do tabs look like?
+	exec "setlocal tabstop=" . a:spaces
+	" expand a tab into spaces
+	setlocal expandtab
 endfunction
 
-" default to 4 spaces for a tab
-call Tabs(4)
-
-" clean up the whitespace in a file, as long as it's not switched off with:
-" :let g:unclean=1
 function! CleanWhitespace()
-        if g:dirty == 0
-                retab
-                %s/ \+$//e
-        endif
-endfunction
-let g:dirty = 0
-
-function! Dirty()
-        let g:dirty = 1
+	retab
+	%s/ \+$//e
 endfunction
 
-" coding oriented settings
-set ai                                    " auto indent
-set tw=0                                  " text-width, set to zero - I don't want line breaks leaking in
-set nowrap                                " i just don't like it wrapping
-set nu                                    " number lines
-set nocuc nocul                           " vt/hz line highlight -- I'm always losing my place
-"syn sync minlines=500                     " look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
+set ai				" auto indent
+set tw=0			" text-width, set to zero - I don't want line breaks leaking in
+set nowrap			" i just don't like it wrapping
+set number			" number lines
+set relativenumber
+set nocuc nocul			" vt/hz line highlight -- I'm always losing my place
+"syn sync minlines=500		" look back 500 lines to figure out syntax (may be better than above if slowdown occurs)
 
 " 'look' oriented settings
-set ruler                                 " it's nice to know where you are in life
+set ruler			" it's nice to know where you are in life
 
 if has("gui_running")
 	if has("win32")
 		set anti guifont=Powerline_Consolas:h12:cANSI
-                set encoding=utf8
+		set encoding=utf8
 	elseif has("gui_macvim")
 		set anti guifont=Monaco_for_Powerline:h18
 	else
@@ -63,37 +79,24 @@ if has("gui_running")
 	endif
 endif
 
-" set some stuff up per filetype
 augroup filetypes
-        autocmd!
-        autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just parse the whole file
-        autocmd BufEnter *.py call Tabs(4)
-        autocmd BufEnter *.rb call Tabs(2)
-        autocmd BufEnter *.js call Tabs(2)
-        autocmd BufEnter *.html call Tabs(2)
-        autocmd BufEnter *.md setlocal textwidth=80
-        autocmd BufEnter *.vim* call Tabs(8)
-        autocmd BufEnter Rakefile set syntax=ruby | call Tabs(2)
-        autocmd BufEnter Buildfile set syntax=ruby | call Tabs(2)
-        autocmd BufEnter build.gradle set syntax=groovy
-        autocmd BufWrite *.c,*.php,*.py,*.rb,*.java,*.js call CleanWhitespace()
+	autocmd!
+	autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just parse the whole file
 augroup END
 
 if has('matchadd')
-        augroup todo
-                autocmd!
-                autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
-        augroup END
+	augroup todo
+		autocmd!
+		autocmd BufEnter * silent! call matchadd('Todo', 'TODO:\|AMP:', -1)
+	augroup END
 endif
 
 if has('conceal')
-        augroup margin
-                autocmd!
-                autocmd BufEnter * set colorcolumn=80
-        augroup END
+	augroup margin
+		autocmd!
+		autocmd BufEnter * set colorcolumn=80
+	augroup END
 endif
-
-set relativenumber " display numbers relative to current line
 
 " Mapping in vim:
 " map, noremap (non recursive map, similar to by-reference passing) - normal, visual & operator modes
@@ -107,8 +110,3 @@ nnoremap <leader>k <C-w>k
 nnoremap <leader>j <C-w>j
 nnoremap <leader>h <C-w>h
 nnoremap <leader>l <C-w>l
-
-" noremap <leader>o o<Esc>k
-" noremap <leader>O O<Esc>j
-
-nnoremap <leader>p `[v`] " select last paste
