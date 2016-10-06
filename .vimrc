@@ -1,5 +1,3 @@
-autocmd ColorScheme * highlight Todo ctermbg=darkyellow guibg=darkyellow
-
 source ~/.vim/common.vim
 
 syntax on
@@ -14,17 +12,17 @@ endif
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-if !has('gui_running') && $TERM =~ "-256color"
+if !has('gui_running') && $TERM =~ "-256color$"
 	set t_Co=256 " breaks my mintty settings
 endif
 
 function! DefaultColorscheme(scheme)
 	try
 		if (g:colors_name == "default")
-			execute 'colorscheme ' . a:scheme
+			execute 'silent! colorscheme ' . a:scheme
 		endif
 	catch /\<E121\>/
-		execute 'colorscheme ' . a:scheme
+		execute 'silent! colorscheme ' . a:scheme
 	endtry
 endfunction
 
@@ -36,7 +34,7 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
 endif
 
 if has('gui_running') || $TERM =~ "-256color$"
-	call DefaultColorscheme("happy_hacking")
+	call DefaultColorscheme("tender")
 else
 	call DefaultColorscheme("elflord")
 endif
@@ -83,13 +81,6 @@ augroup filetypes
 	autocmd!
 	autocmd BufEnter * :syntax sync fromstart " don't be clever about syntax, just parse the whole file
 augroup END
-
-if has('matchadd')
-	augroup todo
-		autocmd!
-		autocmd BufEnter * silent! call matchadd('Todo', 'TODO:\|AMP:', -1)
-	augroup END
-endif
 
 if has('conceal')
 	augroup margin
