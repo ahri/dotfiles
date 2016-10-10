@@ -1,6 +1,10 @@
 BoldAsFont=-1
 BackgroundColour=40,40,40
-Font=Consolas
+Font=Hasklig
 FontHeight=11
 Locale=C
 Charset=UTF-8
+FontSmoothing=full
+Transparency=high
+OpaqueWhenFocused=yes
+Term=xterm-256color
