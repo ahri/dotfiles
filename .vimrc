@@ -4,6 +4,7 @@ syntax on
 
 set background=dark
 let macvim_skip_colorscheme=1
+silent! set macligatures
 
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -67,7 +68,7 @@ if has("gui_running")
 		set anti guifont=Consolas:h12:cANSI
 		set encoding=utf8
 	elseif has("gui_macvim")
-		set anti guifont=Monaco:h18
+		set anti guifont=Hasklig:h18
 	else
 		set anti guifont=Fantasque\ Sans\ Mono\ 13
 	endif
