@@ -44,4 +44,6 @@ nnoremap <C-g> :GitGutterPreviewHunk<cr>
 " use \\\ to comment stuff
 Plug 'tpope/vim-commentary'
 
-Plug 'ludovicchabant/vim-gutentags'
+if executable('ctags')
+	Plug 'ludovicchabant/vim-gutentags'
+endif
