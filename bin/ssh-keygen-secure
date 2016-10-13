@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -ue
+
+# https://blog.g3rt.nl/upgrade-your-ssh-keys.html
+ssh-keygen -o -a 100 -t ed25519
