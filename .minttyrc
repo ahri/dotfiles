@@ -1,6 +1,6 @@
-BoldAsFont=-1
+BoldAsFont=yes
 BackgroundColour=40,40,40
-Font=Hasklig
+Font=Fira Code
 FontHeight=11
 Locale=C
 Charset=UTF-8
@@ -8,3 +8,7 @@ FontSmoothing=full
 Transparency=high
 OpaqueWhenFocused=yes
 Term=xterm-256color
+BoldAsColour=yes
+FontWeight=400
+CursorType=block
+CursorBlinks=no
