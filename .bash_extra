@@ -6,6 +6,6 @@ source "$HOME/.git-completion.bash"
 
 [ -e "$HOME/.bash_local" ] && source "$HOME/.bash_local"
 
-if [ `cat /proc/$PPID/cmdline` = "qterminal" ]; then
+if [ `tr -d '\0' < /proc/$PPID/cmdline` = "qterminal" ]; then
   export TERM=xterm-256color
 fi
