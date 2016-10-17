@@ -1,6 +1,10 @@
 Plug 'scrooloose/syntastic'
 Plug 'ajh17/VimCompletesMe'
 
+if executable('elm')
+	Plug 'elmcast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
+endif
+
 Plug 'terryma/vim-expand-region'
 map K <Plug>(expand_region_expand)
 map J <Plug>(expand_region_shrink)
