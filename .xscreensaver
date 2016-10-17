@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.30 for adam on Fri Oct 14 22:33:40 2016.
+# Written by xscreensaver-demo 5.34 for adam on Mon Oct 17 17:23:12 2016.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:01:00
@@ -11,13 +11,13 @@ visualID:	default
 installColormap:    True
 verbose:	False
 timestamp:	True
-splash:		True
+splash:		False
 splashDuration:	0:00:05
 demoCommand:	xscreensaver-demo
 prefsCommand:	xscreensaver-demo -prefs
 nice:		10
 memoryLimit:	0
-fade:		True
+fade:		False
 unfade:		False
 fadeSeconds:	0:00:03
 fadeTicks:	20
@@ -252,6 +252,12 @@ programs:								      \
 - GL: 				projectiveplane -root			    \n\
 				tessellimage -root			    \n\
 - GL: 				winduprobot -root			    \n\
+				binaryring -root			    \n\
+- GL: 				cityflow -root				    \n\
+- GL: 				geodesicgears -root			    \n\
+- GL: 				romanboy -root				    \n\
+- GL: 				splitflap -root				    \n\
+				testx11 -root				    \n\
 
 
 pointerPollTime:    0:00:05
