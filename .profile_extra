@@ -15,9 +15,11 @@ add_to_path()
 	dir=$1
 	[ ! -d "$dir" ] && return
 	if ! echo $PATH | grep -q "$dir"; then
-		export PATH="$dir:$PATH"
+		PATH="$dir:$PATH"
 	fi
 }
 
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/bin"
+
+. "$HOME/.nix-profile/etc/profile.d/nix.sh"
