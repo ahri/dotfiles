@@ -95,3 +95,52 @@ directory BIN_DIR
 task :vim_install do
   sh "vim +PluginInstall +qall"
 end
+
+# Thanks to @mislav for this, found at https://stackoverflow.com/a/5471032
+def which(cmd)
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+    exts.each do |ext|
+      exe = File.join(path, "#{cmd}#{ext}")
+      return exe if File.executable?(exe) && !File.directory?(exe)
+    end
+  end
+  return nil
+end
+
+desc "Install docker"
+task :docker do
+  sh "sudo apt update && sudo apt install -y apt-transport-https ca-certificates && apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D"
+  File.open("/etc/apt/sources.list.d/docker.list", "w") do |fp|
+    fp.puts "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+  end
+  sh "sudo apt update && sudo apt install -y linux-image-extra-#{`uname -r`} linux-image-extra-virtual docker-engine && service start docker && gpasswd -a adam docker"
+end
+
+desc "Install dev tooling"
+task :devtools do
+  sh "sudo gem install rake guard"
+end
+
+desc "Install Haskell, via Stack"
+task :haskell => :devtools do
+  sh "curl -sSL https://get.haskellstack.org/ | sh && stack setup"
+  Dir.chdir("/tmp") do
+    sh "stack new stacksetup simple"
+    Dir.chdir("stacksetup") do
+      sh "stack build"
+    end
+
+    rm_rf "stacksetup"
+  end
+end
+
+desc "Install NodeJS"
+task :nodejs => :devtools do
+  sh "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt install -y nodejs"
+end
+
+desc "Install Elm"
+task :elm => [:nodejs, :devtools] do
+  sh "sudo npm install -g elm elm-oracle elm-test"
+end
