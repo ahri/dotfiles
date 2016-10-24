@@ -117,25 +117,24 @@ task :docker do
   sh "sudo apt update && sudo apt install -y linux-image-extra-#{`uname -r`} linux-image-extra-virtual docker-engine && service start docker && gpasswd -a adam docker"
 end
 
+STACK = "#{ENV['HOME']}/bin/stack"
 desc "Install Haskell, via Stack"
-task :haskell do
-  sh "curl -sSL https://get.haskellstack.org/ | sh && stack setup"
-  Dir.chdir("/tmp") do
-    sh "stack new stacksetup simple"
-    Dir.chdir("stacksetup") do
-      sh "stack build"
-    end
-
-    rm_rf "stacksetup"
+task :haskell => STACK
+file STACK do
+  Dir.chdir("#{ENV['HOME']/repos}") do
+    sh "git clone git@github.com:ahri/isolated-stack.git"
   end
+
+  ln_s("#{ENV['HOME']}/repos/isolated-stack/stack.sh", STACK)
 end
 
-desc "Install NodeJS"
-task :nodejs do
-  sh "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt install -y nodejs"
-end
-
+ELM = "#{ENV['HOME']}/bin/elm"
 desc "Install Elm"
-task :elm => :nodejs do
-  sh "sudo npm install -g elm elm-oracle elm-test"
+task :elm => ELM
+file ELM do
+  Dir.chdir("#{ENV['HOME']/repos}") do
+    sh "git clone git@github.com:ahri/isolated-elm.git"
+  end
+
+  ln_s("#{ENV['HOME']}/repos/isolated-elm/elm.sh", ELM)
 end
