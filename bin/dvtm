@@ -1,0 +1,3 @@
+#!/bin/sh
+
+DVTM_TERM=xterm /usr/bin/dvtm "$@"
