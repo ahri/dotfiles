@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# curl https://raw.githubusercontent.com/ahri/dotfiles/master/bootstrap-new-linux.sh | sh
+
 set -ue
 
 misc="htop curl wget xclip lshw"
@@ -13,4 +15,20 @@ params=""
 
 pkgmgr="`(which apt-get || which yum) 2> /dev/null || (echo "No supported package manager found" 1>&2 && false)`"
 
-$pkgmgr install $params $packages
+# https://blog.g3rt.nl/upgrade-your-ssh-keys.html
+ssh-keygen -o -a 100 -t ed25519
+echo
+cat ~/.ssh/id_*.pub
+echo
+read -p "Add key to github then hit [enter]"
+
+sudo $pkgmgr install $params $packages
+sudo gem install rake guard
+
+mkdir -p ~/repos
+cd ~/repos
+git clone git@github.com:ahri/dotfiles.git
+cd dotfiles
+rake
+
+rake -T

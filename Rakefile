@@ -117,13 +117,8 @@ task :docker do
   sh "sudo apt update && sudo apt install -y linux-image-extra-#{`uname -r`} linux-image-extra-virtual docker-engine && service start docker && gpasswd -a adam docker"
 end
 
-desc "Install dev tooling"
-task :devtools do
-  sh "sudo gem install rake guard"
-end
-
 desc "Install Haskell, via Stack"
-task :haskell => :devtools do
+task :haskell do
   sh "curl -sSL https://get.haskellstack.org/ | sh && stack setup"
   Dir.chdir("/tmp") do
     sh "stack new stacksetup simple"
@@ -136,11 +131,11 @@ task :haskell => :devtools do
 end
 
 desc "Install NodeJS"
-task :nodejs => :devtools do
+task :nodejs do
   sh "curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && sudo apt install -y nodejs"
 end
 
 desc "Install Elm"
-task :elm => [:nodejs, :devtools] do
+task :elm => :nodejs do
   sh "sudo npm install -g elm elm-oracle elm-test"
 end
