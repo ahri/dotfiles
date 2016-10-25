@@ -5,4 +5,5 @@ let mapleader " "
 map <leader>o :class<CR>
 
 " actions, use :actionlist [pattern]
-map <leader>p :action ParameterInfo<CR>
+map <leader>o :action SearchEverywhere<CR>
+map <leader>e :action RecentFiles<CR>
