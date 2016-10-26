@@ -28,7 +28,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.tmp/*,*/.sass-cache/*,*/node_modules
 
 nnoremap <leader>o :CtrlP<cr>
 nnoremap <leader>e :CtrlPBuffer<cr>
-nnoremap <leader>r :CtrlPMRUFiles<cr>
 
 let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
 function! CtrlPMappings()

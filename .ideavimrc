@@ -20,13 +20,20 @@ nnoremap <C-K> :action EditorUp<CR>
 
 
 " Refactorings
-nnoremap <leader>rv :action IntroduceVariable<CR>
-nnoremap <leader>rp :action IntroduceParameter<CR>
-nnoremap <leader>rf :action IntroduceField<CR>
-nnoremap <leader>rc :action IntroduceConstant<CR>
 nnoremap <leader>ri :action Inline<CR>
-nnoremap <leader>rm :action ExtractMethod<CR>
-nnoremap <leader>rm :action ExtractInterface<CR>
-nnoremap <leader>rm :action ExtractFunction<CR>
+nnoremap <leader>rr :action RenameElement<CR>
+nnoremap <leader>rm :action Move<CR>
+" Introduce
+nnoremap <leader>riv :action IntroduceVariable<CR>
+nnoremap <leader>rip :action IntroduceParameter<CR>
+nnoremap <leader>rif :action IntroduceField<CR>
+nnoremap <leader>ric :action IntroduceConstant<CR>
+" Extract
+nnoremap <leader>rxm :action ExtractMethod<CR>
+nnoremap <leader>rxi :action ExtractInterface<CR>
+nnoremap <leader>rxf :action ExtractFunction<CR>
+
+nnoremap <leader>rxf :action ExtractFunction<CR>
+
 
 nnoremap <C-E> :action GotoNextError<CR>
