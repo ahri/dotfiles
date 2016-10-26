@@ -1,9 +1,0 @@
-" https://stackoverflow.com/questions/31970413/escape-to-intellij-idea-shortcuts-from-ideavim
-
-source ~/.vimrc
-let mapleader " "
-map <leader>o :class<CR>
-
-" actions, use :actionlist [pattern]
-map <leader>o :action SearchEverywhere<CR>
-map <leader>e :action RecentFiles<CR>

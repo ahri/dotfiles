@@ -98,3 +98,19 @@ nnoremap <leader>k <C-w>k
 nnoremap <leader>j <C-w>j
 nnoremap <leader>h <C-w>h
 nnoremap <leader>l <C-w>l
+
+" Allow :lnext to work with empty location list, or at last location
+function! <SID>LocationNext()
+  try
+    lnext
+  catch /:E553:/
+    lfirst
+  catch /:E42:/
+    echo "Location list empty"
+  catch /.*/
+    echo v:exception
+  endtry
+endfunction
+
+nnoremap <silent> <Plug>LocationNext :<C-u>exe 'call <SID>LocationNext()'<CR>
+nmap <silent> <C-e> <Plug>LocationNext

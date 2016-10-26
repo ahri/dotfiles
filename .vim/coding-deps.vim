@@ -1,8 +1,11 @@
+" TODO: test out neomake instead of syntastic
 Plug 'scrooloose/syntastic'
+let g:syntastic_always_populate_loc_list=1
+
 Plug 'ajh17/VimCompletesMe'
 
 if executable('elm')
-	Plug 'elmcast/elm-vim', { 'do': 'npm install -g elm-test elm-oracle' }
+	Plug 'elmcast/elm-vim'
 endif
 
 Plug 'terryma/vim-expand-region'
@@ -43,7 +46,6 @@ nnoremap <C-J> :GitGutterNextHunk<cr>
 nnoremap <C-K> :GitGutterPrevHunk<cr>
 nnoremap <C-L> :GitGutterStageHunk<cr>
 nnoremap <C-H> :GitGutterRevertHunk<cr>
-nnoremap <C-g> :GitGutterPreviewHunk<cr>
 
 " use \\\ to comment stuff
 Plug 'tpope/vim-commentary'

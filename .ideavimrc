@@ -1,0 +1,32 @@
+" https://stackoverflow.com/questions/31970413/escape-to-intellij-idea-shortcuts-from-ideavim
+
+source ~/.vimrc
+let mapleader = " "
+
+" actions, use :actionlist [pattern]
+
+" IDEA-actions
+nnoremap <C-Q> :action VimPluginToggle<CR>
+nnoremap <leader>ia :action GotoAction<CR>
+nnoremap <C-S-V> :action PasteMultiple<CR>
+
+" General vim-like actions
+nnoremap <leader>o :action GotoClass<CR>
+nnoremap <leader>e :action RecentFiles<CR>
+nnoremap J :action GuiDesigner.ShrinkSelection<CR>
+nnoremap K :action GuiDesigner.ExpandSelection<CR>
+nnoremap <C-J> :action EditorDown<CR>
+nnoremap <C-K> :action EditorUp<CR>
+
+
+" Refactorings
+nnoremap <leader>rv :action IntroduceVariable<CR>
+nnoremap <leader>rp :action IntroduceParameter<CR>
+nnoremap <leader>rf :action IntroduceField<CR>
+nnoremap <leader>rc :action IntroduceConstant<CR>
+nnoremap <leader>ri :action Inline<CR>
+nnoremap <leader>rm :action ExtractMethod<CR>
+nnoremap <leader>rm :action ExtractInterface<CR>
+nnoremap <leader>rm :action ExtractFunction<CR>
+
+nnoremap <C-E> :action GotoNextError<CR>
