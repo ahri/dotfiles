@@ -30,7 +30,10 @@ ifexists unclutter -idle 1 -jitter 2 -root &
 
 mouse-disable
 
-xscreensaver &
-wicd-client -t &
+if exists gnome-screensaver; then
+	gnome-screensaver &
+else
+	ifexists xscreensaver -no-splash &
+fi
 
 exec i3
