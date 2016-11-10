@@ -31,7 +31,7 @@ def multiplatform_symlink(source, target)
   target = File.absolute_path target
 
   if File.exist? target
-    rm target
+    raise "#{target} already exists"
   end
 
   begin
@@ -74,7 +74,10 @@ def create_bin_tasks
     target = "#{HOME}/bin/#{f}"
     from = "bin/#{f}"
     task :bin => target
-    file target => [BIN_DIR, from] do
+    task target => [BIN_DIR, from] do
+      next if File.symlink?(target) and
+        File.absolute_path(File.readlink(target)) == File.absolute_path(from)
+
       multiplatform_symlink from, target
     end
   end
@@ -108,8 +111,10 @@ def which(cmd)
   return nil
 end
 
+DOCKER = "/usr/bin/docker"
 desc "Install docker"
-task :docker do
+task :docker => DOCKER
+file DOCKER do
   sh "sudo apt update && sudo apt install -y apt-transport-https ca-certificates && apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D"
   File.open("/etc/apt/sources.list.d/docker.list", "w") do |fp|
     fp.puts "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
@@ -119,8 +124,12 @@ end
 
 STACK = "#{ENV['HOME']}/bin/stack"
 desc "Install Haskell, via Stack"
-task :haskell => STACK
-file STACK do
+task :haskell => STACK do
+  sh "#{STACK} setup"
+  sh "#{STACK} install ghc-mod hoogle hlint stylish-haskell hindent"
+  sh "#{ENV['HOME']}/.local/bin/hoogle generate"
+end
+file STACK => DOCKER do
   Dir.chdir("#{ENV['HOME']/repos}") do
     sh "git clone git@github.com:ahri/isolated-stack.git"
   end
@@ -131,7 +140,7 @@ end
 ELM = "#{ENV['HOME']}/bin/elm"
 desc "Install Elm"
 task :elm => ELM
-file ELM do
+file ELM => DOCKER do
   Dir.chdir("#{ENV['HOME']/repos}") do
     sh "git clone git@github.com:ahri/isolated-elm.git"
   end
