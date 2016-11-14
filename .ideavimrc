@@ -11,6 +11,8 @@ nnoremap <leader>ia :action GotoAction<CR>
 nnoremap <C-S-V> :action PasteMultiple<CR>
 
 " General vim-like actions
+nnoremap <leader>ve :e ~/.ideavimrc<CR>
+nnoremap <leader>vr :so ~/.ideavimrc<CR>
 nnoremap <leader>o :action GotoClass<CR>
 nnoremap <leader>e :action RecentFiles<CR>
 nnoremap J :action GuiDesigner.ShrinkSelection<CR>
@@ -20,6 +22,8 @@ nnoremap <C-K> :action EditorUp<CR>
 nnoremap <C-E> :action GotoNextError<CR>
 
 
+" Type stuff
+nnoremap <leader>td :action GotoDeclaration<CR>
 " Refactorings
 nnoremap <leader>ri :action Inline<CR>
 nnoremap <leader>rr :action RenameElement<CR>
