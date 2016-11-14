@@ -17,6 +17,20 @@ set hidden                                " allow modified buffers to be hidden
 set smartcase                             " ignore case in searches unless there's a capital in the search
 set ignorecase
 
+" Get rid of any bells
+set noerrorbells
+set vb t_vb=
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" Use pleasant but very visible search hilighting
+hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
+hi! link Visual Search
+
+" Searing red very visible cursor
+hi Cursor guibg=red
+
 if has("gui_running")
 	set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
 	set guioptions=aei                        " set a few gui options

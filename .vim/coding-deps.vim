@@ -1,11 +1,28 @@
 " TODO: test out neomake instead of syntastic
 Plug 'scrooloose/syntastic'
-let g:syntastic_always_populate_loc_list=1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-Plug 'ajh17/VimCompletesMe'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
-if executable('elm')
-	Plug 'elmcast/elm-vim'
+if executable('make')
+	Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+endif
+
+if has('nvim') && has('python3') && executable('pip3')
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	let g:deoplete#enable_at_startup = 1
+elseif has('lua')
+	Plug 'Shougo/neocomplete.vim'
+	let g:neocomplete#enable_at_startup = 1
+elseif has('python') && executable('python')
+	Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
+else
+	Plug 'ajh17/VimCompletesMe'
 endif
 
 Plug 'terryma/vim-expand-region'
@@ -19,7 +36,7 @@ Plug 'terryma/vim-multiple-cursors'
 
 Plug 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/](\.(git|hg|svn))$',
+	\ 'dir':  '\v[\/](\.([^/]+))$',
 	\ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|.pyc)$',
 	\}
 let g:ctrlp_show_hidden = 1
@@ -48,7 +65,24 @@ nnoremap <C-H> :GitGutterRevertHunk<cr>
 
 " use \\\ to comment stuff
 Plug 'tpope/vim-commentary'
+nmap \\\ <Plug>CommentaryLine
+vmap \\ <Plug>Commentary
 
 if executable('ctags')
 	Plug 'ludovicchabant/vim-gutentags'
+	Plug 'majutsushi/tagbar' " :TagbarToggle
+	let g:tagbar_autofocus = 1
+endif
+
+" Haskell stuff
+" Plug 'neovimhaskell/haskell-vim'
+if executable('stack')
+	Plug 'Twinside/vim-hoogle', { 'do' : 'stack install hoogle && hoogle generate' }
+	Plug 'eagletmt/ghcmod-vim', { 'do' : 'stack install hlint ghc-mod' }
+	Plug 'eagletmt/neco-ghc'
+endif
+
+" Elm stuff
+if executable('elm')
+	Plug 'elmcast/elm-vim'
 endif

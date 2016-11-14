@@ -114,3 +114,12 @@ endfunction
 
 nnoremap <silent> <Plug>LocationNext :<C-u>exe 'call <SID>LocationNext()'<CR>
 nmap <silent> <C-e> <Plug>LocationNext
+
+set completeopt=menuone,menu,longest " noinsert?
+
+if has('matchadd')
+        augroup todo
+                autocmd!
+                autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
+	augroup END
+endif

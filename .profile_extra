@@ -19,7 +19,8 @@ add_to_path()
 	fi
 }
 
-add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/bin"
-
 . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+add_to_path "$HOME/.cabal/bin"
+add_to_path "$HOME/.local/bin"
+
+PATH="$HOME/bin:$PATH" # always override the rest of the path

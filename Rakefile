@@ -122,19 +122,40 @@ file DOCKER do
   sh "sudo apt update && sudo apt install -y linux-image-extra-#{`uname -r`} linux-image-extra-virtual docker-engine && service start docker && gpasswd -a adam docker"
 end
 
-STACK = "#{ENV['HOME']}/bin/stack"
-desc "Install Haskell, via Stack"
-task :haskell => STACK do
-  sh "#{STACK} setup"
-  sh "#{STACK} install ghc-mod hoogle hlint stylish-haskell hindent"
-  sh "#{ENV['HOME']}/.local/bin/hoogle generate"
-end
-file STACK => DOCKER do
+REPOS_DIR = "#{ENV['HOME']}/repos"
+
+ISOLATED_STACK = "#{ENV['HOME']}/bin/stack"
+file ISOLATED_STACK => DOCKER do
   Dir.chdir("#{ENV['HOME']/repos}") do
     sh "git clone git@github.com:ahri/isolated-stack.git"
   end
 
   ln_s("#{ENV['HOME']}/repos/isolated-stack/stack.sh", STACK)
+end
+
+CABAL_STACK = "#{ENV['HOME']}/.cabal/bin/stack"
+file CABAL_STACK do
+  sh "sudo apt install -y ghc cabal-install"
+  Dir.chdir(REPOS_DIR) do
+    sh "git clone https://github.com/commercialhaskell/stack"
+    Dir.chdir("#{REPOS_DIR}/stack}") do
+      sh "cabal update && cabal install"
+    end
+  end
+  sh "sudo apt remove -y ghc cabal-install"
+end
+
+APT_STACK = "/usr/bin/stack"
+file APT_STACK do
+  sh "sudo apt install -y haskell-stack"
+end
+
+STACK = ISOLATED_STACK
+desc "Install Haskell, via Stack"
+task :haskell => STACK do
+  sh "#{STACK} setup"
+  sh "#{STACK} install ghc-mod hoogle hlint stylish-haskell hindent"
+  sh "#{ENV['HOME']}/.local/bin/hoogle generate"
 end
 
 ELM = "#{ENV['HOME']}/bin/elm"
