@@ -6,7 +6,7 @@ set -ue
 
 misc="htop curl wget xclip lshw"
 build="build-essential cmake git openjdk-8-jdk"
-languages="python python-dev ruby ruby-dev"
+languages=" python-pip python3-pip ruby ruby-dev"
 console_dev="vim dvtm"
 windowing="i3 i3status unclutter qterminal"
 
@@ -23,7 +23,8 @@ echo
 read -p "Add key to github then hit [enter]"
 
 sudo $pkgmgr install $params $packages
-sudo gem install rake guard
+sudo gem install rake guard neovim
+sudo pip3 install --update neovim
 
 mkdir -p ~/repos
 cd ~/repos
