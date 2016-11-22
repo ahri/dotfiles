@@ -154,7 +154,7 @@ STACK = ISOLATED_STACK
 desc "Install Haskell, via Stack"
 task :haskell => STACK do
   sh "#{STACK} setup"
-  sh "#{STACK} install ghc-mod hoogle hlint stylish-haskell hindent"
+  sh "#{STACK} install ghc-mod hoogle hlint stylish-haskell hindent apply-refact"
   sh "#{ENV['HOME']}/.local/bin/hoogle generate"
 end
 
