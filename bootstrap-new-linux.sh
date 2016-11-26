@@ -20,7 +20,7 @@ params=""
 
 pkgmgr="`(which apt-get || which yum) 2> /dev/null || (echo "No supported package manager found" 1>&2 && false)`"
 
-sudo $pkgmgr install $params $packages
+sudo $pkgmgr install -y $params $packages
 sudo gem install rake guard neovim
 sudo pip3 install --update neovim
 
