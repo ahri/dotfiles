@@ -4,27 +4,32 @@
 
 set -ue
 
-misc="htop curl wget xclip lshw"
+misc="htop curl wget xclip lshw man less openssh-client"
 build="build-essential cmake git openjdk-8-jdk"
 languages=" python-pip python3-pip ruby ruby-dev"
 console_dev="vim dvtm"
-windowing="i3 i3status unclutter qterminal"
+
+if [ $# -eq 0 ]; then
+        windowing=""
+else
+        windowing="i3 i3status unclutter qterminal"
+fi
 
 packages="$misc $build $languages $console_dev $windowing"
 params=""
 
 pkgmgr="`(which apt-get || which yum) 2> /dev/null || (echo "No supported package manager found" 1>&2 && false)`"
 
+sudo $pkgmgr install $params $packages
+sudo gem install rake guard neovim
+sudo pip3 install --update neovim
+
 # https://blog.g3rt.nl/upgrade-your-ssh-keys.html
-ssh-keygen -o -a 100 -t ed25519
+ssh-keygen -o -a 100 -t ed25519 -f "$HOME/.ssh/id_ed25519"
 echo
 cat ~/.ssh/id_*.pub
 echo
 read -p "Add key to github then hit [enter]"
-
-sudo $pkgmgr install $params $packages
-sudo gem install rake guard neovim
-sudo pip3 install --update neovim
 
 mkdir -p ~/repos
 cd ~/repos
