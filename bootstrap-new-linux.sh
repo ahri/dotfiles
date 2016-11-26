@@ -4,7 +4,7 @@
 
 set -ue
 
-misc="htop curl wget xclip lshw man less openssh-client"
+misc="htop curl wget lshw man less openssh-client"
 build="build-essential cmake git"
 languages=" python-pip python3-pip ruby ruby-dev"
 console_dev="vim dvtm"
@@ -12,7 +12,7 @@ console_dev="vim dvtm"
 if [ $# -eq 0 ]; then
         windowing=""
 else
-        windowing="i3 i3status unclutter qterminal"
+        windowing="i3 i3status unclutter qterminal xclip"
 fi
 
 packages="$misc $build $languages $console_dev $windowing"
