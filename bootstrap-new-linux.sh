@@ -5,7 +5,7 @@
 set -ue
 
 misc="htop curl wget xclip lshw man less openssh-client"
-build="build-essential cmake git openjdk-8-jdk"
+build="build-essential cmake git"
 languages=" python-pip python3-pip ruby ruby-dev"
 console_dev="vim dvtm"
 
