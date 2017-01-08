@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -ue
+
+if [ "$1" = "commit" ] && pwd | grep -q "^$HOME/Work/"; then
+	/usr/bin/git config user.email adam.piper@portswigger.net
+fi
+
+/usr/bin/git "$@"
