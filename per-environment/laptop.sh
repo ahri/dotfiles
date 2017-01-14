@@ -20,19 +20,12 @@ ln -sf /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
 
 # note: "syndaemon -i 1.0 -K -R -t" for laptop
 
+# https://wiki.archlinux.org/index.php/intel_graphics
 cat <<EOF > /usr/share/X11/xorg.conf.d/20-intel.conf
 Section "Device"
     Identifier "Intel Graphics"
     Driver "Intel"
-    Option "AccelMethod" "sna"
-    Option "TearFree" "true"
-    Option "TripleBuffer" "true"
-    Option "MigrationHeuristic" "greedy"
-    Option "Tiling" "true"
-    Option "Pageflip" "true"
-    Option "ExaNoComposite" "false"
-    Option "Tiling" "true"
-    Option "Pageflip" "true"
-    Option "DRI" "3"
+    Option "AccelMethod" "uxa"
+    Option "DRI" "2"
 EndSection
 EOF
