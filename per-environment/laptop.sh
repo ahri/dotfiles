@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ue
 
-if [ ! "`whoami`" = "root" ]; then
-    echo "ERROR: run as root" 1>&2
-    exit 1
-fi
+gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/wallpaper_1280x800.png"
+
+cat <<AS_ROOT | sudo sh
+set -ue
 
 # LED flashing is annoying
 ([ ! -e /etc/modprobe.d/iwlwifi.conf ] || grep -qv led_mode < /etc/modprobe.d/iwlwifi.conf) && echo "options iwlwifi led_mode=1" >> /etc/modprobe.d/iwlwifi.conf
@@ -29,3 +29,4 @@ Section "Device"
     Option "DRI" "2"
 EndSection
 EOF
+AS_ROOT
