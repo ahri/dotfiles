@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import email
 import sys
 
