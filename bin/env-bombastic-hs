@@ -25,4 +25,5 @@ qterminal &
 sleep 1
 i3-msg 'title_format hoogle'
 
-i3-msg 'resize shrink left; resize shrink left; focus left; focus up'
+i3-msg 'resize shrink left; resize shrink left; resize shrink up; resize shrink up'
+i3-msg 'focus left; focus up'
