@@ -1,29 +1,3 @@
 #!/bin/sh
 
-set -ue
-
-cd ~/repos/bombastic-hs
-
-i3-msg 'split vertical'
-qterminal &
-sleep 1
-i3-msg 'title_format source'
-
-qterminal -e 'guard -ic' &
-sleep 1
-i3-msg 'title_format tests'
-
-i3-msg 'resize shrink up; resize shrink up'
-
-i3-msg 'split horizontal'
-qterminal -e 'rake ghci' &
-sleep 1
-i3-msg 'title_format repl'
-
-i3-msg 'move right; split vertical'
-qterminal &
-sleep 1
-i3-msg 'title_format hoogle'
-
-i3-msg 'resize shrink left; resize shrink left; resize shrink up; resize shrink up'
-i3-msg 'focus left; focus up'
+env-haskell ~/repos/bombastic-hs
