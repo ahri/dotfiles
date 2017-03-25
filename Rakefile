@@ -150,7 +150,12 @@ file APT_STACK do
   sh "sudo apt install -y haskell-stack"
 end
 
-STACK = ISOLATED_STACK
+HASKELLSTACKORG_STACK = "/usr/local/bin/stack"
+file HASKELLSTACKORG_STACK do
+  sh "curl -sSL https://get.haskellstack.org/ | sh"
+end
+
+STACK = HASKELLSTACKORG_STACK
 desc "Install Haskell, via Stack"
 task :haskell => STACK do
   sh "#{STACK} setup"
