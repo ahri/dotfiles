@@ -14,21 +14,18 @@ qterminal &
 sleep 1
 i3-msg 'title_format source'
 
-qterminal -e 'guard -ic' &
+qterminal -e 'stack build --file-watch --test' &
 sleep 1
 i3-msg 'title_format tests'
 
 i3-msg 'resize shrink up; resize shrink up'
 
 i3-msg 'split horizontal'
-qterminal -e 'rake ghci' &
+qterminal -e 'rake repl' &
 sleep 1
 i3-msg 'title_format repl'
 
 i3-msg 'move right; split vertical'
-qterminal &
-sleep 1
-i3-msg 'title_format hoogle'
 
-i3-msg 'resize shrink left; resize shrink left; resize shrink up; resize shrink up'
+i3-msg 'resize shrink left; resize shrink left'
 i3-msg 'focus left; focus up'
