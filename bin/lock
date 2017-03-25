@@ -1,3 +1,4 @@
 #!/bin/sh
 
 gnome-screensaver-command -l
+xset -display :0.0 dpms force off
