@@ -18,3 +18,11 @@ let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:necoghc_enable_detailed_browse = 1
 
 let g:haskell_tabular = 1
+
+nnoremap <leader>td :InteroGoToDef<CR>
+nnoremap <leader>tu :InteroUses<CR>
+nnoremap <leader>tt :InteroGenericType<CR>
+nnoremap <leader>ti :InteroTypeInsert<CR>
+
+" Reload the file in Intero after saving
+" autocmd! BufWritePost *.hs InteroReload

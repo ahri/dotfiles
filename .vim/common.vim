@@ -34,6 +34,9 @@ hi Cursor guibg=red
 if has("gui_running")
 	set gcr=a:blinkon0                        " stop the cursor blinking in GUI mode
 	set guioptions=aei                        " set a few gui options
+endif
+
+if has("mouse")
 	set mouse=                                " disable the mouse when --with-x was specified
 endif
 

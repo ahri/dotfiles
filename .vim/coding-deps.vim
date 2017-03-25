@@ -62,6 +62,9 @@ nnoremap <C-J> :GitGutterNextHunk<cr>
 nnoremap <C-K> :GitGutterPrevHunk<cr>
 nnoremap <C-L> :GitGutterStageHunk<cr>
 nnoremap <C-H> :GitGutterRevertHunk<cr>
+if has('nvim')
+	nmap <BS> <C-W>h
+endif
 
 " use \\\ to comment stuff
 Plug 'tpope/vim-commentary'
@@ -80,9 +83,36 @@ if executable('stack')
 	Plug 'Twinside/vim-hoogle', { 'do' : 'stack install hoogle && hoogle generate' }
 	Plug 'eagletmt/ghcmod-vim', { 'do' : 'stack install hlint ghc-mod' }
 	Plug 'eagletmt/neco-ghc'
+	" Plug 'parsonsmatt/intero-neovim'
 endif
 
 " Elm stuff
 if executable('elm')
 	Plug 'elmcast/elm-vim'
 endif
+
+"Java stuff
+if executable('javac')
+	Plug 'artur-shaik/vim-javacomplete2'
+endif
+
+
+" IDE-like stuff: defaults
+" Type stuff
+nnoremap <leader>td :echoerr "UNDEFINED: go to definition"<CR>
+nnoremap <leader>tu :echoerr "UNDEFINED: show uses"<CR>
+nnoremap <leader>tt :echoerr "UNDEFINED: infer type"<CR>
+nnoremap <leader>ti :echoerr "UNDEFINED: type insert"<CR>
+" Refactorings
+nnoremap <leader>ri :echoerr "UNDEFINED: refactor: inline"<CR>
+nnoremap <leader>rr :echoerr "UNDEFINED: refactor: rename"<CR>
+nnoremap <leader>rm :echoerr "UNDEFINED: refactor: move"<CR>
+" Introduce
+nnoremap <leader>iv :echoerr "UNDEFINED: introduce: variable"<CR>
+nnoremap <leader>ip :echoerr "UNDEFINED: introduce: parameter"<CR>
+nnoremap <leader>if :echoerr "UNDEFINED: introduce: field"<CR>
+nnoremap <leader>ic :echoerr "UNDEFINED: introduce: constant"<CR>
+" Extract
+nnoremap <leader>xm :echoerr "UNDEFINED: extract: method"<CR>
+nnoremap <leader>xi :echoerr "UNDEFINED: extract: interface"<CR>
+nnoremap <leader>xf :echoerr "UNDEFINED: extract: function"<CR>
