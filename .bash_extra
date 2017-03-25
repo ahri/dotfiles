@@ -9,3 +9,5 @@ source "$HOME/.git-completion.bash"
 if [ `tr -d '\0' < /proc/$PPID/cmdline` = "qterminal" ]; then
   export TERM=xterm-256color
 fi
+
+bind -x '"\C-o": f=$(fzf) && vim "$f"'
