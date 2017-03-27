@@ -202,3 +202,7 @@ import $proj ()
 main :: IO ()
 main = putStrLn "TODO"
 EOF
+
+cat <<EOF > .gitignore
+.stack-work/
+EOF
