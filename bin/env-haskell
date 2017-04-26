@@ -14,7 +14,7 @@ qterminal &
 sleep 1
 i3-msg 'title_format source'
 
-qterminal -e 'stack build --file-watch --test' &
+qterminal -e 'rake watch' &
 sleep 1
 i3-msg 'title_format tests'
 

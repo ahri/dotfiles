@@ -9,6 +9,8 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+Plug 'airblade/vim-rooter'
+
 if executable('make')
 	Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 endif
@@ -61,7 +63,7 @@ Plug 'airblade/vim-gitgutter'
 nnoremap <C-J> :GitGutterNextHunk<cr>
 nnoremap <C-K> :GitGutterPrevHunk<cr>
 nnoremap <C-L> :GitGutterStageHunk<cr>
-nnoremap <C-H> :GitGutterRevertHunk<cr>
+nnoremap <C-H> :GitGutterUndoHunk<cr>
 if has('nvim')
 	nmap <BS> <C-W>h
 endif
@@ -84,6 +86,9 @@ if executable('stack')
 	Plug 'eagletmt/ghcmod-vim', { 'do' : 'stack install hlint ghc-mod' }
 	Plug 'eagletmt/neco-ghc'
 	" Plug 'parsonsmatt/intero-neovim'
+	if executable('ghcid')
+		Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+	endif
 endif
 
 " Elm stuff

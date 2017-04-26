@@ -16,6 +16,8 @@ set scrolloff=6                           " lines above/below to show for contex
 set hidden                                " allow modified buffers to be hidden
 set smartcase                             " ignore case in searches unless there's a capital in the search
 set ignorecase
+set cursorline                            " highlight current line
+set cursorcolumn                          " highlight current column
 
 " Get rid of any bells
 set noerrorbells

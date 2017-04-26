@@ -26,3 +26,10 @@ nnoremap <leader>ti :InteroTypeInsert<CR>
 
 " Reload the file in Intero after saving
 " autocmd! BufWritePost *.hs InteroReload
+
+if executable('fast-tags')
+	au BufWritePost *.hs            silent !init-tags %
+	au BufWritePost *.hsc           silent !init-tags %
+	nnoremap <silent> <c-]> :setl iskeyword=@,_,.,48-57,39<cr><c-]>
+	    \:setl iskeyword=@,48-57,_,192-255<cr>
+endif
