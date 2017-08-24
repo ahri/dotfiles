@@ -5,6 +5,7 @@ scoop install 7zip vim openssh git grep touch curl wget gawk concfg pshazz atom 
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 gem install rake
 npm install -g elm
+stack setup
 stack install stylish-haskell ghc-mod
 apm install language-haskell haskell-ghc-mod ide-haskell-cabal ide-haskell autocomplete-haskell
-concfg import monokai small
+concfg import flat small
