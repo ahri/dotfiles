@@ -9,14 +9,14 @@ gem install rake
 stack setup
 concfg import flat small
 
-mkdir %USERPROFILE%\.ssh
-cd %USERPROFILE%\.ssh
+mkdir $ENV:UserProfile\.ssh
+cd $ENV:UserProfile\.ssh
 ssh-keygen -b 4096 -f id_rsa
 cat id_rsa.pub
 Read-Host -Prompt "Add key to github then hit [enter]"
 
-mkdir %USERPROFILE%\repos
-cd %USERPROFILE%\repos
+mkdir $ENV:UserProfile\repos
+cd $ENV:UserProfile\repos
 git clone git@github.com:ahri/dotfiles.git
 cd dotfiles
 rake
