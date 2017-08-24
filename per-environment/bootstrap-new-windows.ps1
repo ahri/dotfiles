@@ -1,6 +1,6 @@
 iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 scoop bucket add extras
-scoop install 7zip vim openssh git grep touch head tail curl wget gawk concfg pshazz atom stack python ruby nodejs nmap msys2
+scoop install 7zip vim openssh git grep touch curl wget gawk concfg pshazz atom stack python ruby nodejs nmap msys2
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 gem install rake
 npm install -g elm
