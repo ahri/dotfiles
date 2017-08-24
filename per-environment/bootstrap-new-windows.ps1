@@ -1,3 +1,5 @@
+# iex (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/ahri/dotfiles/master/per-environment/bootstrap-new-windows.ps1')
+
 runas /noprofile /user:Administrator Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Enum\HID\*\*\Device` Parameters FlipFlopWheel -EA 0 | ForEach-Object { Set-ItemProperty $_.PSPath FlipFlopWheel 1 }
 iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 scoop bucket add extras
