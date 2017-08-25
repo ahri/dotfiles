@@ -21,4 +21,5 @@ git clone git@github.com:ahri/dotfiles.git
 git config --global user.email "adam@ahri.net"
 git config --global user.name "Adam Piper"
 cd dotfiles
+per-environment\ClickMonitorDDC_4_0\ClickMonitorDDC_4_0.exe
 rake
