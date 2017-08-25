@@ -18,5 +18,7 @@ Read-Host -Prompt "Add key to github then hit [enter]"
 mkdir $ENV:UserProfile\repos
 cd $ENV:UserProfile\repos
 git clone git@github.com:ahri/dotfiles.git
+git config --global user.email "adam@ahri.net"
+git config --global user.name "Adam Piper"
 cd dotfiles
 rake
