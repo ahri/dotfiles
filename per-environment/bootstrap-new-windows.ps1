@@ -7,7 +7,6 @@ scoop install 7zip vim openssh git grep touch wget gawk concfg pshazz stack pyth
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 gem install rake
 stack setup
-concfg import flat small
 
 mkdir $ENV:UserProfile\.ssh
 cd $ENV:UserProfile\.ssh
@@ -21,5 +20,6 @@ git clone git@github.com:ahri/dotfiles.git
 git config --global user.email "adam@ahri.net"
 git config --global user.name "Adam Piper"
 cd dotfiles
-per-environment\ClickMonitorDDC_4_0\ClickMonitorDDC_4_0.exe
+per-environment\home-desktop-windows\ClickMonitorDDC_4_0\ClickMonitorDDC_4_0.exe
+concfg import per-environment\home-desktop-windows\mountain.json
 rake

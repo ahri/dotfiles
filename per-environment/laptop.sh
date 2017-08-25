@@ -2,7 +2,7 @@
 
 set -ue
 
-gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/wallpaper_1280x800.png"
+gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/laptop-linux/stormboarder.png"
 
 cat <<AS_ROOT | sudo sh
 set -ue

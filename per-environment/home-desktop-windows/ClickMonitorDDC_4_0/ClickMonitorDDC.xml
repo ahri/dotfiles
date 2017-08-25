@@ -13,7 +13,7 @@
   <set guid_volume="00000000"></set>
   <set guid_contrast="00000000"></set>
   <set guid_brightness="00000000"></set>
-  <set guid_combined="00000001"></set>
+  <set guid_combined="00000002"></set>
   <set daytimeHour="00000014"></set>
   <set daytimeMinute="0000001E"></set>
   <set nighttimeHour="00000014"></set>
@@ -30,7 +30,7 @@
   <set night6timeMinute="0000001E"></set>
   <set night7timeHour="00000014"></set>
   <set night7timeMinute="0000001E"></set>
-  <set lastsettings="00000001"></set>
+  <set lastsettings="00000000"></set>
   <set aliasing="00000002"></set>
   <set offset_brightness="00000000"></set>
   <set wheel_B="0000000A"></set>
