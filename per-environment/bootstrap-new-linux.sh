@@ -33,6 +33,8 @@ read -p "Add key to github then hit [enter]"
 
 mkdir -p ~/repos
 cd ~/repos
+git config --global user.email "adam@ahri.net"
+git config --global user.name "Adam Piper"
 git clone git@github.com:ahri/dotfiles.git
 cd dotfiles
 rake
