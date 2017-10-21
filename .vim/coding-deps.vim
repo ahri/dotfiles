@@ -1,19 +1,24 @@
-" TODO: test out neomake instead of syntastic
-Plug 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
 Plug 'airblade/vim-rooter'
 
-if executable('make')
-	Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+if has('nvim')
+	Plug 'neomake/neomake'
+else
+	Plug 'scrooloose/syntastic'
+	set statusline+=%#warningmsg#
+	set statusline+=%{SyntasticStatuslineFlag()}
+	set statusline+=%*
+
+	let g:syntastic_always_populate_loc_list = 1
+	let g:syntastic_auto_loc_list = 0
+	let g:syntastic_check_on_open = 0
+	let g:syntastic_check_on_wq = 0
+
+	if executable('make')
+		Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+	endif
 endif
+
+Plug 'chrisbra/NrrwRgn' " select a region and do :NR, then save to return
 
 if has('nvim') && has('python3') && executable('pip3')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -83,11 +88,15 @@ endif
 " Plug 'neovimhaskell/haskell-vim'
 if executable('stack')
 	Plug 'Twinside/vim-hoogle', { 'do' : 'stack install hoogle && hoogle generate' }
-	Plug 'eagletmt/ghcmod-vim', { 'do' : 'stack install hlint ghc-mod' }
-	Plug 'eagletmt/neco-ghc'
-	" Plug 'parsonsmatt/intero-neovim'
-	if executable('ghcid')
-		Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+	if has('nvim')
+		Plug 'parsonsmatt/intero-neovim'
+		let g:intero_stack_yaml = 'intero_stack.yaml'
+	else
+		Plug 'eagletmt/ghcmod-vim', { 'do' : 'stack install hlint ghc-mod' }
+		Plug 'eagletmt/neco-ghc'
+		if executable('ghcid')
+			Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+		endif
 	endif
 endif
 
