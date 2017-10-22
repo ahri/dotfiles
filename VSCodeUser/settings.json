@@ -3,5 +3,55 @@
     "editor.fontFamily": "'Fira Code', Consolas, 'Droid Sans Mono', 'Courier New', monospace",
     "editor.fontLigatures": true,
     "editor.lineNumbers": "relative",
-    "workbench.colorTheme": "Monokai"
+    "workbench.colorTheme": "Monokai",
+    "alignment.chars": {
+        ":": {
+            "spaceBefore": 0,
+            "spaceAfter": 1
+        },
+        "::": {
+            "spaceBefore": 0,
+            "spaceAfter": 0
+        },
+        "=": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "===": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "==": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "=>": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "->": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "+=": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "-=": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "*=": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "/=": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        },
+        "++": {
+            "spaceBefore": 1,
+            "spaceAfter": 1
+        }
+    }
 }
