@@ -53,5 +53,16 @@
             "spaceBefore": 1,
             "spaceAfter": 1
         }
+    },
+    "window.zoomLevel": 0,
+    "vim.disableExtension": false,
+    "editor.renderIndentGuides": false,
+    "extensions.ignoreRecommendations": false,
+
+    "TodoParser": {
+        "folderExclude": ["node_modules", ".vscode", ".git", ".stack-work"],
+        "showInProblems": false,
+        "markers": ["NOTE:", "REMINDER:", ["FIXME", "Warning"]],
+        "autoDefaultMarkers": true
     }
 }

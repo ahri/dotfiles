@@ -10,17 +10,8 @@ export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-add_to_path()
-{
-	dir=$1
-	[ ! -d "$dir" ] && return
-	if ! echo $PATH | grep -q "$dir"; then
-		PATH="$dir:$PATH"
-	fi
-}
-
 . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-add_to_path "$HOME/.cabal/bin"
-add_to_path "$HOME/.local/bin"
 
+PATH="$HOME/.cabal/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/bin:$PATH" # always override the rest of the path

@@ -29,4 +29,8 @@ Section "Device"
     Option "DRI" "2"
 EndSection
 EOF
+
+apt remove lightdm
 AS_ROOT
+
+xgamma -gamma 0.6

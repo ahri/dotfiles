@@ -7,5 +7,35 @@
     {
         "key": "ctrl+shift+z",
         "command": "toggleVim"
+    },
+    {
+        "key": "ctrl+alt+left",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "ctrl+alt+right",
+        "command": "workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+shift+-",
+        "command": "-workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "editor.action.goToDeclaration",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    {
+        "key": "f12",
+        "command": "-editor.action.goToDeclaration",
+        "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
+    },
+    {
+        "key": "ctrl+'",
+        "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "ctrl+shift+'",
+        "command": "workbench.action.terminal.focusNext"
     }
 ]

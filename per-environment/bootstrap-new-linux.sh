@@ -6,7 +6,8 @@ set -ue
 
 misc="htop curl wget lshw man less openssh-client"
 build="build-essential cmake git"
-languages=" python-pip python3-pip ruby ruby-dev"
+languages="python-pip python3-pip ruby ruby-dev"
+docker="docker.io docker-compose"
 console_dev="vim dvtm"
 
 if [ $# -eq 0 ]; then
@@ -15,7 +16,7 @@ else
         windowing="i3 i3status unclutter qterminal xclip"
 fi
 
-packages="$misc $build $languages $console_dev $windowing"
+packages="$misc $build $languages $docker $console_dev $windowing"
 params=""
 
 pkgmgr="`(which apt-get || which yum) 2> /dev/null || (echo "No supported package manager found" 1>&2 && false)`"
