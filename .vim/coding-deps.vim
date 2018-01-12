@@ -110,6 +110,11 @@ if executable('javac')
 	Plug 'artur-shaik/vim-javacomplete2'
 endif
 
+if executable('tsserver')
+	Plug 'Quramy/tsuquyomi'
+	Plug 'leafgarland/typescript-vim'
+endif
+
 
 " IDE-like stuff: defaults
 " Type stuff
