@@ -21,9 +21,8 @@ nnoremap <C-J> :action EditorDown<CR>
 nnoremap <C-K> :action EditorUp<CR>
 nnoremap <C-E> :action GotoNextError<CR>
 
-
-" Type stuff
-nnoremap <leader>td :action GotoDeclaration<CR>
+" Symbols
+nnoremap <leader>su :action FindUsages<CR>
 " Refactorings
 nnoremap <leader>ri :action Inline<CR>
 nnoremap <leader>rr :action RenameElement<CR>
