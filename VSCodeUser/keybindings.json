@@ -1,12 +1,16 @@
 // Place your key bindings in this file to overwrite the defaults
 [
     {
-        "key": "ctrl+d",
-        "command": "lafe.duplicateCode"
-    },
-    {
         "key": "ctrl+shift+z",
         "command": "toggleVim"
+    },
+    {
+        "key": "alt+cmd+left",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "alt+cmd+right",
+        "command": "workbench.action.navigateForward"
     },
     {
         "key": "ctrl+alt+left",
@@ -15,6 +19,10 @@
     {
         "key": "ctrl+alt+right",
         "command": "workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "-workbench.action.navigateBack"
     },
     {
         "key": "ctrl+shift+-",
@@ -31,11 +39,37 @@
         "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
     },
     {
+        "key": "cmd+'",
+        "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "cmd+shift+'",
+        "command": "workbench.action.terminal.focusNext"
+    },
+    {
         "key": "ctrl+'",
         "command": "workbench.action.terminal.focus"
     },
     {
         "key": "ctrl+shift+'",
         "command": "workbench.action.terminal.focusNext"
+    },
+    {
+        "key": "ctrl+d",
+        "Command": "lafe.duplicateCode"
+    },
+    {
+        "key": "cmd+d",
+        "Command": "lafe.duplicateCode"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "-deleteRight",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+d",
+        "command": "-editor.action.addSelectionToNextFindMatch",
+        "when": "editorFocus"
     }
 ]
