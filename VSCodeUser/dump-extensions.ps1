@@ -1,0 +1,1 @@
+code --list-extensions | Sort-Object | % {$_ -replace "`r", ""} | Set-Content extensions.list
