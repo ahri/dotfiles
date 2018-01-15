@@ -5,12 +5,13 @@ shopt -s checkwinsize
 shopt -s histappend
 
 export EDITOR="`which vim`"
-export HISTCONTROL="ignoreboth" # ignore both spaces and dupes
 
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+nix_profile="$HOME/.nix-profile/etc/profile.d/nix.sh"
+
+[ -f "$nix_profile" ] && . "$nix_profile"
 
 PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
