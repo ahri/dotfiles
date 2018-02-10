@@ -31,6 +31,10 @@ EndSection
 EOF
 
 apt remove lightdm
+
+# power
+add-apt-repository ppa:linrunner/tlp
+apt install tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpi-call-tools
 AS_ROOT
 
 xgamma -gamma 0.6
