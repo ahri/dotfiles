@@ -1,7 +1,8 @@
 Plug 'airblade/vim-rooter'
 
-if has('nvim')
-	Plug 'neomake/neomake'
+if has('nvim') || v:version >= 800
+	" Plug 'w0rp/ale' " checks buffer instead of just saved file
+	Plug 'neomake/neomake' " only checks saved file
 else
 	Plug 'scrooloose/syntastic'
 	set statusline+=%#warningmsg#
@@ -21,14 +22,18 @@ endif
 Plug 'chrisbra/NrrwRgn' " select a region and do :NR, then save to return
 
 if has('nvim') && has('python3') && executable('pip3')
+	echom "Completion: DeoComplete"
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 	let g:deoplete#enable_at_startup = 1
 elseif has('lua')
+	echom "Completion: NeoComplete"
 	Plug 'Shougo/neocomplete.vim'
 	let g:neocomplete#enable_at_startup = 1
 elseif has('python') && executable('python')
+	echom "Completion: YouCompleteMe"
 	Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py' }
 else
+	echom "Completion: VimCompletesMe"
 	Plug 'ajh17/VimCompletesMe'
 endif
 
@@ -90,10 +95,10 @@ if executable('stack')
 	Plug 'Twinside/vim-hoogle', { 'do' : 'stack install hoogle && hoogle generate' }
 	if has('nvim')
 		Plug 'parsonsmatt/intero-neovim'
-		let g:intero_stack_yaml = 'intero_stack.yaml'
 	else
 		Plug 'eagletmt/ghcmod-vim', { 'do' : 'stack install hlint ghc-mod' }
-		Plug 'eagletmt/neco-ghc'
+		" Plug 'eagletmt/neco-ghc'
+		" Plug 'mkasa/neco-ghc-lushtags', { 'for' : 'haskell' }
 		if executable('ghcid')
 			Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 		endif
