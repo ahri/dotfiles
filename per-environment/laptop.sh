@@ -35,6 +35,11 @@ apt remove lightdm
 # power
 add-apt-repository ppa:linrunner/tlp
 apt install tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpi-call-tools
+
+apt install -y xinput
+i1=`xinput list | grep Synaptics | sed 's/^.*=//;s/\t.*$//'`
+i2=xinput list-props $i1 | grep Natural | grep -v Default | sed 's/.*(//;s/).*//'
+xinput set-prop $i1 $i2 1
 AS_ROOT
 
 xgamma -gamma 0.6
