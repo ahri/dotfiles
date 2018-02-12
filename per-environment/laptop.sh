@@ -35,4 +35,6 @@ apt install -y tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpitool
 # mouse scroll naturally (reversed)
 apt install -y xinput
 
+apt install -y pm-utils
+
 AS_ROOT
