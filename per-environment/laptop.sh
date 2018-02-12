@@ -2,8 +2,6 @@
 
 set -ue
 
-gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/laptop-linux/stormboarder.png"
-
 cat <<AS_ROOT | sudo sh
 set -ue
 
@@ -18,8 +16,6 @@ cd /etc/fonts/conf.d
 ln -sf /usr/share/fontconfig/conf.avail/10-autohint.conf
 ln -sf /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
 
-# note: "syndaemon -i 1.0 -K -R -t" for laptop
-
 # https://wiki.archlinux.org/index.php/intel_graphics
 cat <<EOF > /usr/share/X11/xorg.conf.d/20-intel.conf
 Section "Device"
@@ -30,16 +26,13 @@ Section "Device"
 EndSection
 EOF
 
-apt remove lightdm
+# apt remove lightdm
 
 # power
 add-apt-repository ppa:linrunner/tlp
-apt install tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpi-call-tools
+apt install -y tlp tlp-rdw smartmontools ethtool tp-smapi-dkms acpitool
 
+# mouse scroll naturally (reversed)
 apt install -y xinput
-i1=`xinput list | grep Synaptics | sed 's/^.*=//;s/\t.*$//'`
-i2=xinput list-props $i1 | grep Natural | grep -v Default | sed 's/.*(//;s/).*//'
-xinput set-prop $i1 $i2 1
-AS_ROOT
 
-xgamma -gamma 0.6
+AS_ROOT
