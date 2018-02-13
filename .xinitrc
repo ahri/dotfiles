@@ -17,12 +17,12 @@ if exists synclient; then
 	synclient HorizScrollDelta=-150
 else
 	device=`xinput list | grep 'Synaptics' | sed 's,.*id=,,;s,\t.*,,'`
-	prop=`xinput list-props $device | grep 'Synaptics Scrolling Distance' | sed 's,.*(,,;s,).*,,'`
-	xinput set-prop $device $prop -150 -150
+	# prop=`xinput list-props $device | grep 'Synaptics Scrolling Distance' | sed 's,.*(,,;s,).*,,'`
+	# xinput set-prop $device $prop -150 -150
 
 	# alternatively, this uses the "Natural" scroll property
-	#prop=`xinput list-props $i1 | grep Natural | grep -v Default | sed 's/.*(//;s/).*//'`
-	#xinput set-prop $device $prop 1
+	prop=`xinput list-props $device | grep Natural | grep -v Default | sed 's/.*(//;s/).*//'`
+	xinput set-prop $device $prop 1
 fi
 
 for p in unclutter dunst notify-osd; do
@@ -39,8 +39,8 @@ else
 	ifexists xscreensaver -no-splash &
 fi
 
-xgamma -gamma 0.6
+xgamma -gamma 0.8
 
-gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/laptop-linux/stormboarder.png"
+gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/per-environment/laptop-linux/stormboarder.png"
 
 exec i3
