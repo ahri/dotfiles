@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# curl https://raw.githubusercontent.com/ahri/dotfiles/master/bootstrap-new-linux.sh | sh
+# curl https://raw.githubusercontent.com/ahri/dotfiles/master/per-environment/bootstrap-new-linux.sh | sh
 
 set -ue
 
