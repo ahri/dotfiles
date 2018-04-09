@@ -12,17 +12,29 @@ ifexists()
 	"$@"
 }
 
-if exists synclient; then
+if exists xinput; then
+	setxprop()
+	{
+		device="$1"
+		propname="$2"
+		shift 2
+
+		prop=`xinput list-props $device | grep -v Default | grep "$propname" | sed 's/.*(//;s/).*//'`
+
+		xinput set-prop $device $prop "$@"
+	}
+
+	device=`xinput list | grep 'Synaptics' | sed 's,.*id=,,;s,\t.*,,'`
+
+	setxprop $device "Natural Scrolling Enabled" 1
+	setxprop $device "Tapping Enabled" 1
+	setxprop $device "Disable While Typing Enabled" 1
+	# TODO: format for below is wrong?
+	# setxprop $device "Scroll Method Enabled" 1 0 0
+	# setxprop $device "Accel Speed" 1
+elif exists synclient; then
 	synclient VertScrollDelta=-150
 	synclient HorizScrollDelta=-150
-else
-	device=`xinput list | grep 'Synaptics' | sed 's,.*id=,,;s,\t.*,,'`
-	# prop=`xinput list-props $device | grep 'Synaptics Scrolling Distance' | sed 's,.*(,,;s,).*,,'`
-	# xinput set-prop $device $prop -150 -150
-
-	# alternatively, this uses the "Natural" scroll property
-	prop=`xinput list-props $device | grep Natural | grep -v Default | sed 's/.*(//;s/).*//'`
-	xinput set-prop $device $prop 1
 fi
 
 for p in unclutter dunst notify-osd; do
@@ -41,6 +53,7 @@ fi
 
 xgamma -gamma 0.8
 
-gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/per-environment/laptop-linux/stormboarder.png"
+#gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/per-environment/laptop-linux/stormboarder.png"
+feh --bg-scale "$(dirname $(readlink -f "$0"))/per-environment/laptop-linux/stormboarder.png"
 
 exec i3

@@ -47,14 +47,6 @@
         "command": "workbench.action.terminal.focusNext"
     },
     {
-        "key": "ctrl+'",
-        "command": "workbench.action.terminal.focus"
-    },
-    {
-        "key": "ctrl+shift+'",
-        "command": "workbench.action.terminal.focusNext"
-    },
-    {
         "key": "ctrl+d",
         "Command": "lafe.duplicateCode"
     },
@@ -71,5 +63,18 @@
         "key": "cmd+d",
         "command": "-editor.action.addSelectionToNextFindMatch",
         "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+'",
+        "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "ctrl+'",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+'",
+        "command": "workbench.action.terminal.focusNext"
     }
 ]

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -ue
+
+env XDG_CURRENT_DESKTOP=GNOME /usr/bin/gnome-control-center
