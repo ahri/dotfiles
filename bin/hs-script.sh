@@ -13,10 +13,10 @@ cat <<EOF > "$script"
 #!/usr/bin/env stack
 -- stack --resolver lts-11.7 --install-ghc runghc --package containers
 
-import Control.Monad
-import System.Environment
-import System.Exit
-import System.IO
+import             Data.Foldable
+import             System.Environment
+import             System.Exit
+import             System.IO
 
 main :: IO ()
 main = do
@@ -24,8 +24,8 @@ main = do
     getContents >>= putStrLn
 
     args <- getArgs
-    hPutStrLn stderr "args:"
-    forM_ args (hPutStrLn stderr)
+    putStrLn "args:"
+    traverse_ (hPutStrLn stderr) args 
 
     exitFailure
 EOF
