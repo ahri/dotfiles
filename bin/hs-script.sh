@@ -11,12 +11,28 @@ script="$1"
 
 cat <<EOF > "$script"
 #!/usr/bin/env stack
--- stack --resolver lts-11.7 --install-ghc runghc --package containers
+{- stack --resolver lts-11.7 --install-ghc runghc
+   --package containers
+   --package regex-compat
+   --package process
+-}
 
+-- https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/using-warnings.html
+{-# OPTIONS_GHC -Werror -Wall -Wcompat                                #-}
+{-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates #-}
+{-# OPTIONS_GHC -Widentities -Wredundant-constraints                  #-}
+{-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules     #-}
+-- {-# OPTIONS_GHC -ddump-minimal-imports                             #-}
+
+import             Data.Semigroup
 import             Data.Foldable
+import             Data.Traversable
+import             System.Directory
 import             System.Environment
 import             System.Exit
 import             System.IO
+import             System.Process
+import             Text.Regex
 
 main :: IO ()
 main = do
