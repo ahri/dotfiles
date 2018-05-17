@@ -13,3 +13,24 @@ Plug 'farmergreg/vim-lastplace'
 "  dash-case (cr-), dot.case (cr.), space case (cr<space>), and Title Case
 "  (crt) 
 
+Plug 'kien/ctrlp.vim'
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/](\.([^/]+))$',
+	\ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|.pyc)$',
+	\}
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 'ra' " use .git as the root
+
+nnoremap <leader>o :CtrlP<cr>
+nnoremap <leader>e :CtrlPBuffer<cr>
+
+let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
+function! CtrlPMappings()
+        nnoremap <buffer> <silent> <C-@> :call <sid>DeleteBuffer()<cr>
+endfunction
+function! s:DeleteBuffer()
+        let path = fnamemodify(getline('.')[2:], ':p')
+        let bufn = matchstr(path, '\v\d+\ze\*No Name')
+        exec 'bd' bufn ==# '' ? path : bufn
+        exec 'norm \<F5>'
+endfunction
