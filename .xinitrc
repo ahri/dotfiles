@@ -19,19 +19,22 @@ if exists xinput; then
 		propname="$2"
 		shift 2
 
-		prop=`xinput list-props $device | grep -v Default | grep "$propname" | sed 's/.*(//;s/).*//'`
+		prop=`xinput list-props "$device" | grep -v Default | grep "$propname" | sed 's/.*(//;s/).*//'`
 
-		xinput set-prop $device $prop "$@"
+		xinput set-prop "$device" "$prop" "$@"
 	}
 
 	device=`xinput list | grep 'Synaptics' | sed 's,.*id=,,;s,\t.*,,'`
-
-	setxprop $device "Natural Scrolling Enabled" 1
-	setxprop $device "Tapping Enabled" 1
-	setxprop $device "Disable While Typing Enabled" 1
-	# TODO: format for below is wrong?
-	# setxprop $device "Scroll Method Enabled" 1 0 0
-	# setxprop $device "Accel Speed" 1
+	if [ -z "$device" ]; then
+		echo "Couldn't find synaptics device" 1>&2
+	else
+		setxprop $device "Natural Scrolling Enabled" 1
+		setxprop $device "Tapping Enabled" 1
+		setxprop $device "Disable While Typing Enabled" 1
+		# TODO: format for below is wrong?
+		# setxprop $device "Scroll Method Enabled" 1 0 0
+		# setxprop $device "Accel Speed" 1
+	fi
 elif exists synclient; then
 	synclient VertScrollDelta=-150
 	synclient HorizScrollDelta=-150
