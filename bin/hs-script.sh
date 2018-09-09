@@ -15,6 +15,7 @@ cat <<EOF > "$script"
    --package containers
    --package regex-compat
    --package process
+   --package directory
 -}
 
 -- https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/using-warnings.html
@@ -22,6 +23,7 @@ cat <<EOF > "$script"
 {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates #-}
 {-# OPTIONS_GHC -Widentities -Wredundant-constraints                  #-}
 {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules     #-}
+{-# OPTIONS_GHC -fno-warn-unused-imports                              #-}
 -- {-# OPTIONS_GHC -ddump-minimal-imports                             #-}
 
 import             Data.Semigroup
