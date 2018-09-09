@@ -11,7 +11,7 @@ script="$1"
 
 cat <<EOF > "$script"
 #!/usr/bin/env stack
-{- stack --resolver lts-11.7 --install-ghc runghc
+{- stack --resolver lts-12.9 --install-ghc runghc
    --package containers
    --package regex-compat
    --package process
