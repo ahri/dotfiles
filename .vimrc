@@ -6,13 +6,6 @@ set background=dark
 let macvim_skip_colorscheme=1
 silent! set macligatures
 
-" For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-if !has('gui_running') && $TERM =~ "-256color$"
-	set t_Co=256 " breaks my mintty settings
-endif
-
 function! DefaultColorscheme(scheme)
 	try
 		if (g:colors_name == "default")

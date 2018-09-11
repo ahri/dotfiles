@@ -25,10 +25,14 @@ Plug 'tpope/vim-commentary'
 nmap \\\ <Plug>CommentaryLine
 vmap \\ <Plug>Commentary
 
-if executable('ctags')
-	Plug 'ludovicchabant/vim-gutentags'
-	Plug 'majutsushi/tagbar' " :TagbarToggle
-	let g:tagbar_autofocus = 1
+function! SupportsAsync()
+	return (has('nvim') || v:version >= 800)
+endfunction
+
+if (SupportsAsync())
+	Plug 'w0rp/ale'
+	let g:ale_fix_on_save=0
+	let g:ale_enabled=0
 endif
 
 " IDE-like stuff: defaults
@@ -50,3 +54,23 @@ nnoremap <leader>ic :echoerr "UNDEFINED: introduce: constant"<CR>
 nnoremap <leader>xm :echoerr "UNDEFINED: extract: method"<CR>
 nnoremap <leader>xi :echoerr "UNDEFINED: extract: interface"<CR>
 nnoremap <leader>xf :echoerr "UNDEFINED: extract: function"<CR>
+
+" (Optional) Multi-entry selection UI.
+Plug 'junegunn/fzf'
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+" TODO: for each lang look for some file that implies support might be useful, add to map
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie', '--lsp'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ }
+
+nnoremap <leader>td :call LanguageClient_textDocument_definition()<CR>
+nnoremap <leader>ti :call LanguageClient_textDocument_hover()<CR>
+nnoremap <leader>rr :call LanguageClient_textDocument_rename()<CR>
+" TODO: the commands did use <silent>
+" TODO: check out other LanguageClient_* commands
