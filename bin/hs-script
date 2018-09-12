@@ -226,11 +226,27 @@ case $cmd in
 	;;
 
 "sample")
-	# NB. this doesn't take account of hyperthreading, because it shouldn't
-	cores=`grep -c ^processor /proc/cpuinfo`
-
 	compile
-	./"`echo "$script_name" | sed 's/\.hs$//'`" +RTS -N$cores -s "$@"
+
+	rts_args="+RTS -s"
+	if ! echo "$@" | grep -q -- '-N[0-9]\+\b'; then
+		# NB. this doesn't take account of hyperthreading, because it shouldn't
+		if [ -e /proc/cpuinfo ]; then
+			cores=`grep -c ^processor /proc/cpuinfo`
+		elif 1>/dev/null 2>&1 which sysctl; then
+			cores=`sysctl -n hw.logicalcpu`
+		else
+			echo "INFO: could not interrogate system, falling back"
+			cores=2
+		fi
+
+		echo "INFO: as -N<cores> was not provided, a guess of -N$cores is being used"
+		rts_args="$rts_args -N$cores"
+	fi
+
+	echo "INFO: using RTS args; $rts_args $@"
+
+	./"`echo "$script_name" | sed 's/\.hs$//'`" $rts_args "$@"
 	;;
 *)
 	err "Unknown command $cmd"
