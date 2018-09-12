@@ -14,9 +14,30 @@ err()
 
 stack_install_cmd()
 {
-	name="$1"
+	name=$1
 	echo "stack install --resolver $RESOLVER --install-ghc $name"
 }
+
+system_install_cmd_()
+{
+	param=$1
+	shift
+
+	for pkgman in "$@"; do
+		if 1>/dev/null 2>&1 which $pkgman; then
+			echo "$pkgman $param"
+			return 0
+		fi
+	done
+
+	return 1
+}
+
+system_install_cmd="` system_install_cmd_ install apt apt-get yum \
+                   || system_install_cmd_ add apk \
+                   || system_install_cmd_ -i nix-env \
+                   || echo "use your package manager to install" \
+	           `"
 
 dep()
 {
@@ -25,10 +46,10 @@ dep()
 	1>/dev/null 2>&1 which $name || err "Missing dependency: $name, $hint"
 }
 
-dep awk "apt install awk"
-dep grep "apt install grep"
-dep sed "apt install sed"
-dep stack "apt install stack"
+dep awk "$system_install_cmd awk"
+dep grep "$system_install_cmd grep"
+dep sed "$system_install_cmd sed"
+dep stack "$system_install_cmd stack"
 
 if [ $# -lt 2 ]; then
 	1>&2 cat <<EOF
