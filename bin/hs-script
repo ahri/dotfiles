@@ -140,6 +140,7 @@ highlight()
 
 watch()
 {
+	1>/dev/null 2>&1 which source-highlight || echo "Hint: Install source-highlight to nicer output"
 	ghcid -h8 -T ':ctags' -c "`ghci_cmd`" | highlight
 }
 
