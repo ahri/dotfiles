@@ -16,7 +16,6 @@ err()
 1>/dev/null 2>&1 which grep  || err "Missing dependency: grep"
 1>/dev/null 2>&1 which sed   || err "Missing dependency: sed"
 1>/dev/null 2>&1 which stack || err "Missing dependency: stack"
-1>/dev/null 2>&1 which ghcid || err "Missing dependency: ghcid"
 
 if [ $# -lt 2 ]; then
 	1>&2 cat <<EOF
@@ -140,6 +139,7 @@ highlight()
 
 watch()
 {
+	1>/dev/null 2>&1 which ghcid || err "Missing dependency: ghcid"
 	1>/dev/null 2>&1 which source-highlight || echo "Hint: Install source-highlight to nicer output"
 	ghcid -h8 -T ':ctags' -c "`ghci_cmd`" | highlight
 }
