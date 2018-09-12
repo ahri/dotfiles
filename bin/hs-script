@@ -4,33 +4,48 @@ RESOLVER=lts-12.9
 
 set -ue
 
-if [ $# -eq 0 ]; then
+err()
+{
+	fmt="$1"
+	shift
+	1>&2 printf "$fmt\n" "$@"
+	exit 1
+}
+
+1>/dev/null 2>&1 which awk   || err "Missing dependency: awk"
+1>/dev/null 2>&1 which grep  || err "Missing dependency: grep"
+1>/dev/null 2>&1 which sed   || err "Missing dependency: sed"
+1>/dev/null 2>&1 which stack || err "Missing dependency: stack"
+1>/dev/null 2>&1 which ghcid || err "Missing dependency: ghcid"
+
+if [ $# -lt 2 ]; then
 	1>&2 cat <<EOF
 Commands:
 	new script_name
 	ghci script_name
+	watch script_name
 	compile script_name
-	sample script_name
+	sample script_name [additional RTS params]
 EOF
 	exit 1
 fi
 
 cmd=$1
-shift
+script_path="$2"
+script_dir="`dirname "$script_path"`"
+script_name="`basename "$script_path"`"
 
-err()
-{
-	fmt="$1"
-	shift
-	printf "$fmt\n" "$@"
-	exit 1
-}
+shift 2
+
+if [ ! -d "$script_dir" ]; then
+	mkdir -p "$script_dir"
+fi
+
+cd "$script_dir"
 
 new()
 {
-	script="$1"
-
-	cat <<EOF > "$script"
+	cat <<EOF > "$script_path"
 #!/usr/bin/env stack
 {- stack --resolver $RESOLVER --install-ghc runghc
    --package containers
@@ -73,13 +88,12 @@ main = do
     exitFailure
 EOF
 
-	chmod 755 "$script"
+	chmod 755 "$script_path"
 }
 
 replaced_cmd()
 {
-	script_name="$1"
-	replacement=$2
+	replacement=$1
 
 	awk -vreplacement=$replacement '
 		BEGIN { x = 0; cmd = "" }
@@ -102,62 +116,51 @@ replaced_cmd()
 			sub(/ {2,}/, " ", cmd)
 			print cmd
 		}
-	' < "$script_name"
+	' < "$script_path"
+}
+
+ghci_cmd()
+{
+	echo `replaced_cmd ghci` --ghci-options '-DGHCI=1' "$script_name"
 }
 
 ghci()
 {
-	script_path="$1"
-	shift
-	script_dir="`dirname "$script_path"`"
-	script_name="`basename "$script_path"`"
+	`ghci_cmd`
+}
 
-	cd "$script_dir"
-
-	cmd=`replaced_cmd "$script_name" ghci`
-
-	$cmd "$@" --ghci-options '-DGHCI=1' "$script_name"
+watch()
+{
+	ghcid -h8 -T ':ctags' -c "`ghci_cmd`"
 }
 
 compile()
 {
-	script_path="$1"
-	shift
-	script_dir="`dirname "$script_path"`"
-	script_name="`basename "$script_path"`"
-
-	cd "$script_dir"
-
-	cmd=`replaced_cmd "$script_name" ghc`
-
-	compile_flags=`awk '/^{- COMPILE_FLAGS / { sub(/^{- COMPILE_FLAGS /, ""); sub(/ -}/, ""); print; exit 0 }' < "$script_name"`
-	$cmd "$@" -- $compile_flags "$script_name"
+	compile_flags=`awk '/^{- COMPILE_FLAGS / { sub(/^{- COMPILE_FLAGS /, ""); sub(/ -}/, ""); print; exit 0 }' < "$script_path"`
+	`replaced_cmd ghc` -- $compile_flags "$script_name"
 }
 
 case $cmd in
 "new")
-	[ $# -ne 1 ] && err "Provide a script name"
-	new "$1"
+	new
 	;;
 
 "ghci")
-	[ $# -ne 1 ] && err "Provide a script name"
-	ghci "$1"
+	ghci
+	;;
+
+"watch")
+	watch
 	;;
 
 "compile")
-	[ $# -ne 1 ] && err "Provide a script name"
-	compile "$1"
+	compile
 	;;
 
 "sample")
-	[ $# -lt 1 ] && err "Provide a script name"
-	script_name="$1"
-	shift
-
 	cores=`grep -c ^processor /proc/cpuinfo`
 
-	compile "$script_name"
+	compile
 	./"`echo "$script_name" | sed 's/\.hs$//'`" +RTS -N$cores -s "$@"
 	;;
 *)

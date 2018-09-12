@@ -23,6 +23,7 @@ let g:ctrlp_working_path_mode = 'ra' " use .git as the root
 
 nnoremap <leader>o :CtrlP<cr>
 nnoremap <leader>e :CtrlPBuffer<cr>
+nnoremap <leader>. :CtrlPTag<cr>
 
 let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
 function! CtrlPMappings()
