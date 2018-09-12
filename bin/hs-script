@@ -12,10 +12,23 @@ err()
 	exit 1
 }
 
-1>/dev/null 2>&1 which awk   || err "Missing dependency: awk"
-1>/dev/null 2>&1 which grep  || err "Missing dependency: grep"
-1>/dev/null 2>&1 which sed   || err "Missing dependency: sed"
-1>/dev/null 2>&1 which stack || err "Missing dependency: stack"
+stack_install_cmd()
+{
+	name="$1"
+	echo "stack install --resolver $RESOLVER --install-ghc $name"
+}
+
+dep()
+{
+	name=$1
+	hint="$2"
+	1>/dev/null 2>&1 which $name || err "Missing dependency: $name, $hint"
+}
+
+dep awk "apt install awk"
+dep grep "apt install grep"
+dep sed "apt install sed"
+dep stack "apt install stack"
 
 if [ $# -lt 2 ]; then
 	1>&2 cat <<EOF
@@ -23,6 +36,8 @@ Commands:
 	new script_name
 	ghci script_name
 	watch script_name
+	lint script_name
+	fix-linting script_name
 	compile script_name
 	sample script_name [additional RTS params]
 EOF
@@ -139,9 +154,25 @@ highlight()
 
 watch()
 {
-	1>/dev/null 2>&1 which ghcid || err "Missing dependency: ghcid"
+	dep ghcid "`stack_install_cmd ghcid`"
+
 	1>/dev/null 2>&1 which source-highlight || echo "Hint: Install source-highlight to nicer output"
 	ghcid -h8 -T ':ctags' -c "`ghci_cmd`" | highlight
+}
+
+lint()
+{
+	dep hlint "`stack_install_cmd hlint`"
+
+	hlint "$script_path"
+}
+
+fix_linting()
+{
+	dep hlint "`stack_install_cmd hlint`"
+	dep refactor "`stack_install_cmd apply-refact`"
+
+	hlint --refactor --refactor-options="-is" "$script_path"
 }
 
 compile()
@@ -162,12 +193,19 @@ case $cmd in
 "watch")
 	watch
 	;;
+"lint")
+	lint
+	;;
+"fix-linting")
+	fix_linting
+	;;
 
 "compile")
 	compile
 	;;
 
 "sample")
+	# NB. this doesn't take account of hyperthreading, because it shouldn't
 	cores=`grep -c ^processor /proc/cpuinfo`
 
 	compile
