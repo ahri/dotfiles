@@ -129,9 +129,18 @@ ghci()
 	`ghci_cmd`
 }
 
+highlight()
+{
+	if which source-highlight > /dev/null; then
+		source-highlight -s haskell -f esc
+	else
+		cat
+	fi
+}
+
 watch()
 {
-	ghcid -h8 -T ':ctags' -c "`ghci_cmd`"
+	ghcid -h8 -T ':ctags' -c "`ghci_cmd`" | highlight
 }
 
 compile()
