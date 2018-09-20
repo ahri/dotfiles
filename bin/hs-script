@@ -8,8 +8,22 @@ err()
 {
 	fmt="$1"
 	shift
-	1>&2 printf "$fmt\n" "$@"
+	printf "$fmt\n" "$@" 1>&2
 	exit 1
+}
+
+is_executable_on_path()
+{
+	which "$@" > /dev/null
+}
+
+any_executable()
+{
+	for x in $@; do
+		which $x && return 0
+	done
+
+	return 1
 }
 
 stack_install_cmd()
@@ -24,8 +38,8 @@ system_install_cmd_()
 	shift
 
 	for pkgman in "$@"; do
-		if 1>/dev/null 2>&1 which $pkgman; then
-			echo "$pkgman $param"
+		if is_executable_on_path $pkgman; then
+			echo "sudo $pkgman $param"
 			return 0
 		fi
 	done
@@ -43,7 +57,7 @@ dep()
 {
 	name=$1
 	hint="$2"
-	1>/dev/null 2>&1 which $name || err "Missing dependency: $name, $hint"
+	is_executable_on_path $name || err "Missing dependency: $name, $hint"
 }
 
 dep awk "$system_install_cmd awk"
@@ -52,23 +66,24 @@ dep sed "$system_install_cmd sed"
 dep stack "$system_install_cmd stack"
 
 if [ $# -lt 2 ]; then
-	1>&2 cat <<EOF
+	cat <<EOF 1>&2
+Usage: script_name command [cmd params]
 Commands:
-	new script_name
-	ghci script_name
-	watch script_name
-	lint script_name
-	fix-linting script_name
-	compile script_name
-	sample script_name [additional RTS params]
+	new
+	repl
+	watch
+	lint
+	fix-linting
+	compile
+	profile [additional RTS options]
 EOF
 	exit 1
 fi
 
-cmd=$1
-script_path="$2"
+script_path="$1"
 script_dir="`dirname "$script_path"`"
 script_name="`basename "$script_path"`"
+cmd=$2
 
 shift 2
 
@@ -89,7 +104,7 @@ new()
    --package directory
 -}
 
-{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+{- COMPILE_FLAGS -O2 -threaded -rtsopts "" -eventlog -}
 
 -- https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/using-warnings.html
 {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
@@ -159,16 +174,17 @@ ghci_cmd()
 	echo `replaced_cmd ghci` --ghci-options '-DGHCI=1' "$script_name"
 }
 
-ghci()
+repl()
 {
 	`ghci_cmd`
 }
 
 highlight()
 {
-	if which source-highlight > /dev/null; then
+	if is_executable_on_path source-highlight; then
 		source-highlight -s haskell -f esc
 	else
+		echo "Hint: Install source-highlight to nicer output; $system_install_cmd source-highlight"
 		cat
 	fi
 }
@@ -176,9 +192,14 @@ highlight()
 watch()
 {
 	dep ghcid "`stack_install_cmd ghcid`"
+	ctags_cmd=":ctags"
+	found=`any_executable fast-tags hasktags || echo`
+	if [ ! -z "$found" ]; then
+		echo "INFO: $found on path - not using ghci :ctags in case of overwrite"
+		ctags_cmd=""
+	fi
 
-	1>/dev/null 2>&1 which source-highlight || echo "Hint: Install source-highlight to nicer output"
-	ghcid -h8 -T ':ctags' -c "`ghci_cmd`" | highlight
+	ghcid -h8 -T "$ctags_cmd" -c "`ghci_cmd`" | highlight
 }
 
 lint()
@@ -196,10 +217,14 @@ fix_linting()
 	hlint --refactor --refactor-options="-is" "$script_path"
 }
 
+compile_flags()
+{
+	awk '/^{- COMPILE_FLAGS / { sub(/^{- COMPILE_FLAGS /, ""); sub(/ -}/, ""); print; exit 0 }' < "$script_path"
+}
+
 compile()
 {
-	compile_flags=`awk '/^{- COMPILE_FLAGS / { sub(/^{- COMPILE_FLAGS /, ""); sub(/ -}/, ""); print; exit 0 }' < "$script_path"`
-	`replaced_cmd ghc` -- $compile_flags "$script_name"
+	`replaced_cmd ghc` -- `compile_flags` "$script_name"
 }
 
 case $cmd in
@@ -207,8 +232,8 @@ case $cmd in
 	new
 	;;
 
-"ghci")
-	ghci
+"repl")
+	repl
 	;;
 
 "watch")
@@ -225,23 +250,15 @@ case $cmd in
 	compile
 	;;
 
-"sample")
+"profile")
+	is_executable_on_path threadscope || echo "Hint: install threadscope to aid in profiling/optimization: $system_install_cmd threadscope"
 	compile
 
+	# TODO: use `compile_opts` to get -rtsopts and use that here, overriding with passed in params if neccessary
 	rts_args="+RTS -s"
 	if ! echo "$@" | grep -q -- '-N[0-9]\+\b'; then
-		# NB. this doesn't take account of hyperthreading, because it shouldn't
-		if [ -e /proc/cpuinfo ]; then
-			cores=`grep -c ^processor /proc/cpuinfo`
-		elif 1>/dev/null 2>&1 which sysctl; then
-			cores=`sysctl -n hw.logicalcpu`
-		else
-			echo "INFO: could not interrogate system, falling back"
-			cores=2
-		fi
-
-		echo "INFO: as -N<cores> was not provided, a guess of -N$cores is being used"
-		rts_args="$rts_args -N$cores"
+		echo "INFO: as -N<cores> was not provided, -N is being used which uses all cores"
+		rts_args="$rts_args -N"
 	fi
 
 	echo "INFO: using RTS args; $rts_args $@"
