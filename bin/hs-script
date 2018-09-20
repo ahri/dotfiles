@@ -29,7 +29,7 @@ any_executable()
 stack_install_cmd()
 {
 	name=$1
-	echo "stack install --resolver $RESOLVER --install-ghc $name"
+	echo "$ stack install --resolver $RESOLVER --install-ghc $name"
 }
 
 system_install_cmd_()
@@ -39,7 +39,7 @@ system_install_cmd_()
 
 	for pkgman in "$@"; do
 		if is_executable_on_path $pkgman; then
-			echo "sudo $pkgman $param"
+			echo "$ sudo $pkgman $param"
 			return 0
 		fi
 	done
@@ -64,6 +64,11 @@ dep awk "$system_install_cmd awk"
 dep grep "$system_install_cmd grep"
 dep sed "$system_install_cmd sed"
 dep stack "$system_install_cmd haskell-stack"
+
+stack --version \
+	| awk 'NR == 1 { print $2 }' \
+	| awk -F. 'BEGIN { x=1 } $1 > 1 || ($1 == 1 && $2 >= 7) { x=0 } END { exit x }' \
+	|| err "Stack is out of date; $ stack upgrade"
 
 if [ $# -lt 2 ]; then
 	cat <<EOF 1>&2
