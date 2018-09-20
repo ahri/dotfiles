@@ -110,7 +110,7 @@ new()
    --package directory
 -}
 
-{- COMPILE_FLAGS -O2 -threaded -rtsopts "" -eventlog -}
+{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
 
 -- https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/using-warnings.html
 {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
