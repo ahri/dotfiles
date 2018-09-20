@@ -16,7 +16,7 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/](\.([^/]+))$',
-	\ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|.pyc)$',
+	\ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg|pyc|o)$',
 	\}
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'ra' " use .git as the root
