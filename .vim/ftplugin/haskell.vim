@@ -8,10 +8,14 @@ let g:ale_completion_enabled = 1
 
 " assumes we're using vim-rooter to chdir to the project root
 function! HsTags()
-	if filereadable("tags")
-		!fast-tags %
+	if executable("fast-tags")
+		if filereadable("tags")
+			!fast-tags %
+		else
+			!fast-tags -R .
+		endif
 	else
-		!fast-tags -R .
+		echom "fast-tags not found - tags not generated"
 	endif
 endfunction
 
