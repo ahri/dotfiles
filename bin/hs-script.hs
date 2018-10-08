@@ -21,30 +21,30 @@
 {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
 {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
 {-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns                       #-}
--- {-# OPTIONS_GHC -ddump-minimal-imports                                                             #-}
+-- {-# OPTIONS_GHC -ddump-minimal-imports                                  #-}
 
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
 
 import Control.Monad
-import Data.Foldable
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
+import Data.Text hiding (length, take, drop, words, unwords)
+import Data.Text.IO hiding (hGetLine)
 import NeatInterpolation
+import Prelude hiding (writeFile)
 import System.Directory
 import System.Environment
 import System.Exit
 import System.FilePath
-import System.IO
+import System.IO hiding (writeFile)
 import System.Info
 import System.Process
 import Text.Printf
 import Text.Regex.Posix
 
-resolver :: T.Text
+resolver :: Text
 resolver = "lts-12.9"
 
-template :: T.Text
+template :: Text
 template = [text|
 	#!/usr/bin/env stack
 	{- stack --resolver $resolver --install-ghc runghc
@@ -97,7 +97,6 @@ main = do
     let [scriptPath, command] = take 2 args
 
     setCurrentDirectory $ takeDirectory scriptPath
-    getCurrentDirectory >>= print
 
     let scriptName = takeFileName scriptPath
 
@@ -113,7 +112,7 @@ main = do
         _             -> die $ printf "Unknown command: %s" command
 
 usage :: IO ()
-usage = die $ T.unpack [text|
+usage = die $ unpack [text|
     Usage: script_name command [cmd params]
     Commands:
         new
@@ -129,19 +128,32 @@ new :: String -> IO ()
 new scriptName = do
     exists <- doesFileExist scriptName
     when exists . die $ printf "Script %s already exists" scriptName
-    T.writeFile scriptName template
+    writeFile scriptName template
+
+sh :: CreateProcess -> IO ExitCode
+sh cp = withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
 
 repl :: String -> IO ()
-repl scriptName = die "TODO: repl"
+repl scriptName = do
+    cmd <- getCmdWithReplacement scriptName "ghci"
+    exitCode <- sh . shell $ cmd ++ " " ++ scriptName
+    exitWith exitCode
 
 watch :: String -> IO ()
-watch scriptName = die "TODO: watch"
+watch scriptName = do
+    cmd <- getCmdWithReplacement scriptName "ghci"
+    exitCode <- sh . shell $ "ghcid -c '" ++ cmd ++ " " ++ scriptName ++ "'"
+    exitWith exitCode
 
 lint :: String -> IO ()
-lint scriptName = die "TODO: lint"
+lint scriptName = do
+    exitCode <- sh . shell $ "hlint " ++ scriptName
+    exitWith exitCode
 
 fixLinting :: String -> IO ()
-fixLinting scriptName = die "TODO: fixLinting"
+fixLinting scriptName = do
+    exitCode <- sh . shell $ "hlint --refactor --refactor-options='-is' " ++ scriptName
+    exitWith exitCode
 
 compile :: String -> IO ()
 compile scriptName = die "TODO: compile"
@@ -149,8 +161,27 @@ compile scriptName = die "TODO: compile"
 profile :: String -> [String] -> IO ()
 profile scriptName args = die "TODO: profile"
 
-ghciCmd :: String -> IO String
-ghciCmd scriptName = do
-    file <- readFile scriptName
-    getIt $ unlines file
-    -- TODO: use hGetLine on a file handle to read lines
+getCmdWithReplacement :: String -> String -> IO String
+getCmdWithReplacement scriptName replacement = do
+    res <- withFile scriptName ReadMode $ go Nothing
+    when (res == Nothing) $ die "Couldn't find params"
+    pure . maybe "" id $ res
+  where
+    go :: Maybe String -> Handle -> IO (Maybe String)
+    go state handle = do
+        line <- hGetLine handle
+        if state /= Nothing && line =~ ("-}"::String)
+            then pure $ (++ (unwords . dropLast $ words line)) <$> state
+        else if state /= Nothing
+            then go (Just $ (maybe "" id state) ++ line) handle
+        else if line =~ ("^\\{- stack"::String)
+            then go
+                (Just $ (maybe "" id state) ++ (unwords . drop 1 . replaceWords "runghc" replacement $ words line))
+                handle
+        else
+            go state handle
+
+    dropLast strs = take (length strs - 1) strs
+
+    replaceWords :: String -> String -> [String] -> [String]
+    replaceWords from to strs = [if word == "runghc" then replacement else word | word <- strs]
