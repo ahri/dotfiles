@@ -24,28 +24,27 @@
 -- {-# OPTIONS_GHC -ddump-minimal-imports                                  #-}
 
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE LambdaCase #-}
 
 import Control.Monad
-import Data.Text hiding (length, take, drop, words, unwords)
-import Data.Text.IO hiding (hGetLine)
+import qualified Data.Text as T
 import NeatInterpolation
-import Prelude hiding (writeFile)
 import System.Directory
 import System.Environment
 import System.Exit
 import System.FilePath
-import System.IO hiding (writeFile)
-import System.Info
+import System.IO
 import System.Process
 import Text.Printf
 import Text.Regex.Posix
 
-resolver :: Text
+resolver :: T.Text
 resolver = "lts-12.9"
 
-template :: Text
-template = [text|
+template :: String
+template = T.unpack [text|
 	#!/usr/bin/env stack
 	{- stack --resolver $resolver --install-ghc runghc
 	    --package containers
@@ -66,16 +65,23 @@ template = [text|
 	{-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
 	-- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
 
-	import             Data.Semigroup
-	import             Data.Foldable
-	import             Data.Traversable
-	import             System.Directory
-	import             System.Environment
-	import             System.Exit
-	import             System.IO
-	import             System.Process
-	import             Text.Printf
-	import             Text.Regex
+	import Data.Semigroup
+	import Data.Foldable
+	import Data.Traversable
+	import System.Directory
+	import System.Environment
+	import System.Exit
+    import System.FilePath
+	import System.IO
+	import System.Process
+	import Text.Printf
+	import Text.Regex
+
+    sh :: CreateProcess -> IO ()
+    sh cp = do
+        exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
+        when (exitCode /= ExitSuccess) $ exitWith exitCode
+        pure ()
 
 	main :: IO ()
 	main = do
@@ -112,7 +118,7 @@ main = do
         _             -> die $ printf "Unknown command: %s" command
 
 usage :: IO ()
-usage = die $ unpack [text|
+usage = die $ T.unpack [text|
     Usage: script_name command [cmd params]
     Commands:
         new
@@ -126,62 +132,117 @@ usage = die $ unpack [text|
 
 new :: String -> IO ()
 new scriptName = do
-    exists <- doesFileExist scriptName
-    when exists . die $ printf "Script %s already exists" scriptName
+    noOverwrite scriptName
     writeFile scriptName template
+    perms <- getPermissions scriptName
+    setPermissions scriptName $ setOwnerExecutable True perms
 
-sh :: CreateProcess -> IO ExitCode
-sh cp = withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
+sh :: CreateProcess -> IO ()
+sh cp = do
+    exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
+    when (exitCode /= ExitSuccess) $ exitWith exitCode
+    pure ()
 
 repl :: String -> IO ()
 repl scriptName = do
-    cmd <- getCmdWithReplacement scriptName "ghci"
-    exitCode <- sh . shell $ cmd ++ " " ++ scriptName
-    exitWith exitCode
+    cmd <- getRunghcCmdWithReplacement scriptName "ghci"
+    sh . shell $ printf "%s %s" cmd scriptName
 
 watch :: String -> IO ()
 watch scriptName = do
-    cmd <- getCmdWithReplacement scriptName "ghci"
-    exitCode <- sh . shell $ "ghcid -c '" ++ cmd ++ " " ++ scriptName ++ "'"
-    exitWith exitCode
+    cmd <- getRunghcCmdWithReplacement scriptName "ghci"
+    sh . shell $ printf "ghcid -c \"%s \\\"%s\\\"\"" cmd scriptName
 
 lint :: String -> IO ()
 lint scriptName = do
-    exitCode <- sh . shell $ "hlint " ++ scriptName
-    exitWith exitCode
+    sh . shell $ printf "hlint \"%s\"" scriptName
 
 fixLinting :: String -> IO ()
 fixLinting scriptName = do
-    exitCode <- sh . shell $ "hlint --refactor --refactor-options='-is' " ++ scriptName
-    exitWith exitCode
+    sh . shell $ printf "hlint --refactor --refactor-options=\"-is\" \"%s\"" scriptName
 
 compile :: String -> IO ()
-compile scriptName = die "TODO: compile"
+compile scriptName = do
+    cmd <- getRunghcCmdWithReplacement scriptName "ghc"
+    flags <- unwords . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
+    noOverwrite $ exeName scriptName
+    sh . shell $ printf "%s -- %s %s" cmd flags scriptName
 
 profile :: String -> [String] -> IO ()
-profile scriptName args = die "TODO: profile"
+profile scriptName args = do
+    threadscopeExe <- findExecutable "threadscope"
+    when (threadscopeExe == Nothing) $ do
+        pkgCmd <- systemInstallCmd "threadscope"
+        putStrLn $ printf "Hint: install threadscope to aid in profiling/optimization: %s" pkgCmd
 
-getCmdWithReplacement :: String -> String -> IO String
-getCmdWithReplacement scriptName replacement = do
-    res <- withFile scriptName ReadMode $ go Nothing
-    when (res == Nothing) $ die "Couldn't find params"
-    pure . maybe "" id $ res
+    extraRtsArgs <- if any (\case
+            ('-':'N':_) -> True
+            _           -> False
+            ) args
+            then pure $ args
+            else do
+                putStrLn "INFO: as -N<cores> was not provided, -N is being used which uses all cores"
+                pure $ "-N":args
+
+    compile scriptName
+
+    let rtsArgs = "+RTS":"-s":extraRtsArgs
+    putStrLn $ printf "INFO: using RTS args; %s" (unwords rtsArgs)
+    sh $ proc (exeName scriptName) rtsArgs
+
+exeName :: String -> String
+exeName scriptName = takeBaseName scriptName ++ exeExtension
+
+noOverwrite :: String -> IO ()
+noOverwrite fname = do
+    exists <- doesFileExist fname
+    when exists . die $ printf "File %s already exists - refusing to overwrite" fname
+
+getRunghcCmdWithReplacement :: String -> String -> IO String
+getRunghcCmdWithReplacement scriptName replacement = do
+    res <- readRange scriptName "\\{- stack" "-}"
+    when (res == Nothing) $ die  "Couldn't find {- stack .* -}"
+    let res' = maybe "" id $ res
+    pure . unwords . replaceWords "runghc" replacement . words $ res'
+
+getCompileFlags :: String -> IO (Maybe String)
+getCompileFlags scriptName = readRange scriptName "\\{- COMPILE_FLAGS" "-}"
+
+-- TODO: used twice to read same file when compiling, should investigate parsers anyway
+readRange :: String -> String -> String -> IO (Maybe String)
+readRange scriptName reStart reEnd = withFile scriptName ReadMode $ go Nothing
   where
     go :: Maybe String -> Handle -> IO (Maybe String)
     go state handle = do
         line <- hGetLine handle
-        if state /= Nothing && line =~ ("-}"::String)
+        if line =~ reStart && line =~ reEnd
+            then pure . Just . unwords . dropLast . drop 1 . words $ line
+        else if state /= Nothing && line =~ reEnd
             then pure $ (++ (unwords . dropLast $ words line)) <$> state
         else if state /= Nothing
             then go (Just $ (maybe "" id state) ++ line) handle
-        else if line =~ ("^\\{- stack"::String)
+        else if line =~ reStart
             then go
-                (Just $ (maybe "" id state) ++ (unwords . drop 1 . replaceWords "runghc" replacement $ words line))
+                (Just $ (maybe "" id state) ++ (unwords . drop 1 $ words line))
                 handle
         else
             go state handle
 
     dropLast strs = take (length strs - 1) strs
 
-    replaceWords :: String -> String -> [String] -> [String]
-    replaceWords from to strs = [if word == "runghc" then replacement else word | word <- strs]
+replaceWords :: String -> String -> [String] -> [String]
+replaceWords from to strs = [if word' == from then to else word' | word' <- strs]
+
+systemInstallCmd :: String -> IO (String)
+systemInstallCmd pkg = do
+    pkgMan <- foldr f (pure Nothing) ["apt"]
+    pure $ case pkgMan of
+        Nothing -> printf "use your package manager to install %s" pkg
+        Just pm -> printf "%s install %s" pm pkg
+  where
+    f :: String -> IO (Maybe String) -> IO (Maybe String)
+    f curr acc = do
+        acc' <- acc
+        case acc' of
+            Nothing -> (const $ Just curr) <$> findExecutable curr
+            Just _  -> acc
