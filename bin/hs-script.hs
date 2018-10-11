@@ -28,7 +28,9 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE LambdaCase #-}
 
+import Control.Exception
 import Control.Monad
+import Data.Foldable
 import qualified Data.Text as T
 import NeatInterpolation
 import System.Directory
@@ -36,6 +38,7 @@ import System.Environment
 import System.Exit
 import System.FilePath
 import System.IO
+import System.IO.Error
 import System.Process
 import Text.Printf
 import Text.Regex.Posix
@@ -118,7 +121,6 @@ main = do
         "repl"        -> repl scriptName
         "watch"       -> watch scriptName
         "lint"        -> lint scriptName
-        "fix-linting" -> fixLinting scriptName
         "compile"     -> compile scriptName
         "profile"     -> profile scriptName cmdArgs
         _             -> die $ printf "Error: unknown command: %s" command
@@ -131,7 +133,6 @@ usage = die $ T.unpack [text|
         repl
         watch
         lint
-        fix-linting
         compile
         profile [additional RTS options]
     |]
@@ -161,10 +162,6 @@ watch scriptName = do
 
 lint :: String -> IO ()
 lint scriptName = do
-    sh $ proc "hlint" [scriptName]
-
-fixLinting :: String -> IO ()
-fixLinting scriptName = do
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: String -> IO ()
@@ -175,6 +172,7 @@ compile scriptName = do
     let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
     putStrLn $ printf "Info: compile command: %s" fullCmd
     sh . shell $ fullCmd
+    traverse_ rmF $ (takeBaseName scriptName ++) <$> [".hi", ".dyn_hi", ".o", ".dyn_o"]
 
 profile :: String -> [String] -> IO ()
 profile scriptName args = do
@@ -221,20 +219,20 @@ readRange :: String -> String -> String -> IO (Maybe String)
 readRange scriptName reStart reEnd = withFile scriptName ReadMode $ go Nothing
   where
     go :: Maybe String -> Handle -> IO (Maybe String)
-    go state handle = do
-        line <- hGetLine handle
+    go state fp = do
+        line <- hGetLine fp
         if line =~ reStart && line =~ reEnd
             then pure . Just . unwords . dropLast . drop 1 . words $ line
         else if state /= Nothing && line =~ reEnd
             then pure $ (++ (unwords . dropLast $ words line)) <$> state
         else if state /= Nothing
-            then go (Just $ (maybe "" id state) ++ line) handle
+            then go (Just $ (maybe "" id state) ++ line) fp
         else if line =~ reStart
             then go
                 (Just $ (maybe "" id state) ++ (unwords . drop 1 $ words line))
-                handle
+                fp
         else
-            go state handle
+            go state fp
 
     dropLast strs = take (length strs - 1) strs
 
@@ -254,3 +252,10 @@ systemInstallCmd pkg = do
         case acc' of
             Nothing -> const (Just curr) <$> findExecutable curr
             Just _  -> acc
+
+rmF :: FilePath -> IO ()
+rmF fname = removeFile fname `catch` handleErrs
+  where
+    handleErrs e
+        | isDoesNotExistError e = pure ()
+        | otherwise = throwIO e
