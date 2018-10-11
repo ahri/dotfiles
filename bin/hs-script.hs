@@ -9,7 +9,7 @@
     --package text
 -}
 
-{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -static -optl-pthread -optl-static -}
+{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
 
 -- Rationale: https://www.ahri.net/practical-haskell-programs-from-scratch/
 
