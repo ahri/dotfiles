@@ -121,7 +121,7 @@ main = do
         "fix-linting" -> fixLinting scriptName
         "compile"     -> compile scriptName
         "profile"     -> profile scriptName cmdArgs
-        _             -> die $ printf "Unknown command: %s" command
+        _             -> die $ printf "Error: unknown command: %s" command
 
 usage :: IO ()
 usage = die $ T.unpack [text|
@@ -157,22 +157,24 @@ repl scriptName = do
 watch :: String -> IO ()
 watch scriptName = do
     cmd <- getRunghcCmdWithReplacement scriptName "ghci"
-    sh . shell $ printf "ghcid -c \"%s \\\"%s\\\"\"" cmd scriptName
+    sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName]
 
 lint :: String -> IO ()
 lint scriptName = do
-    sh . shell $ printf "hlint \"%s\"" scriptName
+    sh $ proc "hlint" [scriptName]
 
 fixLinting :: String -> IO ()
 fixLinting scriptName = do
-    sh . shell $ printf "hlint --refactor --refactor-options=\"-is\" \"%s\"" scriptName
+    sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: String -> IO ()
 compile scriptName = do
     cmd <- getRunghcCmdWithReplacement scriptName "ghc"
-    flags <- unwords . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
+    flags :: String <- unwords . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
     noOverwrite $ exeName scriptName
-    sh . shell $ printf "%s -- %s %s" cmd flags scriptName
+    let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
+    putStrLn $ printf "Info: compile command: %s" fullCmd
+    sh . shell $ fullCmd
 
 profile :: String -> [String] -> IO ()
 profile scriptName args = do
@@ -181,19 +183,19 @@ profile scriptName args = do
         pkgCmd <- systemInstallCmd "threadscope"
         putStrLn $ printf "Hint: install threadscope to aid in profiling/optimization: %s" pkgCmd
 
+    compile scriptName
+
     extraRtsArgs <- if any (\case
             ('-':'N':_) -> True
             _           -> False
             ) args
-            then pure $ args
+            then pure args
             else do
-                putStrLn "INFO: as -N<cores> was not provided, -N is being used which uses all cores"
+                putStrLn "Info: as -N<cores> was not provided, -N is being used which uses all cores"
                 pure $ "-N":args
 
-    compile scriptName
-
     let rtsArgs = "+RTS":"-s":extraRtsArgs
-    putStrLn $ printf "INFO: using RTS args; %s" (unwords rtsArgs)
+    putStrLn $ printf "Info: using RTS args; %s" (unwords rtsArgs)
     sh $ proc (exeName scriptName) rtsArgs
 
 exeName :: String -> String
@@ -202,13 +204,13 @@ exeName scriptName = takeBaseName scriptName ++ exeExtension
 noOverwrite :: String -> IO ()
 noOverwrite fname = do
     exists <- doesFileExist fname
-    when exists . die $ printf "File %s already exists - refusing to overwrite" fname
+    when exists . die $ printf "Error: file %s already exists - refusing to overwrite" fname
 
 getRunghcCmdWithReplacement :: String -> String -> IO String
 getRunghcCmdWithReplacement scriptName replacement = do
     res <- readRange scriptName "\\{- stack" "-}"
-    when (res == Nothing) $ die  "Couldn't find {- stack .* -}"
-    let res' = maybe "" id $ res
+    when (res == Nothing) $ die "Error: couldn't find {- stack .* -}"
+    let res' = maybe "" id res
     pure . unwords . replaceWords "runghc" replacement . words $ res'
 
 getCompileFlags :: String -> IO (Maybe String)
@@ -239,7 +241,7 @@ readRange scriptName reStart reEnd = withFile scriptName ReadMode $ go Nothing
 replaceWords :: String -> String -> [String] -> [String]
 replaceWords from to strs = [if word' == from then to else word' | word' <- strs]
 
-systemInstallCmd :: String -> IO (String)
+systemInstallCmd :: String -> IO String
 systemInstallCmd pkg = do
     pkgMan <- foldr f (pure Nothing) ["apt"]
     pure $ case pkgMan of
@@ -250,5 +252,5 @@ systemInstallCmd pkg = do
     f curr acc = do
         acc' <- acc
         case acc' of
-            Nothing -> (const $ Just curr) <$> findExecutable curr
+            Nothing -> const (Just curr) <$> findExecutable curr
             Just _  -> acc
