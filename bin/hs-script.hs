@@ -157,11 +157,13 @@ repl scriptName = do
 
 watch :: String -> IO ()
 watch scriptName = do
+    dependency "ghcid"
     cmd <- getRunghcCmdWithReplacement scriptName "ghci"
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName]
 
 lint :: String -> IO ()
 lint scriptName = do
+    dependency "hlint"
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: String -> IO ()
@@ -252,6 +254,15 @@ systemInstallCmd pkg = do
         case acc' of
             Nothing -> const (Just curr) <$> findExecutable curr
             Just _  -> acc
+
+dependency :: String -> IO ()
+dependency dep = do
+    depExe <- findExecutable dep
+    when (depExe == Nothing) $ do
+        die $ printf "Error: required dependency missing, install with: %s" (stackInstallCmd dep)
+
+stackInstallCmd :: String -> String
+stackInstallCmd pkg = printf "stack install --resolver %s %s" (T.unpack resolver) pkg
 
 rmF :: FilePath -> IO ()
 rmF fname = removeFile fname `catch` handleErrs
