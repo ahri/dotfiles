@@ -1,16 +1,17 @@
 #!/usr/bin/env stack
 {- stack --resolver lts-12.9 --install-ghc runghc
-    --package directory
     --package containers
+    --package process
+    --package directory
     --package filepath
     --package regex-posix
     --package neat-interpolation
     --package text
-    --package bytestring
-    --package process
 -}
 
 {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -static -optl-pthread -optl-static -}
+
+-- Rationale: https://www.ahri.net/practical-haskell-programs-from-scratch/
 
 -- https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/using-warnings.html
 {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
@@ -18,10 +19,9 @@
 {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
 {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
 
-{-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
-{-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+-- TODO: find a neater way to deal with args so I can remove this
 {-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns                       #-}
--- {-# OPTIONS_GHC -ddump-minimal-imports                                  #-}
+-- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
 
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -48,9 +48,10 @@ template = T.unpack [text|
 	#!/usr/bin/env stack
 	{- stack --resolver $resolver --install-ghc runghc
 	    --package containers
-	    --package regex-posix
 	    --package process
 	    --package directory
+	    --package filepath
+	    --package regex-posix
 	-}
 
 	{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
@@ -65,6 +66,7 @@ template = T.unpack [text|
 	{-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
 	-- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
 
+    import Control.Monad
 	import Data.Semigroup
 	import Data.Foldable
 	import Data.Traversable
@@ -75,24 +77,28 @@ template = T.unpack [text|
 	import System.IO
 	import System.Process
 	import Text.Printf
-	import Text.Regex
+	import Text.Regex.Posix
+
+	main :: IO ()
+	main = do
+        sh $ shell "echo foo"
+        sh $ proc "echo" ["bar"]
+        findExecutable "stack" >>= print
+
+		args <- getArgs
+		putStrLn "args:"
+		traverse_ (hPutStrLn stderr) args 
+
+		putStrLn "stdin:"
+		getContents >>= putStrLn
+
+		exitFailure
 
     sh :: CreateProcess -> IO ()
     sh cp = do
         exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
         when (exitCode /= ExitSuccess) $ exitWith exitCode
         pure ()
-
-	main :: IO ()
-	main = do
-		putStrLn "stdin:"
-		getContents >>= putStrLn
-
-		args <- getArgs
-		putStrLn "args:"
-		traverse_ (hPutStrLn stderr) args 
-
-		exitFailure
     |]
 
 main :: IO ()
@@ -130,18 +136,18 @@ usage = die $ T.unpack [text|
         profile [additional RTS options]
     |]
 
+sh :: CreateProcess -> IO ()
+sh cp = do
+    exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
+    when (exitCode /= ExitSuccess) $ exitWith exitCode
+    pure ()
+
 new :: String -> IO ()
 new scriptName = do
     noOverwrite scriptName
     writeFile scriptName template
     perms <- getPermissions scriptName
     setPermissions scriptName $ setOwnerExecutable True perms
-
-sh :: CreateProcess -> IO ()
-sh cp = do
-    exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
-    when (exitCode /= ExitSuccess) $ exitWith exitCode
-    pure ()
 
 repl :: String -> IO ()
 repl scriptName = do
