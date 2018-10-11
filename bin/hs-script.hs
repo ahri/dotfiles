@@ -164,6 +164,7 @@ watch scriptName = do
 lint :: String -> IO ()
 lint scriptName = do
     dependency "hlint"
+    dependency "apply-refact"
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: String -> IO ()
