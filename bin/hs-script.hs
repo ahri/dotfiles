@@ -121,7 +121,7 @@ main = do
         "repl"        -> repl scriptName
         "watch"       -> watch scriptName
         "lint"        -> lint scriptName
-        "compile"     -> compile scriptName
+        "compile"     -> compile scriptName []
         "profile"     -> profile scriptName cmdArgs
         _             -> die $ printf "Error: unknown command: %s" command
 
@@ -167,24 +167,34 @@ lint scriptName = do
     dependency "apply-refact"
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
-compile :: String -> IO ()
-compile scriptName = do
+compile :: String -> [String] -> IO ()
+compile scriptName extraCompileFlags = do
     cmd <- getScriptCmdWithReplacement scriptName "exec ghc"
-    flags :: String <- unwords . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
+    flags :: String <- unwords . (++ extraCompileFlags) . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
     noOverwrite $ exeName scriptName
     let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
-    putStrLn $ printf "Info: compile command: %s" fullCmd
+    printf "Info: compile command: %s\n" fullCmd
     sh . shell $ fullCmd
     traverse_ rmF $ (takeBaseName scriptName ++) <$> [".hi", ".dyn_hi", ".o", ".dyn_o"]
 
+hint :: String -> String -> (String -> IO String) -> IO ()
+hint exeN descr f = do
+    exe <- findExecutable exeN
+    case exe of
+        Nothing -> do
+            pkgCmd <- f exeN
+            printf "Hint: install %s %s: %s\n" exeN descr pkgCmd
+        _ -> printf "Use %s %s\n" exeN descr
+
 profile :: String -> [String] -> IO ()
 profile scriptName args = do
-    threadscopeExe <- findExecutable "threadscope"
-    when (threadscopeExe == Nothing) $ do
-        pkgCmd <- systemInstallCmd "threadscope"
-        putStrLn $ printf "Hint: install threadscope to aid in profiling/optimization: %s" pkgCmd
+    hint "threadscope" "to visually represent sparks" systemInstallCmd
+    hint "profiteur" "to display cost centres" (pure . stackInstallCmd)
+    hint "profiterole" "to concisely reformat a .prof file" (pure . stackInstallCmd)
 
-    compile scriptName
+    -- TODO: https://stackoverflow.com/questions/32123475/profiling-builds-with-stack
+
+    compile scriptName ["-prof", "-fprof-auto"]
 
     extraRtsArgs <- if any (\case
             ('-':'N':_) -> True
@@ -196,7 +206,7 @@ profile scriptName args = do
                 pure $ "-N":args
 
     let rtsArgs = "+RTS":"-s":extraRtsArgs
-    putStrLn $ printf "Info: using RTS args; %s" (unwords rtsArgs)
+    printf "Info: using RTS args; %s\n" (unwords rtsArgs)
     sh $ proc (exeName scriptName) rtsArgs
 
 exeName :: String -> String
