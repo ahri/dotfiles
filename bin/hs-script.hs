@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
-{- stack --resolver lts-12.9 --install-ghc runghc
+{- stack --resolver lts-12.9 script
     --package containers
     --package process
     --package directory
@@ -49,7 +49,7 @@ resolver = "lts-12.9"
 template :: String
 template = T.unpack [text|
 	#!/usr/bin/env stack
-	{- stack --resolver $resolver --install-ghc runghc
+	{- stack --resolver $resolver script
 	    --package containers
 	    --package process
 	    --package directory
@@ -152,13 +152,13 @@ new scriptName = do
 
 repl :: String -> IO ()
 repl scriptName = do
-    cmd <- getRunghcCmdWithReplacement scriptName "ghci"
+    cmd <- getScriptCmdWithReplacement scriptName "exec ghci"
     sh . shell $ printf "%s %s" cmd scriptName
 
 watch :: String -> IO ()
 watch scriptName = do
     dependency "ghcid"
-    cmd <- getRunghcCmdWithReplacement scriptName "ghci"
+    cmd <- getScriptCmdWithReplacement scriptName "exec ghci"
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName]
 
 lint :: String -> IO ()
@@ -169,7 +169,7 @@ lint scriptName = do
 
 compile :: String -> IO ()
 compile scriptName = do
-    cmd <- getRunghcCmdWithReplacement scriptName "ghc"
+    cmd <- getScriptCmdWithReplacement scriptName "exec ghc"
     flags :: String <- unwords . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
     noOverwrite $ exeName scriptName
     let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
@@ -207,12 +207,12 @@ noOverwrite fname = do
     exists <- doesFileExist fname
     when exists . die $ printf "Error: file %s already exists - refusing to overwrite" fname
 
-getRunghcCmdWithReplacement :: String -> String -> IO String
-getRunghcCmdWithReplacement scriptName replacement = do
+getScriptCmdWithReplacement :: String -> String -> IO String
+getScriptCmdWithReplacement scriptName replacement = do
     res <- readRange scriptName "\\{- stack" "-}"
     when (res == Nothing) $ die "Error: couldn't find {- stack .* -}"
     let res' = maybe "" id res
-    pure . unwords . replaceWords "runghc" replacement . words $ res'
+    pure . unwords . replaceWords "runghc" replacement . replaceWords "script" replacement . words $ res'
 
 getCompileFlags :: String -> IO (Maybe String)
 getCompileFlags scriptName = readRange scriptName "\\{- COMPILE_FLAGS" "-}"
