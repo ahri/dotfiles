@@ -58,12 +58,12 @@ set ruler			" it's nice to know where you are in life
 
 if has("gui_running")
 	if has("win32")
-		set anti guifont=Hasklig:h12:cANSI
+		set anti guifont=Firacode Regular:h13
 		set encoding=utf8
 	elseif has("gui_macvim")
-		set anti guifont=Hasklig:h18
+		set anti guifont=FiraCode-Regular:h16
 	else
-		set anti guifont=Fantasque\ Sans\ Mono\ 13
+		set anti guifont=FiraCode\ Regular\ 13
 	endif
 endif
 
