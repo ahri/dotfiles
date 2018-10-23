@@ -36,7 +36,7 @@ def multiplatform_symlink(source, target)
 
   begin
     ln_sf source, target
-  rescue NotImplementedError
+  rescue NotImplementedError, SystemCallError
     `cmd /C mklink /H "#{target.gsub '/', '\\'}" "#{source.gsub '/', '\\'}"`
   end
 end
