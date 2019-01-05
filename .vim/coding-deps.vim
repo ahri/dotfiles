@@ -74,3 +74,5 @@ nnoremap <leader>ti :call LanguageClient_textDocument_hover()<CR>
 nnoremap <leader>rr :call LanguageClient_textDocument_rename()<CR>
 " TODO: the commands did use <silent>
 " TODO: check out other LanguageClient_* commands
+
+Plug 'chris-bacon/haskell-refactor'
