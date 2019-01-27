@@ -7,6 +7,7 @@
     --package regex-posix
     --package neat-interpolation
     --package text
+    --package haskell-src-exts
 -}
 
 {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
@@ -27,13 +28,14 @@ import Control.Exception
 import Control.Monad
 import Data.Foldable
 import Data.List
+import Data.Maybe
 import qualified Data.Text as T
+import Language.Haskell.Exts hiding (parse)
 import NeatInterpolation
 import System.Directory
 import System.Environment
 import System.Exit
 import System.FilePath
-import System.IO
 import System.IO.Error
 import System.Process
 import Text.Printf
@@ -117,7 +119,8 @@ main = do
 
     let cmdArgs        = drop 2 args
     case command of
-        "new"         -> new scriptName -- TODO: it would be nice to have templates: termapp, test, quickcheck
+        -- TODO: add a command to list TODOs
+        "new"         -> new scriptName -- TODO: it would be nice to have templates: termapp, test, quickcheck, three layer haskell cake
         "repl"        -> repl scriptName
         "watch"       -> watch scriptName
         "test"        -> test scriptName
@@ -145,6 +148,50 @@ sh cp = do
     when (exitCode /= ExitSuccess) $ exitWith exitCode
     pure ()
 
+type Parse = ([ModulePragma ()], [Comment])
+parse :: FilePath -> IO Parse
+parse scriptName = do
+    (Module _ _head pragmas _imports _declarations, comments, unknownPragmas) <- fromParseResult <$> parseFileWithCommentsAndPragmas
+        (ParseMode scriptName Haskell2010 [] False False Nothing False)
+        scriptName
+
+    when (not . null $ unknownPragmas) . die $ printf "Error: unknown pragmas: %s" (show unknownPragmas)
+    pure ((() <$) <$> pragmas, comments)
+
+exts :: Parse -> [String]
+exts (ps, _) = join $ mapMaybe f ps
+  where
+    f (LanguagePragma _ xs) = Just $ mapMaybe g xs
+    f _                     = Nothing
+
+    g (Ident _ s) = Just s
+    g _           = Nothing
+
+scriptCmdWithReplacement :: String -> Parse -> String
+scriptCmdWithReplacement replacement (_, cs) = if null scriptComments
+    then error . printf $ "No '{- stack' comment found"
+    else head scriptComments
+  where
+    scriptComments = mapMaybe f cs
+    f (Comment _ _ s) = if s =~ ("^ ?stack "::String)
+        then Just
+            . unwords
+            . fmap
+                ( replaceWord "runghc" replacement
+                . replaceWord "script" replacement)
+            . words
+            $ s
+        else Nothing
+
+    replaceWord from to word = if word == from then to else word
+
+extraCompileFlags :: Parse -> [String]
+extraCompileFlags (_, cs) = join $ mapMaybe f cs
+  where
+    f (Comment _ _ s) = if s =~ ("^ ?COMPILE_FLAGS"::String)
+        then Just . drop 1 $ words s
+        else Nothing
+
 new :: FilePath -> IO ()
 new scriptName = do
     noOverwrite scriptName
@@ -154,21 +201,21 @@ new scriptName = do
 
 repl :: FilePath -> IO ()
 repl scriptName = do
-    -- TODO: reading the file twice here
-    exts <- (fmap.fmap) ("-X" <>) $ getLangExts scriptName
-    cmd <- getScriptCmdWithReplacement scriptName "exec ghci"
-    sh . shell $ printf "%s %s -- %s" cmd scriptName (intercalate " " exts)
+    parse' <- parse scriptName
+    let exts' = fmap ("-X" <>) $ exts parse'
+    let cmd = scriptCmdWithReplacement "exec ghci" parse'
+    sh . shell $ printf "%s %s -- %s" cmd scriptName (intercalate " " exts')
 
 watch :: FilePath -> IO ()
 watch scriptName = do
     dependency "ghcid"
-    cmd <- getScriptCmdWithReplacement scriptName "exec ghci"
+    cmd <- scriptCmdWithReplacement "exec ghci" <$> parse scriptName
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName]
 
 test :: FilePath -> IO ()
 test scriptName = do
     dependency "ghcid"
-    cmd <- getScriptCmdWithReplacement scriptName "exec ghci"
+    cmd <- scriptCmdWithReplacement "exec ghci" <$> parse scriptName
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName, "-T", "tests"]
 
 lint :: FilePath -> IO ()
@@ -178,9 +225,10 @@ lint scriptName = do
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: FilePath -> [String] -> IO ()
-compile scriptName extraCompileFlags = do
-    cmd <- getScriptCmdWithReplacement scriptName "exec ghc"
-    flags :: String <- unwords . (++ extraCompileFlags) . replaceWords "COMPILE_FLAGS" "" . words . maybe "" id <$> getCompileFlags scriptName
+compile scriptName cmdlineExtraCompileFlags = do
+    parse' <- parse scriptName
+    let cmd = scriptCmdWithReplacement "exec ghc" parse'
+    let flags = intercalate " " $ extraCompileFlags parse' <> cmdlineExtraCompileFlags
     noOverwrite $ exeName scriptName
     let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
     printf "Info: compile command: %s\n" fullCmd
@@ -226,59 +274,6 @@ noOverwrite :: FilePath -> IO ()
 noOverwrite fname = do
     exists <- doesFileExist fname
     when exists . die $ printf "Error: file %s already exists - refusing to overwrite" fname
-
-getScriptCmdWithReplacement :: FilePath -> String -> IO String
-getScriptCmdWithReplacement scriptName replacement = do
-    res <- readRange scriptName "\\{- stack" "-}"
-    when (res == Nothing) $ die "Error: couldn't find {- stack .* -}"
-    let res' = maybe "" id res
-    pure
-        . unwords
-        . replaceWords "runghc" replacement
-        . replaceWords "script" replacement
-        . words
-        $ res'
-
-getCompileFlags :: FilePath -> IO (Maybe String)
-getCompileFlags scriptName = readRange scriptName "\\{- COMPILE_FLAGS" "-}"
-
-getLangExts :: FilePath -> IO [String]
-getLangExts scriptName = do
-    header <- readRange scriptName "^\\{- stack" "^import"
-    let hw = maybe [] words header
-    pure . snd $ foldl f (False, []) hw
-  where
-    f (False, xs) "LANGUAGE" = (True,  xs)
-    f (True, xs)  "#-}"      = (False, xs)
-    f (True, xs)  x          = (True, (filter (/= ',') x):xs)
-    f acc         _          = acc
-
-type RegexStr = String
-
--- TODO: used twice to read same file when compiling, should investigate parsers anyway
-readRange :: FilePath -> RegexStr -> RegexStr -> IO (Maybe String)
-readRange scriptName start end = withFile scriptName ReadMode $ go Nothing
-  where
-    go :: Maybe String -> Handle -> IO (Maybe String)
-    go state fp = do
-        line <- (<> " ") <$> hGetLine fp
-        if line =~ start && line =~ end
-            then pure . Just . unwords . dropLast . drop 1 . words $ line
-        else if state /= Nothing && line =~ end
-            then pure $ (<> (unwords . dropLast $ words line)) <$> state
-        else if state /= Nothing
-            then go (Just $ (maybe "" id state) ++ line) fp
-        else if line =~ start
-            then go
-                (Just $ (maybe "" id state) ++ (unwords . drop 1 $ words line))
-                fp
-        else
-            go state fp
-
-    dropLast strs = take (length strs - 1) strs
-
-replaceWords :: String -> String -> [String] -> [String]
-replaceWords from to strs = [if word' == from then to else word' | word' <- strs]
 
 systemInstallCmd :: String -> IO String
 systemInstallCmd pkg = do
