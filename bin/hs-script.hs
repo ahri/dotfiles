@@ -118,12 +118,12 @@ main = do
 
     let cmdArgs        = drop 2 args
     case command of
-        -- TODO: add a command to list TODOs
         "new"         -> new scriptName -- TODO: it would be nice to have templates: termapp, test, quickcheck, three layer haskell cake
         "repl"        -> repl scriptName
         "watch"       -> watch scriptName
         "test"        -> test scriptName
         "lint"        -> lint scriptName
+        "todo"        -> todo scriptName
         "compile"     -> compile scriptName []
         "profile"     -> profile scriptName cmdArgs
         _             -> die $ printf "Error: unknown command: %s" command
@@ -137,6 +137,7 @@ usage = die $ T.unpack [text|
         watch
         test
         lint
+        todo
         compile
         profile [additional RTS options]
     |]
@@ -150,7 +151,15 @@ sh cp = do
 type Parse = ([ModulePragma ()], [Comment])
 parse :: FilePath -> IO Parse
 parse scriptName = do
-    (Module _ _head pragmas _imports _declarations, comments, unknownPragmas) <- fromParseResult <$> parseFileWithCommentsAndPragmas
+    ( Module
+        _
+        _head
+        pragmas
+        _imports
+        _declarations
+     , comments
+     , unknownPragmas
+     ) <- fromParseResult <$> parseFileWithCommentsAndPragmas
         (ParseMode scriptName Haskell2010 [] False False Nothing False)
         scriptName
 
@@ -193,6 +202,13 @@ extraCompileFlags (_, cs) = join $ mapMaybe f cs
         then Just . drop 1 $ words s
         else Nothing
 
+todos :: Parse -> [String]
+todos (_, cs) = mapMaybe f cs
+  where
+    f (Comment _ _ s) = if s =~ ("^ ?TODO\\b"::String)
+        then Just . unwords . (["-"] <>) . drop 1 $ words s
+        else Nothing
+
 new :: FilePath -> IO ()
 new scriptName = do
     noOverwrite scriptName
@@ -218,6 +234,11 @@ test scriptName = do
     dependency "ghcid"
     cmd <- scriptCmdWithReplacement "exec ghci" <$> parse scriptName
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName, "-T", "tests"]
+
+todo :: FilePath -> IO ()
+todo scriptName = do
+    todos' <- todos <$> parse scriptName
+    traverse_ putStrLn todos'
 
 lint :: FilePath -> IO ()
 lint scriptName = do
