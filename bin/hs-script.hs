@@ -27,7 +27,6 @@
 import Control.Exception
 import Control.Monad
 import Data.Foldable
-import Data.List
 import Data.Maybe
 import qualified Data.Text as T
 import Language.Haskell.Exts hiding (parse)
@@ -155,7 +154,9 @@ parse scriptName = do
         (ParseMode scriptName Haskell2010 [] False False Nothing False)
         scriptName
 
-    when (not . null $ unknownPragmas) . die $ printf "Error: unknown pragmas: %s" (show unknownPragmas)
+    when (not . null $ unknownPragmas)
+        . die $ printf "Error: unknown pragmas: %s" (show unknownPragmas)
+
     pure ((() <$) <$> pragmas, comments)
 
 exts :: Parse -> [String]
@@ -204,7 +205,7 @@ repl scriptName = do
     parse' <- parse scriptName
     let exts' = fmap ("-X" <>) $ exts parse'
     let cmd = scriptCmdWithReplacement "exec ghci" parse'
-    sh . shell $ printf "%s %s -- %s" cmd scriptName (intercalate " " exts')
+    sh . shell $ printf "%s %s -- %s" cmd scriptName (unwords exts')
 
 watch :: FilePath -> IO ()
 watch scriptName = do
@@ -221,14 +222,14 @@ test scriptName = do
 lint :: FilePath -> IO ()
 lint scriptName = do
     dependency "hlint"
-    dependency "apply-refact"
+    dependency' "refactor" "apply-refact"
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: FilePath -> [String] -> IO ()
 compile scriptName cmdlineExtraCompileFlags = do
     parse' <- parse scriptName
     let cmd = scriptCmdWithReplacement "exec ghc" parse'
-    let flags = intercalate " " $ extraCompileFlags parse' <> cmdlineExtraCompileFlags
+    let flags = unwords $ extraCompileFlags parse' <> cmdlineExtraCompileFlags
     noOverwrite $ exeName scriptName
     let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
     printf "Info: compile command: %s\n" fullCmd
@@ -290,10 +291,13 @@ systemInstallCmd pkg = do
             Just _  -> acc
 
 dependency :: String -> IO ()
-dependency dep = do
+dependency dep = dependency' dep dep
+
+dependency' :: String -> String -> IO ()
+dependency' dep pkg = do
     depExe <- findExecutable dep
-    when (depExe == Nothing) $ do
-        die $ printf "Error: required dependency missing, install with: %s" (stackInstallCmd dep)
+    when (isNothing depExe) $
+        die $ printf "Error: required dependency missing, install with: %s" (stackInstallCmd pkg)
 
 stackInstallCmd :: String -> String
 stackInstallCmd pkg = printf "stack install --resolver %s %s" (T.unpack resolver) pkg
