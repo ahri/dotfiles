@@ -19,9 +19,6 @@
 {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
 {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
 
--- TODO: find a neater way to deal with args so I can remove this
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns                       #-}
-
 {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
 
 import Control.Exception
@@ -107,16 +104,10 @@ template = T.unpack [text|
 
 main :: IO ()
 main = do
-    args <- getArgs
-    when (length args < 2) usage
-
-    let [scriptPath, command] = take 2 args
-
+    (scriptPath, command, cmdArgs) <- getArgs >>= processArgs
     setCurrentDirectory $ takeDirectory scriptPath
-
     let scriptName = takeFileName scriptPath
 
-    let cmdArgs        = drop 2 args
     case command of
         "new"         -> new scriptName -- TODO: it would be nice to have templates: termapp, test, quickcheck, three layer haskell cake
         "repl"        -> repl scriptName
@@ -128,7 +119,12 @@ main = do
         "profile"     -> profile scriptName cmdArgs
         _             -> die $ printf "Error: unknown command: %s" command
 
-usage :: IO ()
+type Command = String
+processArgs :: [String] -> IO (FilePath, Command, [String])
+processArgs (scriptPath:command:cmdArgs) = pure (scriptPath, command, cmdArgs)
+processArgs _                            = usage
+
+usage :: IO a
 usage = die $ T.unpack [text|
     Usage: script_name command [cmd params]
     Commands:
