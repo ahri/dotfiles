@@ -40,6 +40,9 @@ import Text.Regex.Posix
 resolver :: T.Text
 resolver = "lts-13.4"
 
+defaultTemplate :: String
+defaultTemplate = "default"
+
 templateList :: T.Text
 templateList = T.intercalate "|" $ T.pack . fst <$> templates
 
@@ -69,7 +72,7 @@ usage :: IO a
 usage = die $ T.unpack [text|
     Usage: script_name command [cmd params]
     Commands:
-        new $templateList
+        new [$templateList]
         repl
         watch
         test
@@ -148,17 +151,18 @@ todos (_, cs) = mapMaybe f cs
 
 new :: FilePath -> [String] -> IO ()
 new scriptName cmdArgs = do
-    case cmdArgs of
-        [tplName] -> do
-            noOverwrite scriptName
-            let template = lookup tplName templates
-            case template of
-                Nothing        -> die $ printf "Error: no template named '%s'" tplName
-                Just template' -> writeFile scriptName template'
-            perms <- getPermissions scriptName
-            setPermissions scriptName $ setOwnerExecutable True perms
-
+    tplName <- case cmdArgs of
+        []        -> pure defaultTemplate
+        [tplName] -> pure tplName
         _         -> die $ printf "Error: must provide a template - %s" templateList
+
+    noOverwrite scriptName
+    let template = lookup tplName templates
+    case template of
+        Nothing        -> die $ printf "Error: no template named '%s'" tplName
+        Just template' -> writeFile scriptName template'
+    perms <- getPermissions scriptName
+    setPermissions scriptName $ setOwnerExecutable True perms
 
 repl :: FilePath -> IO ()
 repl scriptName = do
@@ -276,7 +280,32 @@ rmF fname = removeFile fname `catch` handleErrs
 
 templates :: [(String, String)]
 templates =
-    [ ("termapp", T.unpack [text|
+    [ (defaultTemplate, T.unpack [text|
+        #!/usr/bin/env stack
+        {- stack --resolver $resolver script
+        -}
+
+        {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+
+        -- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
+        {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
+        {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
+        {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
+        {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
+
+        -- The idea is to remove these when you want to tidy your code up
+        {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
+        {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+        -- and add this, also when wanting to clean up code
+        -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
+
+        {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
+
+        main :: IO ()
+        main = do
+            putStrLn "Hello world!"
+        |])
+    , ("shellscript", T.unpack [text|
         #!/usr/bin/env stack
         {- stack --resolver $resolver script
             --package containers
