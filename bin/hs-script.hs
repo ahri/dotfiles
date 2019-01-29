@@ -40,67 +40,8 @@ import Text.Regex.Posix
 resolver :: T.Text
 resolver = "lts-13.4"
 
-template :: String
-template = T.unpack [text|
-	#!/usr/bin/env stack
-	{- stack --resolver $resolver script
-	    --package containers
-	    --package process
-	    --package directory
-	    --package filepath
-	    --package regex-posix
-	-}
-
-	{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
-
-	-- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
-	{-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
-	{-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
-	{-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
-	{-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
-
-    -- The idea is to remove these when you want to tidy your code up
-	{-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
-	{-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
-    -- and add this, also when wanting to clean up code
-	-- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
-
-    {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
-
-    import Control.Monad
-	import Data.Semigroup
-	import Data.Foldable
-	import Data.Traversable
-	import System.Directory
-	import System.Environment
-	import System.Exit
-    import System.FilePath
-	import System.IO
-	import System.Process
-	import Text.Printf
-	import Text.Regex.Posix
-
-	main :: IO ()
-	main = do
-        sh $ shell "echo foo"
-        sh $ proc "echo" ["bar"]
-        findExecutable "stack" >>= print
-
-		args <- getArgs
-		putStrLn "args:"
-		traverse_ (hPutStrLn stderr) args 
-
-		putStrLn "stdin:"
-		getContents >>= putStrLn
-
-		exitFailure
-
-    sh :: CreateProcess -> IO ()
-    sh cp = do
-        exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
-        when (exitCode /= ExitSuccess) $ exitWith exitCode
-        pure ()
-    |]
+templateList :: T.Text
+templateList = T.intercalate "|" $ T.pack . fst <$> templates
 
 main :: IO ()
 main = do
@@ -109,7 +50,7 @@ main = do
     let scriptName = takeFileName scriptPath
 
     case command of
-        "new"         -> new scriptName -- TODO: it would be nice to have templates: termapp, test, quickcheck, three layer haskell cake
+        "new"         -> new scriptName cmdArgs
         "repl"        -> repl scriptName
         "watch"       -> watch scriptName
         "test"        -> test scriptName
@@ -128,7 +69,7 @@ usage :: IO a
 usage = die $ T.unpack [text|
     Usage: script_name command [cmd params]
     Commands:
-        new
+        new $templateList
         repl
         watch
         test
@@ -205,12 +146,19 @@ todos (_, cs) = mapMaybe f cs
         then Just . unwords . (["-"] <>) . drop 1 $ words s
         else Nothing
 
-new :: FilePath -> IO ()
-new scriptName = do
-    noOverwrite scriptName
-    writeFile scriptName template
-    perms <- getPermissions scriptName
-    setPermissions scriptName $ setOwnerExecutable True perms
+new :: FilePath -> [String] -> IO ()
+new scriptName cmdArgs = do
+    case cmdArgs of
+        [tplName] -> do
+            noOverwrite scriptName
+            let template = lookup tplName templates
+            case template of
+                Nothing        -> die $ printf "Error: no template named '%s'" tplName
+                Just template' -> writeFile scriptName template'
+            perms <- getPermissions scriptName
+            setPermissions scriptName $ setOwnerExecutable True perms
+
+        _         -> die $ printf "Error: must provide a template - %s" templateList
 
 repl :: FilePath -> IO ()
 repl scriptName = do
@@ -325,3 +273,99 @@ rmF fname = removeFile fname `catch` handleErrs
     handleErrs e
         | isDoesNotExistError e = pure ()
         | otherwise = throwIO e
+
+templates :: [(String, String)]
+templates =
+    [ ("termapp", T.unpack [text|
+        #!/usr/bin/env stack
+        {- stack --resolver $resolver script
+            --package containers
+            --package process
+            --package directory
+            --package filepath
+            --package regex-posix
+        -}
+
+        {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+
+        -- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
+        {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
+        {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
+        {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
+        {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
+
+        -- The idea is to remove these when you want to tidy your code up
+        {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
+        {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+        -- and add this, also when wanting to clean up code
+        -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
+
+        {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
+
+        import Control.Monad
+        import Data.Semigroup
+        import Data.Foldable
+        import Data.Traversable
+        import System.Directory
+        import System.Environment
+        import System.Exit
+        import System.FilePath
+        import System.IO
+        import System.Process
+        import Text.Printf
+        import Text.Regex.Posix
+
+        main :: IO ()
+        main = do
+            sh $ shell "echo foo"
+            sh $ proc "echo" ["bar"]
+            findExecutable "stack" >>= print
+
+            args <- getArgs
+            putStrLn "args:"
+            traverse_ (hPutStrLn stderr) args
+
+            putStrLn "stdin:"
+            getContents >>= putStrLn
+
+            exitFailure
+
+        sh :: CreateProcess -> IO ()
+        sh cp = do
+            exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
+            when (exitCode /= ExitSuccess) $ exitWith exitCode
+            pure ()
+        |])
+
+    , ("quickcheck", T.unpack [text|
+        #!/usr/bin/env stack
+        {- stack --resolver $resolver script
+            --package QuickCheck
+        -}
+
+        {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+
+        -- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
+        {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
+        {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
+        {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
+        {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
+
+        -- The idea is to remove these when you want to tidy your code up
+        {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
+        {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+        -- and add this, also when wanting to clean up code
+        -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
+
+        {-# LANGUAGE ScopedTypeVariables #-}
+
+        import Test.QuickCheck
+
+        tests :: IO ()
+        tests = quickCheck ((==)::Int -> Int -> Bool)
+        |])
+
+    -- , ("3layer", T.unpack [text|
+    --     TODO
+    --     |])
+    ]
