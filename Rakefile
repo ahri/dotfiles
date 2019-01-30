@@ -31,7 +31,7 @@ def multiplatform_symlink(source, target)
   target = File.absolute_path target
 
   if File.exist? target
-    raise "#{target} already exists"
+    File.delete target
   end
 
   begin
