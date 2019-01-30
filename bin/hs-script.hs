@@ -8,6 +8,9 @@
     --package neat-interpolation
     --package text
     --package haskell-src-exts
+    --package safe
+    --package http-client
+    --package http-client-tls
 -}
 
 {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
@@ -26,8 +29,12 @@ import Control.Monad
 import Data.Foldable
 import Data.Maybe
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as T
 import Language.Haskell.Exts hiding (parse)
 import NeatInterpolation
+import Network.HTTP.Client
+import Network.HTTP.Client.TLS
+import Safe
 import System.Directory
 import System.Environment
 import System.Exit
@@ -37,14 +44,13 @@ import System.Process
 import Text.Printf
 import Text.Regex.Posix
 
-resolver :: T.Text
-resolver = "lts-13.4"
+type Resolver = T.Text
+
+defaultResolver :: Resolver
+defaultResolver = "lts-13.5"
 
 defaultTemplate :: String
 defaultTemplate = "default"
-
-templateList :: T.Text
-templateList = T.intercalate "|" $ T.pack . fst <$> templates
 
 main :: IO ()
 main = do
@@ -67,6 +73,22 @@ type Command = String
 processArgs :: [String] -> IO (FilePath, Command, [String])
 processArgs (scriptPath:command:cmdArgs) = pure (scriptPath, command, cmdArgs)
 processArgs _                            = usage
+
+templateList :: T.Text
+templateList = T.intercalate "|" $ T.pack . fst <$> templates
+
+stackInstallCmd :: Resolver -> String -> String
+stackInstallCmd resolver' pkg = printf "stack install --resolver %s %s" (T.unpack resolver') pkg
+
+dependency :: Parse -> String -> IO ()
+dependency parse' dep = dependency' parse' dep dep
+
+dependency' :: Parse -> String -> String -> IO ()
+dependency' parse' dep pkg = do
+    let resolver' = resolverFromScriptFile parse'
+    depExe <- findExecutable dep
+    when (isNothing depExe) $
+        die $ printf "Error: required dependency missing, install with: %s" (stackInstallCmd resolver' pkg::String)
 
 usage :: IO a
 usage = die $ T.unpack [text|
@@ -135,6 +157,18 @@ scriptCmdWithReplacement replacement (_, cs) = if null scriptComments
 
     replaceWord from to word = if word == from then to else word
 
+resolverFromScriptFile :: Parse -> Resolver
+resolverFromScriptFile (_, cs) = if null scriptComments
+    then error . printf $ "No '{- stack --resolver RESOLVER' comment found"
+    else T.pack $ head scriptComments
+  where
+    scriptComments = mapMaybe f cs
+    f (Comment _ _ s) = if s =~ ("^ ?stack "::String)
+        then case words s of
+            ("{-":"stack":"--resolver":x:_) -> Just x
+            _                               -> Nothing
+        else Nothing
+
 extraCompileFlags :: Parse -> [String]
 extraCompileFlags (_, cs) = join $ mapMaybe f cs
   where
@@ -145,9 +179,30 @@ extraCompileFlags (_, cs) = join $ mapMaybe f cs
 todos :: Parse -> [String]
 todos (_, cs) = mapMaybe f cs
   where
-    f (Comment _ _ s) = if s =~ ("^ ?TODO\\b"::String)
+    f (Comment _ _ s) = if s =~ ("^ *TODO\\b"::String)
         then Just . unwords . (["-"] <>) . drop 1 $ words s
         else Nothing
+
+latestResolverLookupOnline :: IO Resolver
+latestResolverLookupOnline = do
+    putStrLn "Attempting to get latest Stack resolver..."
+    req <- parseRequest "HEAD https://www.stackage.org/lts"
+    manager <- newManager $ managerSetProxy (proxyEnvironment Nothing) tlsManagerSettings
+
+    mRedirects <- catch
+        (Just . hrRedirects <$> responseOpenHistory req manager)
+        (\(_::SomeException) -> putStrLn "Warning: failed to contact stackage.org" >> pure Nothing)
+
+    maybe
+        ((putStrLn $ "Info: failed to get resolver online, using default " <> T.unpack defaultResolver) >> pure defaultResolver)
+        (\res -> (putStrLn $ "Info: Got resolver " <> T.unpack res) >> pure res)
+        $ do
+            redirects <- mRedirects
+            headers <- responseHeaders . snd <$> headMay redirects
+            location <- lookup "Location" headers
+            if location =~ ("^/lts-[0-9]+\\.[0-9]+"::String)
+                then Just . T.drop 1 $ T.decodeUtf8 location
+                else Nothing
 
 new :: FilePath -> [String] -> IO ()
 new scriptName cmdArgs = do
@@ -157,10 +212,11 @@ new scriptName cmdArgs = do
         _         -> die $ printf "Error: must provide a template - %s" templateList
 
     noOverwrite scriptName
+    resolver' <- latestResolverLookupOnline
     let template = lookup tplName templates
     case template of
         Nothing        -> die $ printf "Error: no template named '%s'" tplName
-        Just template' -> writeFile scriptName template'
+        Just template' -> writeFile scriptName $ template' resolver'
     perms <- getPermissions scriptName
     setPermissions scriptName $ setOwnerExecutable True perms
 
@@ -173,14 +229,16 @@ repl scriptName = do
 
 watch :: FilePath -> IO ()
 watch scriptName = do
-    dependency "ghcid"
-    cmd <- scriptCmdWithReplacement "exec ghci" <$> parse scriptName
+    parse' <- parse scriptName
+    dependency parse' "ghcid"
+    let cmd = scriptCmdWithReplacement "exec ghci" parse'
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName]
 
 test :: FilePath -> IO ()
 test scriptName = do
-    dependency "ghcid"
-    cmd <- scriptCmdWithReplacement "exec ghci" <$> parse scriptName
+    parse' <- parse scriptName
+    dependency parse' "ghcid"
+    let cmd = scriptCmdWithReplacement "exec ghci" parse'
     sh $ proc "ghcid" ["-c", printf "%s \"%s\"" cmd scriptName, "-T", "tests"]
 
 todo :: FilePath -> IO ()
@@ -190,8 +248,9 @@ todo scriptName = do
 
 lint :: FilePath -> IO ()
 lint scriptName = do
-    dependency "hlint"
-    dependency' "refactor" "apply-refact"
+    parse' <- parse scriptName
+    dependency parse' "hlint"
+    dependency' parse' "refactor" "apply-refact"
     sh $ proc "hlint" ["--refactor", "--refactor-options=-is", scriptName]
 
 compile :: FilePath -> [String] -> IO ()
@@ -216,9 +275,10 @@ hint exeN descr f = do
 
 profile :: FilePath -> [String] -> IO ()
 profile scriptName args = do
+    resolver' <- resolverFromScriptFile <$> parse scriptName
     hint "threadscope" "to visually represent sparks" systemInstallCmd
-    hint "profiteur" "to display cost centres" (pure . stackInstallCmd)
-    hint "profiterole" "to concisely reformat a .prof file" (pure . stackInstallCmd)
+    hint "profiteur" "to display cost centres" (pure . stackInstallCmd resolver')
+    hint "profiterole" "to concisely reformat a .prof file" (pure . stackInstallCmd resolver')
 
     -- TODO: https://stackoverflow.com/questions/32123475/profiling-builds-with-stack
 
@@ -259,18 +319,6 @@ systemInstallCmd pkg = do
             Nothing -> const (Just curr) <$> findExecutable curr
             Just _  -> acc
 
-dependency :: String -> IO ()
-dependency dep = dependency' dep dep
-
-dependency' :: String -> String -> IO ()
-dependency' dep pkg = do
-    depExe <- findExecutable dep
-    when (isNothing depExe) $
-        die $ printf "Error: required dependency missing, install with: %s" (stackInstallCmd pkg)
-
-stackInstallCmd :: String -> String
-stackInstallCmd pkg = printf "stack install --resolver %s %s" (T.unpack resolver) pkg
-
 rmF :: FilePath -> IO ()
 rmF fname = removeFile fname `catch` handleErrs
   where
@@ -278,11 +326,11 @@ rmF fname = removeFile fname `catch` handleErrs
         | isDoesNotExistError e = pure ()
         | otherwise = throwIO e
 
-templates :: [(String, String)]
+templates :: [(String, Resolver -> String)]
 templates =
-    [ (defaultTemplate, T.unpack [text|
+    [ (defaultTemplate, \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
-        {- stack --resolver $resolver script
+        {- stack --resolver $resolver' script
         -}
 
         {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
@@ -305,9 +353,9 @@ templates =
         main = do
             putStrLn "Hello world!"
         |])
-    , ("shellscript", T.unpack [text|
+    , ("shellscript", \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
-        {- stack --resolver $resolver script
+        {- stack --resolver $resolver' script
             --package containers
             --package process
             --package directory
@@ -366,9 +414,9 @@ templates =
             pure ()
         |])
 
-    , ("quickcheck", T.unpack [text|
+    , ("quickcheck", \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
-        {- stack --resolver $resolver script
+        {- stack --resolver $resolver' script
             --package QuickCheck
         -}
 
@@ -394,7 +442,23 @@ templates =
         tests = quickCheck ((==)::Int -> Int -> Bool)
         |])
 
-    -- , ("3layer", T.unpack [text|
-    --     TODO
+    -- , ("http", \resolver' -> T.unpack [text|
+    --     TODO: req?
+    --     |])
+
+    -- , ("webserver", \resolver' -> T.unpack [text|
+    --     TODO: scotty?
+    --     |])
+
+    -- , ("consoleapp", \resolver' -> T.unpack [text|
+    --     TODO: brick
+    --     |])
+
+    -- , ("diagrams", \resolver' -> T.unpack [text|
+    --     TODO: auto-reloading of diagrams would be nice
+    --     |])
+
+    -- , ("3layer", \resolver' -> T.unpack [text|
+    --     TODO: https://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html
     --     |])
     ]
