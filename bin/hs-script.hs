@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
-{- stack --resolver lts-13.4 script
+{- stack --resolver lts-12.26 script
     --package containers
     --package process
     --package directory
