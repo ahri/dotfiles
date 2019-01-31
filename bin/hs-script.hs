@@ -185,7 +185,7 @@ todos (_, cs) = mapMaybe f cs
 
 latestResolverLookupOnline :: IO Resolver
 latestResolverLookupOnline = do
-    putStrLn "Attempting to get latest Stack resolver..."
+    putStrLn "Info: Attempting to get latest Stack resolver..."
     req <- parseRequest "HEAD https://www.stackage.org/lts"
     manager <- newManager $ managerSetProxy (proxyEnvironment Nothing) tlsManagerSettings
 
