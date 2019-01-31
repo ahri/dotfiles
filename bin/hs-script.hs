@@ -185,7 +185,7 @@ todos (_, cs) = mapMaybe f cs
 
 latestResolverLookupOnline :: IO Resolver
 latestResolverLookupOnline = do
-    putStrLn "Info: Attempting to get latest Stack resolver..."
+    putStrLn "Info: attempting to get latest Stack resolver..."
     req <- parseRequest "HEAD https://www.stackage.org/lts"
     manager <- newManager $ managerSetProxy (proxyEnvironment Nothing) tlsManagerSettings
 
@@ -195,7 +195,7 @@ latestResolverLookupOnline = do
 
     maybe
         ((putStrLn $ "Info: failed to get resolver online, using default " <> T.unpack defaultResolver) >> pure defaultResolver)
-        (\res -> (putStrLn $ "Info: Got resolver " <> T.unpack res) >> pure res)
+        (\res -> (putStrLn $ "Info: got resolver " <> T.unpack res) >> pure res)
         $ do
             redirects <- mRedirects
             headers <- responseHeaders . snd <$> headMay redirects
