@@ -455,51 +455,51 @@ templates =
     --     |])
 
     , ("make", \resolver' -> T.unpack [text|
-		#!/usr/bin/env stack
-		{- stack --resolver $resolver' script
-		  --package shake
-		-}
+        #!/usr/bin/env stack
+        {- stack --resolver $resolver' script
+           --package shake
+        -}
 
-		{- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+        {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
 
-		-- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
-		{-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
-		{-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
-		{-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
-		{-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
+        -- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
+        {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
+        {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
+        {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
+        {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
 
-		-- The idea is to remove these when you want to tidy your code up
-		{-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
-		{-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
-		-- and add this, also when wanting to clean up code
-		-- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
+        -- The idea is to remove these when you want to tidy your code up
+        {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
+        {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+        -- and add this, also when wanting to clean up code
+        -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
 
-		{-# LANGUAGE ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
+        {-# LANGUAGE ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
 
-		import Development.Shake
-		import Development.Shake.Command
-		import Development.Shake.FilePath
-		import Development.Shake.Util
+        import Development.Shake
+        import Development.Shake.Command
+        import Development.Shake.FilePath
+        import Development.Shake.Util
 
-		main :: IO ()
-		main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
-			want ["_build/run" <.> exe]
+        main :: IO ()
+        main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
+            want ["_build/run" <.> exe]
 
-			phony "clean" $ do
-				putNormal "Cleaning files in _build"
-				removeFilesAfter "_build" ["//*"]
+            phony "clean" $ do
+                putNormal "Cleaning files in _build"
+                removeFilesAfter "_build" ["//*"]
 
-			"_build/run" <.> exe %> \out -> do
-				cs <- getDirectoryFiles "" ["//*.c"]
-				let os = ["_build" </> c -<.> "o" | c <- cs]
-				need os
-				cmd_ "gcc -o" [out] os
+            "_build/run" <.> exe %> \out -> do
+                cs <- getDirectoryFiles "" ["//*.c"]
+                let os = ["_build" </> c -<.> "o" | c <- cs]
+                need os
+                cmd_ "gcc -o" [out] os
 
-			"_build//*.o" %> \out -> do
-				let c = dropDirectory1 $ out -<.> "c"
-				let m = out -<.> "m"
-				cmd_ "gcc -c" [c] "-o" [out] "-MMD -MF" [m]
-				needMakefileDependencies m
+            "_build//*.o" %> \out -> do
+                let c = dropDirectory1 $ out -<.> "c"
+                let m = out -<.> "m"
+                cmd_ "gcc -c" [c] "-o" [out] "-MMD -MF" [m]
+                needMakefileDependencies m
         |])
 
     -- , ("diagrams", \resolver' -> T.unpack [text|
