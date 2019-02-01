@@ -586,6 +586,10 @@ templates =
                 needMakefileDependencies m
         |])
 
+    -- , ("lambda", \resolver' -> T.unpack [text|
+    --     TODO: amazon lambda
+    --     |])
+
     -- , ("diagrams", \resolver' -> T.unpack [text|
     --     TODO: auto-reloading of diagrams would be nice
     --     |])
