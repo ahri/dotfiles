@@ -26,6 +26,7 @@
 
 import Control.Exception
 import Control.Monad
+import Data.Bits ((.|.))
 import Data.Foldable
 import Data.Maybe
 import qualified Data.Text as T
@@ -179,7 +180,9 @@ extraCompileFlags (_, cs) = join $ mapMaybe f cs
 todos :: Parse -> [String]
 todos (_, cs) = mapMaybe f cs
   where
-    f (Comment _ _ s) = if s =~ ("^ *TODO\\b"::String)
+    todoPattern = makeRegexOpts (defaultCompOpt .|. compIgnoreCase) defaultExecOpt ("^ *TODO\\b"::String)
+
+    f (Comment _ _ s) = if match todoPattern s
         then Just . unwords . (["-"] <>) . drop 1 $ words s
         else Nothing
 
