@@ -329,6 +329,8 @@ rmF fname = removeFile fname `catch` handleErrs
         | isDoesNotExistError e = pure ()
         | otherwise = throwIO e
 
+-- TODO: keep track of what resolver was used to test with, in case later
+-- versions do not compile, the user could fall back using --tested or something
 templates :: [(String, Resolver -> String)]
 templates =
     [ (defaultTemplate, \resolver' -> T.unpack [text|
@@ -356,6 +358,7 @@ templates =
         main = do
             putStrLn "Hello world!"
         |])
+
     , ("shellscript", \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
         {- stack --resolver $resolver' script
@@ -445,11 +448,53 @@ templates =
         tests = quickCheck ((==)::Int -> Int -> Bool)
         |])
 
-    -- , ("http", \resolver' -> T.unpack [text|
-    --     TODO: req?
-    --     |])
+    , ("httpclient", \resolver' -> T.unpack [text|
+        #!/usr/bin/env stack
+        {- stack --resolver $resolver' script
+            --package aeson
+            --package req
+            --package data-default
+        -}
 
-    , ("webserver", \resolver' -> T.unpack [text|
+        {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+
+        -- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
+        {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
+        {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
+        {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
+        {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
+
+        -- The idea is to remove these when you want to tidy your code up
+        {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
+        {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+        -- and add this, also when wanting to clean up code
+        -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
+
+        {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
+
+        import Control.Monad.IO.Class
+        import Data.Default
+        import Data.Aeson
+        import Network.HTTP.Req
+
+        main :: IO ()
+        -- You can either make your monad an instance of 'MonadHttp', or use
+        -- 'runReq' in any IO-enabled monad without defining new instances.
+        main = runReq def $ do
+          let payload = object
+                [ "foo" .= (10 :: Int)
+                , "bar" .= (20 :: Int) ]
+          -- One function—full power and flexibility, automatic retrying on timeouts
+          -- and such, automatic connection sharing.
+          r <- req POST -- method
+            (https "httpbin.org" /: "post") -- safe by construction URL
+            (ReqBodyJson payload) -- use built-in options or add your own
+            jsonResponse -- specify how to interpret response
+            mempty       -- query params, headers, explicit port number, etc.
+          liftIO $ print (responseBody r :: Value)
+        |])
+
+    , ("httpserver", \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
         {- stack --resolver $resolver' script
           --package bytestring
