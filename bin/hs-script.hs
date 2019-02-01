@@ -446,9 +446,93 @@ templates =
     --     TODO: req?
     --     |])
 
-    -- , ("webserver", \resolver' -> T.unpack [text|
-    --     TODO: scotty?
-    --     |])
+    , ("webserver", \resolver' -> T.unpack [text|
+        #!/usr/bin/env stack
+        {- stack --resolver $resolver' script
+          --package bytestring
+          --package http-types
+          --package warp
+          --package wai
+          --package blaze-html
+        -}
+
+        {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
+
+        -- https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html
+        {-# OPTIONS_GHC -Werror -Wall -Wcompat                                  #-}
+        {-# OPTIONS_GHC -Wincomplete-uni-patterns -Wincomplete-record-updates   #-}
+        {-# OPTIONS_GHC -Widentities -Wredundant-constraints                    #-}
+        {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
+
+        -- The idea is to remove these when you want to tidy your code up
+        {-# OPTIONS_GHC -fno-warn-unused-imports -fno-warn-unused-matches       #-}
+        {-# OPTIONS_GHC -fno-warn-unused-top-binds -fno-warn-unused-local-binds #-}
+        -- and add this, also when wanting to clean up code
+        -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
+
+        {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
+
+        import Network.Wai
+        import Network.HTTP.Types
+        import Network.Wai.Handler.Warp (run)
+
+        import qualified Data.ByteString as B
+        import qualified Data.ByteString.Char8 as BC8
+        import qualified Data.ByteString.Lazy as BL
+
+        import qualified Text.Blaze.Html5 as H
+        import Text.Blaze.Html5 ((!))
+        import qualified Text.Blaze.Html5.Attributes as HA
+        import qualified Text.Blaze.Html.Renderer.Utf8 as HR
+
+        {- What about...
+         -
+         - routing?
+         -      * there are a number of available routing packages
+         -      * a simple applicative parser can suffice, with pattern matching on the
+         -        resultant data structure
+         -
+         - https?
+         -      * a more complex subject, and one that is not always needed as a
+         -        terminator is often in use - for simple cases use a server like Caddy
+         -        to configure letsencrypt and proxy to you
+         -}
+
+        app :: Application
+        app request respond = do
+            BC8.putStrLn $ "Responding to " <> rawReq
+            respond $ case rawReq of
+                "/"     -> responseLBS
+                    status200
+                    [("Content-Type", "text/html")]
+                    . HR.renderHtml
+                    . H.html $ do
+                        H.head $ H.title "Hello world!"
+                        H.body $ do
+                            H.p $ H.text "Hi!"
+                            H.p
+                                ! HA.class_ "hello"
+                                ! HA.onclick "alert('yo')"
+                                $ H.text "Click me."
+
+                "/passwd" -> responseFile
+                    status200
+                    [("Content-Type", "text/plain")]
+                    "/etc/passwd"
+                    Nothing
+
+                _       -> responseLBS
+                    status404
+                    [("Content-Type", "text/text")]
+                    (BL.fromStrict $ "Couldn't find " <> rawReq)
+          where
+            rawReq = rawPathInfo request
+
+        main :: IO ()
+        main = do
+            putStrLn "http://localhost:8080/"
+            run 8080 app
+        |])
 
     -- , ("consoleapp", \resolver' -> T.unpack [text|
     --     TODO: brick
