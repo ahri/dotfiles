@@ -637,6 +637,10 @@ templates =
     -- , ("lambda", \resolver' -> T.unpack [text|
     --     TODO: amazon lambda
     --     |])
+    
+    -- , ("benchmark", \resolver' -> T.unpack [text|
+    --     TODO: criterion
+    --     |])
 
     -- , ("diagrams", \resolver' -> T.unpack [text|
     --     TODO: auto-reloading of diagrams would be nice
