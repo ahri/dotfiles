@@ -7,6 +7,7 @@
     --package regex-posix
     --package neat-interpolation
     --package text
+    --package cpphs
     --package haskell-src-exts
     --package safe
     --package http-client
@@ -32,6 +33,7 @@ import Data.Maybe
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import Language.Haskell.Exts hiding (parse)
+import Language.Preprocessor.Cpphs hiding (Ident)
 import NeatInterpolation
 import Network.HTTP.Client
 import Network.HTTP.Client.TLS
@@ -121,13 +123,9 @@ parse scriptName = do
         _imports
         _declarations
      , comments
-     , unknownPragmas
-     ) <- fromParseResult <$> parseFileWithCommentsAndPragmas
-        (ParseMode scriptName Haskell2010 [] False False Nothing False)
-        scriptName
-
-    when (not . null $ unknownPragmas)
-        . die $ printf "Error: unknown pragmas: %s" (show unknownPragmas)
+     ) <- fromParseResult
+        .   (parseFileContentsWithComments $ ParseMode scriptName Haskell2010 [] False False Nothing False)
+        <$> (readFile scriptName >>= runCpphs defaultCpphsOptions scriptName)
 
     pure ((() <$) <$> pragmas, comments)
 
