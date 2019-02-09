@@ -123,9 +123,11 @@ parse scriptName = do
         _imports
         _declarations
      , comments
-     ) <- fromParseResult
-        .   (parseFileContentsWithComments $ ParseMode scriptName Haskell2010 [] False False Nothing False)
-        <$> (readFile scriptName >>= runCpphs defaultCpphsOptions scriptName)
+     ) <-  readFile scriptName
+       >>= runCpphs defaultCpphsOptions scriptName
+       >>= pure . (parseFileContentsWithComments
+            $ ParseMode scriptName Haskell2010 [] False False Nothing False)
+       >>= pure . fromParseResult
 
     pure ((() <$) <$> pragmas, comments)
 
