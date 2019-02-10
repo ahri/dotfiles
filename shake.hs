@@ -1,8 +1,8 @@
 #!/usr/bin/env stack
 {- stack --resolver lts-12.26 script
-   --package shake
-   --package directory
-   --package executable-path
+    --package shake
+    --package directory
+    --package executable-path
 -}
 
 {- COMPILE_FLAGS -O2 -rtsopts -threaded -with-rtsopts=-I0 -}
@@ -42,42 +42,62 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
     home <- liftIO homedir
 
     root <- liftIO
-        $   getScriptPath -- NB. if bugs are found, try FindBin package
+        $   getScriptPath
         >>= \case
             Executable s -> pure $ takeDirectory s
             RunGHC s     -> pure $ takeDirectory s
             Interactive  -> D.getCurrentDirectory
         >>= \d -> D.setCurrentDirectory d >> pure d
 
-    hsScript <- liftIO
-        $   D.findExecutable "hs-script"
-        >>= pure . maybe (root </> "bin" </> "hs-script.hs") id
-
     scripts <- liftIO
         $   D.listDirectory "bin"
         >>= pure . fmap ((root </> "bin") </>)
         >>= filterM D.doesFileExist
 
-    let basicLink script = do
+    let binLink script = do
             let target = home </> "bin" </> takeFileName script
             want [target]
             target %> \_ -> do
                 need [script]
-                link script target
+                cmd_ "ln -sf" [script, target]
 
-    forM_ scripts $ \script -> case takeExtensions script of
-        ""    -> basicLink script
-        ".sh" -> basicLink script
-        ".py" -> basicLink script
-        ".hs" -> do
-            let target = home </> "bin" </> takeFileName script -<.> exe
+    let binCopy script = do
+            let target = home </> "bin" </> takeFileName script
             want [target]
             target %> \_ -> do
                 need [script]
-                cmd_ [hsScript, script, "compile"]
-                liftIO $ D.renameFile (script -<.> exe) target
+                copyFile' script target
 
-        _  -> error $ "Unexpected extension: " <> script
+    let hsScript = home </> "bin" </> "hs-script" <.> exe
+
+    forM_ scripts $ \script -> case takeExtensions script of
+#ifdef mingw32_HOST_OS
+        ".cmd" -> binCopy script
+        ".bat" -> binCopy script
+        ".exe" -> binCopy script
+#else
+        ""    -> binLink script
+        ".sh" -> binLink script
+        ".py" -> binLink script
+#endif
+        ".hs" -> case takeFileName script of
+            "hs-script.hs" -> do -- NB. special case as it needs bootstrapping
+                let target = home </> "bin" </> takeFileName script -<.> exe
+                want [target]
+                target %> \_ -> do
+                    need [script]
+                    cmd_ ["stack", script, script, "compile"]
+                    liftIO $ D.renameFile (script -<.> exe) target
+
+            _              -> do
+                let target = home </> "bin" </> takeFileName script -<.> exe
+                want [target]
+                target %> \_ -> do
+                    need [hsScript, script]
+                    cmd_ [hsScript, script, "compile"]
+                    liftIO $ D.renameFile (script -<.> exe) target
+
+        _  -> liftIO . putStrLn $ "Ignoring: " <> script
 
     phony "clean" $ do
         putNormal "Cleaning files in _build"
@@ -90,15 +110,4 @@ homedir = E.getEnv home
     home = "USERPROFILE"
 #else
     home = "HOME"
-#endif
-
-link :: FromFilePath -> ToFilePath -> Action ()
-#ifdef mingw32_HOST_OS
-link from to = do
-    cmd_ "del /f/q" [to]
-    cmd_ "cmd /C mklink /H" [to, from]
-#else
-link from to = do
-    cmd_ "rm -f" [to]
-    cmd_ "ln -s" [from, to]
 #endif
