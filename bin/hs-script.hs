@@ -497,11 +497,11 @@ templates =
     , ("httpserver", \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
         {- stack --resolver $resolver' script
-          --package bytestring
-          --package http-types
-          --package warp
-          --package wai
-          --package blaze-html
+            --package bytestring
+            --package http-types
+            --package warp
+            --package wai
+            --package blaze-html
         -}
 
         {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
@@ -589,7 +589,7 @@ templates =
     , ("make", \resolver' -> T.unpack [text|
         #!/usr/bin/env stack
         {- stack --resolver $resolver' script
-           --package shake
+            --package shake
         -}
 
         {- COMPILE_FLAGS -O2 -threaded -rtsopts -eventlog -}
