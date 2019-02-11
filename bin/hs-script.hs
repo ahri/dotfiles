@@ -42,7 +42,6 @@ import System.Directory
 import System.Environment
 import System.Exit
 import System.FilePath
-import System.IO.Error
 import System.Process
 import Text.Printf
 import Text.Regex.Posix
@@ -265,7 +264,7 @@ compile scriptName cmdlineExtraCompileFlags = do
     let fullCmd :: String = printf "%s -- %s %s" cmd flags scriptName
     printf "Info: compile command: %s\n" fullCmd
     sh . shell $ fullCmd
-    traverse_ rmF $ (takeBaseName scriptName ++) <$> [".hi", ".dyn_hi", ".o", ".dyn_o"]
+    traverse_ removePathForcibly $ (takeBaseName scriptName ++) <$> [".hi", ".dyn_hi", ".o", ".dyn_o"]
 
 hint :: String -> String -> (String -> IO String) -> IO ()
 hint exeN descr f = do
@@ -321,13 +320,6 @@ systemInstallCmd pkg = do
         case acc' of
             Nothing -> const (Just curr) <$> findExecutable curr
             Just _  -> acc
-
-rmF :: FilePath -> IO ()
-rmF fname = removeFile fname `catch` handleErrs
-  where
-    handleErrs e
-        | isDoesNotExistError e = pure ()
-        | otherwise = throwIO e
 
 -- TODO: keep track of what resolver was used to test with, in case later
 -- versions do not compile, the user could fall back using --tested or something
