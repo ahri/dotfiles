@@ -118,7 +118,7 @@ linkFile from to = liftIO $ do
     sh . shell $ "cmd.exe /C\"mklink /H \"" <> to <> "\" \"" <> from <> "\"\""
 
 #else
-linkFile = liftIO . D.createFileLink
+linkFile from to = liftIO $ D.createFileLink from to
 #endif
 
 sh :: CreateProcess -> IO ()
