@@ -3,6 +3,7 @@
     --package shake
     --package directory
     --package executable-path
+    --package process
 -}
 
 {- COMPILE_FLAGS -O2 -rtsopts -threaded -with-rtsopts=-I0 -}
@@ -30,7 +31,9 @@ import Development.Shake.FilePath
 import Development.Shake.Util
 import System.Environment.Executable
 import qualified System.Environment as E
+import System.Exit
 import qualified System.Directory as D
+import System.Process
 
 type FromFilePath = FilePath
 type ToFilePath = FilePath
@@ -59,22 +62,15 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
             want [target]
             target %> \_ -> do
                 need [script]
-                cmd_ "ln -sf" [script, target]
-
-    let binCopy script = do
-            let target = home </> "bin" </> takeFileName script
-            want [target]
-            target %> \_ -> do
-                need [script]
-                copyFile' script target
+                linkFile script target
 
     let hsScript = home </> "bin" </> "hs-script" <.> exe
 
     forM_ scripts $ \script -> case takeExtensions script of
 #ifdef mingw32_HOST_OS
-        ".cmd" -> binCopy script
-        ".bat" -> binCopy script
-        ".exe" -> binCopy script
+        ".cmd" -> binLink script
+        ".bat" -> binLink script
+        ".exe" -> binLink script
 #else
         ""    -> binLink script
         ".sh" -> binLink script
@@ -111,3 +107,22 @@ homedir = E.getEnv home
 #else
     home = "HOME"
 #endif
+
+type FilePathFrom = FilePath
+type FilePathTo   = FilePath
+linkFile :: FilePathFrom -> FilePathTo -> Action ()
+#ifdef mingw32_HOST_OS
+linkFile from to = liftIO $ do
+    D.removePathForcibly to
+    -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
+    sh . shell $ "cmd.exe /C\"mklink /H \"" <> to <> "\" \"" <> from <> "\"\""
+
+#else
+linkFile = liftIO . D.createFileLink
+#endif
+
+sh :: CreateProcess -> IO ()
+sh cp = do
+    exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
+    when (exitCode /= ExitSuccess) $ error $ "Unexpected exit code: " <> show exitCode
+    pure ()
