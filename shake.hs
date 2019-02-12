@@ -20,7 +20,7 @@
 -- and add this, also when wanting to clean up code
 -- {-# OPTIONS_GHC -ddump-minimal-imports                               #-}
 
-{-# LANGUAGE ScopedTypeVariables, QuasiQuotes, LambdaCase, CPP #-}
+{-# LANGUAGE ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
 
 import Control.Monad
 import Data.Maybe
@@ -33,6 +33,7 @@ import System.Environment.Executable
 import qualified System.Environment as E
 import System.Exit
 import qualified System.Directory as D
+import qualified System.Info
 import System.Process
 
 type FromFilePath = FilePath
@@ -66,17 +67,9 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
 
     let hsScript = home </> "bin" </> "hs-script" <.> exe
 
-    forM_ scripts $ \script -> case takeExtensions script of
-#ifdef mingw32_HOST_OS
-        ".cmd" -> binLink script
-        ".bat" -> binLink script
-        ".exe" -> binLink script
-#else
-        ""    -> binLink script
-        ".sh" -> binLink script
-        ".py" -> binLink script
-#endif
-        ".hs" -> case takeFileName script of
+    let ignore script = liftIO . putStrLn $ "Ignoring: " <> script
+
+    let compileHs script = case takeFileName script of
             "hs-script.hs" -> do -- NB. special case as it needs bootstrapping
                 let target = home </> "bin" </> takeFileName script -<.> exe
                 want [target]
@@ -93,7 +86,19 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
                     cmd_ [hsScript, script, "compile"]
                     liftIO $ D.renameFile (script -<.> exe) target
 
-        _  -> liftIO . putStrLn $ "Ignoring: " <> script
+    forM_ scripts $ \script -> if isWindows
+        then case takeExtensions script of
+            ".cmd" -> binLink script
+            ".bat" -> binLink script
+            ".exe" -> binLink script
+            ".hs"  -> compileHs script
+            _      -> ignore script
+        else case takeExtensions script of
+            ""     -> binLink script
+            ".sh"  -> binLink script
+            ".py"  -> binLink script
+            ".hs"  -> compileHs script
+            _      -> ignore script
 
     phony "clean" $ do
         putNormal "Cleaning files in _build"
@@ -101,30 +106,27 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
 
 homedir :: IO FilePath
 homedir = E.getEnv home
-  where
-#ifdef mingw32_HOST_OS
-    home = "USERPROFILE"
-#else
-    home = "HOME"
-#endif
+  where home = if isWindows
+        then "USERPROFILE"
+        else "HOME"
 
 type FilePathFrom = FilePath
 type FilePathTo   = FilePath
 linkFile :: FilePathFrom -> FilePathTo -> Action ()
-#ifdef mingw32_HOST_OS
-linkFile from to = liftIO $ do
-    D.removePathForcibly to
-    -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
-    sh . shell $ "cmd.exe /C\"mklink /H \"" <> to <> "\" \"" <> from <> "\"\""
-
-#else
-linkFile from to = liftIO $ do
-    D.removePathForcibly to
-    D.createFileLink from to
-#endif
+linkFile from to = liftIO $ if isWindows
+    then do
+        D.removePathForcibly to
+        -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
+        sh . shell $ "cmd.exe /C\"mklink /H \"" <> to <> "\" \"" <> from <> "\"\""
+    else do
+        D.removePathForcibly to
+        D.createFileLink from to
 
 sh :: CreateProcess -> IO ()
 sh cp = do
     exitCode <- withCreateProcess cp (\_ _ _ ph -> waitForProcess ph)
     when (exitCode /= ExitSuccess) $ error $ "Unexpected exit code: " <> show exitCode
     pure ()
+
+isWindows :: Bool
+isWindows = "mingw" `isPrefixOf` System.Info.os
