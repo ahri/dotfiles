@@ -66,9 +66,6 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
                 linkFile script target
 
     let hsScript = home </> "bin" </> "hs-script" <.> exe
-
-    let ignore script = liftIO . putStrLn $ "Ignoring: " <> script
-
     let compileHs script = case takeFileName script of
             "hs-script.hs" -> do -- NB. special case as it needs bootstrapping
                 let target = home </> "bin" </> takeFileName script -<.> exe
@@ -85,6 +82,8 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
                     need [hsScript, script]
                     cmd_ [hsScript, script, "compile"]
                     liftIO $ D.renameFile (script -<.> exe) target
+
+    let ignore script = liftIO . putStrLn $ "Ignoring: " <> script
 
     forM_ scripts $ \script -> if isWindows
         then case takeExtensions script of
