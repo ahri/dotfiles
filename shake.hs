@@ -117,6 +117,7 @@ linkFile from to = liftIO $ if isWindows
     then do
         D.removePathForcibly to
         -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
+        -- TODO: by using "shell" is "cmd.exe" being called in a nested manner here?
         sh . shell $ "cmd.exe /C\"mklink /H \"" <> to <> "\" \"" <> from <> "\"\""
     else do
         D.removePathForcibly to
