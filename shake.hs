@@ -38,6 +38,8 @@ import System.Process
 
 type FromFilePath = FilePath
 type ToFilePath = FilePath
+type HomePath = FilePath
+type RootPath = FilePath
 
 -- TODO: aim to remove 'directory' package in favour of idiomatic Shake stuff
 
@@ -53,6 +55,24 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
             Interactive  -> D.getCurrentDirectory
         >>= \d -> D.setCurrentDirectory d >> pure d
 
+    writeDotFiles home root
+    writeBinDir home root
+
+writeDotFiles :: HomePath -> RootPath -> Rules ()
+writeDotFiles home root = do
+    dotfiles <- liftIO
+        $   D.listDirectory "."
+        >>= pure . filter ("." `isPrefixOf`)
+
+    liftIO . forM_ dotfiles $ \dotfile -> do
+        isFile <- liftIO $ D.doesFileExist dotfile
+        let target = home </> dotfile
+        (if isFile then linkFile else linkDir)
+            (root </> dotfile)
+            target
+
+writeBinDir :: HomePath -> RootPath -> Rules ()
+writeBinDir home root = do
     scripts <- liftIO
         $   D.listDirectory "bin"
         >>= pure . fmap ((root </> "bin") </>)
@@ -63,7 +83,7 @@ main = shakeArgs shakeOptions{shakeFiles="_build"} $ do
             want [target]
             target %> \_ -> do
                 need [script]
-                linkFile script target
+                liftIO $ linkFile script target
 
     let hsScript = home </> "bin" </> "hs-script" <.> exe
     let compileHs script = case takeFileName script of
@@ -111,13 +131,24 @@ homedir = E.getEnv home
 
 type FilePathFrom = FilePath
 type FilePathTo   = FilePath
-linkFile :: FilePathFrom -> FilePathTo -> Action ()
-linkFile from to = liftIO $ if isWindows
+linkFile :: FilePathFrom -> FilePathTo -> IO ()
+linkFile from to = if isWindows
     then do
         D.removePathForcibly to
         -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
         -- TODO: by using "shell" is "cmd.exe" being called in a nested manner here?
         sh . shell $ "cmd.exe /C\"mklink /H \"" <> to <> "\" \"" <> from <> "\"\""
+    else do
+        D.removePathForcibly to
+        D.createFileLink from to
+
+linkDir :: FilePathFrom -> FilePathTo -> IO ()
+linkDir from to = if isWindows
+    then do
+        D.removePathForcibly to
+        -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
+        -- TODO: by using "shell" is "cmd.exe" being called in a nested manner here?
+        sh . shell $ "cmd.exe /C\"mklink /D \"" <> to <> "\" \"" <> from <> "\"\""
     else do
         D.removePathForcibly to
         D.createFileLink from to
