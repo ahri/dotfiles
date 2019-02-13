@@ -390,6 +390,7 @@ templates =
         import Text.Printf
         import Text.Regex.Posix
 
+        -- NB. find most helpful functions in https://hackage.haskell.org/package/directory/docs/System-Directory.html
         main :: IO ()
         main = do
             sh $ shell "echo foo"
