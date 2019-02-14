@@ -148,7 +148,7 @@ linkDir from to = if isWindows
         D.removePathForcibly to
         -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
         -- TODO: by using "shell" is "cmd.exe" being called in a nested manner here?
-        sh . shell $ "cmd.exe /C\"mklink /D \"" <> to <> "\" \"" <> from <> "\"\""
+        sh . shell $ "cmd.exe /C\"mklink /J \"" <> to <> "\" \"" <> from <> "\"\""
     else do
         D.removePathForcibly to
         D.createFileLink from to
