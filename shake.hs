@@ -66,7 +66,9 @@ writeDotFiles home root = do
 
     liftIO . forM_ dotfiles $ \dotfile -> do
         isFile <- liftIO $ D.doesFileExist dotfile
-        let target = home </> dotfile
+        let target = if isWindows && dotfile == ".vimrc"
+            then home </> "_vimrc"
+            else home </> dotfile
         (if isFile then linkFile else linkDir)
             (root </> dotfile)
             target
