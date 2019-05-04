@@ -79,6 +79,7 @@ writeBinDir home root = do
         >>= filterM D.doesFileExist
 
     let binLink script = do
+            liftIO . putStrLn $ "binLink " <> script
             let target = home </> "bin" </> takeFileName script
             want [target]
             target %> \_ -> do
@@ -88,6 +89,7 @@ writeBinDir home root = do
     let hsScript = home </> "bin" </> "hs-script" <.> exe
     let compileHs script = case takeFileName script of
             "hs-script.hs" -> do -- NB. special case as it needs bootstrapping
+                liftIO . putStrLn $ "compileHs " <> script
                 let target = home </> "bin" </> takeFileName script -<.> exe
                 want [target]
                 target %> \_ -> do
@@ -96,6 +98,7 @@ writeBinDir home root = do
                     liftIO $ D.renameFile (script -<.> exe) target
 
             _              -> do
+                liftIO . putStrLn $ "compileHs " <> script
                 let target = home </> "bin" </> takeFileName script -<.> exe
                 want [target]
                 target %> \_ -> do
@@ -145,6 +148,7 @@ linkFile from to = if isWindows
 linkDir :: FilePathFrom -> FilePathTo -> IO ()
 linkDir from to = if isWindows
     then do
+        putStrLn $ "linkDir " <> from <> " -> " <> to
         D.removePathForcibly to
         -- TODO: use cmd_ here - it's tricky though because it seems to add quotes, which messes with cmd.exe's weird /C quote rules
         -- TODO: by using "shell" is "cmd.exe" being called in a nested manner here?
