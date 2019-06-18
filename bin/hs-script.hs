@@ -24,6 +24,7 @@
 {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules       #-}
 
 {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, QuasiQuotes, LambdaCase #-}
+{-# LANGUAGE BangPatterns #-}
 
 import Control.Exception
 import Control.Monad
@@ -42,6 +43,7 @@ import System.Directory
 import System.Environment
 import System.Exit
 import System.FilePath
+import System.Info
 import System.Process
 import Text.Printf
 import Text.Regex.Posix
@@ -87,7 +89,7 @@ dependency parse' dep = dependency' parse' dep dep
 
 dependency' :: Parse -> String -> String -> IO ()
 dependency' parse' dep pkg = do
-    let resolver' = resolverFromScriptFile parse'
+    let !resolver' = resolverFromScriptFile parse'
     depExe <- findExecutable dep
     when (isNothing depExe) $
         die $ printf "Error: required dependency missing, install with: %s" (stackInstallCmd resolver' pkg::String)
@@ -164,9 +166,9 @@ resolverFromScriptFile (_, cs) = if null scriptComments
   where
     scriptComments = mapMaybe f cs
     f (Comment _ _ s) = if s =~ ("^ ?stack "::String)
-        then case words s of
-            ("{-":"stack":"--resolver":x:_) -> Just x
-            _                               -> Nothing
+        then case words $ (if os == "mingw32" then id else drop 1) s of
+            ("stack":"--resolver":x:_) -> Just x
+            _                          -> Nothing
         else Nothing
 
 extraCompileFlags :: Parse -> [String]
