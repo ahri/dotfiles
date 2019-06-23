@@ -11,8 +11,11 @@
 {-# OPTIONS_GHC -Widentities -Wredundant-constraints                  #-}
 {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules     #-}
 -- {-# OPTIONS_GHC -ddump-minimal-imports                             #-}
-{-# LANGUAGE CPP                                                      #-}
+{-# LANGUAGE CPP, ScopedTypeVariables, LambdaCase                     #-}
 
+import             Control.Monad
+import             Data.List
+import             Data.Maybe
 import             System.Directory
 import             System.Exit
 import             System.IO
@@ -33,18 +36,26 @@ newtype SteamAppId = SteamAppId String deriving (Show, Eq)
 
 main :: IO ()
 main = do
-    steamPath <- findSteamPath >>= maybe
-        (hPutStrLn stderr "Couldn't find Steam" >> exitFailure)
-        return
-
-    randAppId <- steamAppIds steamPath >>= randomAppId >>= maybe
+    allGames <- (<>) <$> steamGames <*> gogGames
+    join . maybe
         (hPutStrLn stderr "No installed games found" >> exitFailure)
-        return
-
-    _ <- openSteamStore steamPath randAppId
+        id
+        $ pick allGames
 
     exitSuccess
 
+
+pick :: [a] -> Maybe (IO a)
+pick = \case
+    [] -> Nothing
+    xs -> Just $ fmap (xs !!) $ getStdRandom (randomR (0, length xs - 1))
+
+steamGames :: IO [IO ()]
+steamGames = do
+    mSteamPath <- findSteamPath
+    case mSteamPath of
+        Nothing        -> pure []
+        Just steamPath -> (fmap.fmap) (openSteamStore steamPath) $ steamAppIds steamPath
 
 findSteamPath :: IO (Maybe SteamDir)
 #ifdef mingw32_HOST_OS
@@ -76,10 +87,6 @@ steamAppIds (SteamDir sd) = filterSteamManifestsForIdentifiers <$> listDirectory
     manifestPattern :: Regex
     manifestPattern = mkRegex "^appmanifest_([0-9]+)\\.acf$"
 
-randomAppId :: [SteamAppId] -> IO (Maybe SteamAppId)
-randomAppId []     = pure Nothing
-randomAppId appIds = Just . (appIds !!) <$> getStdRandom (randomR (0, length appIds - 1))
-
 steamProcess :: SteamDir -> [String] -> CreateProcess
 #ifdef mingw32_HOST_OS
 steamProcess (SteamDir sd) params = proc
@@ -91,6 +98,46 @@ steamProcess _ params = proc
     ("/usr/bin/steam" : params)
 #endif
 
-openSteamStore :: SteamDir -> SteamAppId -> IO (Maybe Handle, Maybe Handle, Maybe Handle, ProcessHandle)
-openSteamStore sd (SteamAppId appId) =
-    createProcess_ "steam" $ steamProcess sd ["steam://nav/games/details/" ++ appId]
+openSteamStore :: SteamDir -> SteamAppId -> IO ()
+openSteamStore sd (SteamAppId appId) = do
+    putStrLn $ "Opening Steam app for ID " <> appId
+    _ <- createProcess_ "steam" $ steamProcess sd ["steam://nav/games/details/" ++ appId]
+    pure ()
+
+gogGames :: IO [IO ()]
+#ifdef mingw32_HOST_OS
+gogGames = bracket
+    (regOpenKey hKEY_LOCAL_MACHINE "Software\\Wow6432Node\\GOG.com\\Games")
+    regCloseKey
+    (\gamesKey -> do
+        gameIds <- regEnumKeys gamesKey
+        fmap catMaybes $ (flip traverse) gameIds $ \gameId -> do
+            vals <- bracket
+                (regOpenKey gamesKey gameId)
+                regCloseKey
+                regEnumKeyVals
+
+            pure $ executeGame
+                <$> (lookupRegVal "WORKINGDIR" vals)
+                <*> (lookupRegVal "LAUNCHCOMMAND" vals)
+    )
+  where    
+    executeGame :: FilePath -> String -> IO ()
+    executeGame wd cmd = do
+        putStrLn $ "Running " <> cmd
+        setCurrentDirectory wd
+        _ <- createProcess_ "gog" . shell $ if ['"'] `isPrefixOf` cmd
+            then cmd
+            else ['"'] <> cmd <> ['"']
+        pure ()
+
+#else
+gogGames = undefined
+#endif
+
+lookupRegVal :: Eq a => a -> [(a, b, c)] -> Maybe b
+lookupRegVal k = \case
+    []     -> Nothing
+    ((k', v, _):xs) -> if k == k'
+        then Just v
+        else lookupRegVal k xs
