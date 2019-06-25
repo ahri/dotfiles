@@ -17,6 +17,7 @@ import             Control.Monad
 import             Data.List
 import             Data.Maybe
 import             System.Directory
+import             System.Environment
 import             System.Exit
 import             System.IO
 import             System.Process
@@ -34,9 +35,24 @@ newtype SteamDir = SteamDir FilePath deriving (Show, Eq)
 
 newtype SteamAppId = SteamAppId String deriving (Show, Eq)
 
+libraries :: IO [(String, [IO ()])]
+libraries = liftM2
+    (\steam gog ->
+        [ ("steam", steam)
+        , ("gog",   gog)
+        ]
+    )
+    steamGames
+    gogGames
+
 main :: IO ()
 main = do
-    allGames <- (<>) <$> steamGames <*> gogGames
+    args <- getArgs
+    allGames :: [IO ()] <- case args of
+        [] -> fmap join $ (fmap . fmap) snd libraries
+        _  -> fmap concat $ (flip traverse) args $ \arg ->
+            fmap (maybe [] id . lookup arg) libraries
+
     join . maybe
         (hPutStrLn stderr "No installed games found" >> exitFailure)
         id
@@ -57,52 +73,53 @@ steamGames = do
         Nothing        -> pure []
         Just steamPath -> (fmap.fmap) (openSteamStore steamPath) $ steamAppIds steamPath
 
-findSteamPath :: IO (Maybe SteamDir)
-#ifdef mingw32_HOST_OS
-findSteamPath = do
-    vals <- bracket
-        (regOpenKey hKEY_CURRENT_USER "Software\\Valve\\Steam")
-        regCloseKey
-        regEnumKeyVals
-    
-    pure $ foldr f Nothing vals
-      where
-        f cur acc = case cur of
-            ("SteamPath", path, _) -> Just $ SteamDir path
-            _                      -> acc
-#else
-findSteamPath = Just . SteamDir . (++ "/.steam/steam") <$> getEnv "HOME"
-#endif
-
-steamAppIds :: SteamDir -> IO [SteamAppId]
-steamAppIds (SteamDir sd) = filterSteamManifestsForIdentifiers <$> listDirectory (sd ++ "/steamapps")
   where
-    filterSteamManifestsForIdentifiers :: [FilePath] -> [SteamAppId]
-    filterSteamManifestsForIdentifiers = foldr f []
-
-    f cur acc = case matchRegex manifestPattern cur of
-        Just [appId] -> SteamAppId appId : acc
-        _            -> acc
-
-    manifestPattern :: Regex
-    manifestPattern = mkRegex "^appmanifest_([0-9]+)\\.acf$"
-
-steamProcess :: SteamDir -> [String] -> CreateProcess
+    findSteamPath :: IO (Maybe SteamDir)
 #ifdef mingw32_HOST_OS
-steamProcess (SteamDir sd) params = proc
-    (sd ++ "/Steam.exe")
-    params
+    findSteamPath = do
+        vals <- bracket
+            (regOpenKey hKEY_CURRENT_USER "Software\\Valve\\Steam")
+            regCloseKey
+            regEnumKeyVals
+        
+        pure $ foldr f Nothing vals
+          where
+            f cur acc = case cur of
+                ("SteamPath", path, _) -> Just $ SteamDir path
+                _                      -> acc
 #else
-steamProcess _ params = proc
-    "/bin/bash"
-    ("/usr/bin/steam" : params)
+    findSteamPath = Just . SteamDir . (++ "/.steam/steam") <$> getEnv "HOME"
 #endif
 
-openSteamStore :: SteamDir -> SteamAppId -> IO ()
-openSteamStore sd (SteamAppId appId) = do
-    putStrLn $ "Opening Steam app for ID " <> appId
-    _ <- createProcess_ "steam" $ steamProcess sd ["steam://nav/games/details/" ++ appId]
-    pure ()
+    steamAppIds :: SteamDir -> IO [SteamAppId]
+    steamAppIds (SteamDir sd) = filterSteamManifestsForIdentifiers <$> listDirectory (sd ++ "/steamapps")
+      where
+        filterSteamManifestsForIdentifiers :: [FilePath] -> [SteamAppId]
+        filterSteamManifestsForIdentifiers = foldr f []
+
+        f cur acc = case matchRegex manifestPattern cur of
+            Just [appId] -> SteamAppId appId : acc
+            _            -> acc
+
+        manifestPattern :: Regex
+        manifestPattern = mkRegex "^appmanifest_([0-9]+)\\.acf$"
+
+    steamProcess :: SteamDir -> [String] -> CreateProcess
+#ifdef mingw32_HOST_OS
+    steamProcess (SteamDir sd) params = proc
+        (sd ++ "/Steam.exe")
+        params
+#else
+    steamProcess _ params = proc
+        "/bin/bash"
+        ("/usr/bin/steam" : params)
+#endif
+
+    openSteamStore :: SteamDir -> SteamAppId -> IO ()
+    openSteamStore sd (SteamAppId appId) = do
+        putStrLn $ "Opening Steam app for ID " <> appId
+        _ <- createProcess_ "steam" $ steamProcess sd ["steam://nav/games/details/" ++ appId]
+        pure ()
 
 gogGames :: IO [IO ()]
 #ifdef mingw32_HOST_OS
