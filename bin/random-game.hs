@@ -3,6 +3,9 @@
    --package regex-compat
    --package process
    --package random
+   --package filepath
+   --package aeson
+   --package bytestring
 -}
 
 -- https://downloads.haskell.org/~ghc/8.2.2/docs/html/users_guide/using-warnings.html
@@ -11,24 +14,28 @@
 {-# OPTIONS_GHC -Widentities -Wredundant-constraints                  #-}
 {-# OPTIONS_GHC -Wmonomorphism-restriction -Wmissing-home-modules     #-}
 -- {-# OPTIONS_GHC -ddump-minimal-imports                             #-}
-{-# LANGUAGE CPP, ScopedTypeVariables, LambdaCase                     #-}
+{-# LANGUAGE CPP, ScopedTypeVariables, LambdaCase, OverloadedStrings  #-}
 
-import             Control.Monad
-import             Data.List
-import             Data.Maybe
-import             System.Directory
-import             System.Environment
-import             System.Exit
-import             System.IO
-import             System.Process
-import             System.Random
-import             Text.Regex
+import           Control.Monad
+import           Data.Aeson
+import           Data.Aeson.Types
+import qualified Data.ByteString.Lazy as LBS
+import           Data.List
+import           Data.Maybe
+import           System.Directory
+import           System.Environment
+import           System.Exit
+import           System.FilePath
+import           System.IO
+import           System.Process
+import           System.Random
+import           Text.Regex
 
 #ifdef mingw32_HOST_OS
-import             Control.Exception
-import             System.Win32.Registry
+import           Control.Exception
+import           System.Win32.Registry
 #else
-import             System.Environment
+import           System.Environment
 #endif
 
 newtype SteamDir = SteamDir FilePath deriving (Show, Eq)
@@ -36,14 +43,16 @@ newtype SteamDir = SteamDir FilePath deriving (Show, Eq)
 newtype SteamAppId = SteamAppId String deriving (Show, Eq)
 
 libraries :: IO [(String, [IO ()])]
-libraries = liftM2
-    (\steam gog ->
+libraries =
+    (\steam gog epic ->
         [ ("steam", steam)
         , ("gog",   gog)
+        , ("epic",  epic)
         ]
     )
-    steamGames
-    gogGames
+    <$> steamGames
+    <*> gogGames
+    <*> epicGames
 
 main :: IO ()
 main = do
@@ -82,11 +91,7 @@ steamGames = do
             regCloseKey
             regEnumKeyVals
         
-        pure $ foldr f Nothing vals
-          where
-            f cur acc = case cur of
-                ("SteamPath", path, _) -> Just $ SteamDir path
-                _                      -> acc
+        pure $ fmap SteamDir $ lookupRegVal "SteamPath" vals
 #else
     findSteamPath = Just . SteamDir . (++ "/.steam/steam") <$> getEnv "HOME"
 #endif
@@ -150,6 +155,44 @@ gogGames = bracket
 
 #else
 gogGames = undefined
+#endif
+
+epicGames :: IO [IO ()]
+#ifdef mingw32_HOST_OS
+epicGames = do
+    vals <- bracket 
+        (regOpenKey hKEY_LOCAL_MACHINE "Software\\Wow6432Node\\Epic Games\\EpicGamesLauncher")
+        regCloseKey
+        regEnumKeyVals
+
+    case lookupRegVal "AppDataPath" vals of
+        Nothing -> pure mempty
+        Just dir -> let manifestsDir = joinPath [dir, "Manifests"]
+            in listDirectory manifestsDir
+                >>= (pure . (fmap $ \manifest -> joinPath [manifestsDir, manifest]) . filter (".item" `isSuffixOf`))
+                >>= traverse LBS.readFile
+                >>= (pure . \jsons -> do
+                        j <- jsons
+                        let mp = do
+                            (wd, exe, args) <- decode j
+                                >>= (parseMaybe $ withObject "EpicJsonManifest" $ \v -> (,,)
+                                        <$> v .: "InstallLocation"
+                                        <*> v .: "LaunchExecutable"
+                                        <*> v .: "LaunchCommand"
+                                    )
+
+                            pure $ do
+                                putStrLn $ "Running " <> exe
+                                setCurrentDirectory wd
+                                _ <- createProcess_ "epic" (shell $ exe <> " " <> args)
+                                pure ()
+
+                        case mp of
+                            Nothing -> mempty
+                            Just p  -> pure p
+                    )
+#else
+epicGames = undefined
 #endif
 
 lookupRegVal :: Eq a => a -> [(a, b, c)] -> Maybe b
