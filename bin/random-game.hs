@@ -139,19 +139,11 @@ gogGames = bracket
                 regCloseKey
                 regEnumKeyVals
 
-            pure $ executeGame
+            pure $ execute "gog"
                 <$> (lookupRegVal "WORKINGDIR" vals)
-                <*> (lookupRegVal "LAUNCHCOMMAND" vals)
+                <*> (lookupRegVal "EXE" vals)
+                <*> (lookupRegVal "LAUNCHPARAM" vals)
     )
-  where    
-    executeGame :: FilePath -> String -> IO ()
-    executeGame wd cmd = do
-        putStrLn $ "Running " <> cmd
-        setCurrentDirectory wd
-        _ <- createProcess_ "gog" . shell $ if ['"'] `isPrefixOf` cmd
-            then cmd
-            else ['"'] <> cmd <> ['"']
-        pure ()
 
 #else
 gogGames = undefined
@@ -181,11 +173,7 @@ epicGames = do
                                         <*> v .: "LaunchCommand"
                                     )
 
-                            pure $ do
-                                putStrLn $ "Running " <> exe
-                                setCurrentDirectory wd
-                                _ <- createProcess_ "epic" (shell $ exe <> " " <> args)
-                                pure ()
+                            pure $ execute "epic" wd exe args
 
                         case mp of
                             Nothing -> mempty
@@ -201,3 +189,14 @@ lookupRegVal k = \case
     ((k', v, _):xs) -> if k == k'
         then Just v
         else lookupRegVal k xs
+
+execute :: String -> FilePath -> FilePath -> String -> IO ()
+execute name wd exe args = do
+    setCurrentDirectory wd
+    let exe' = if (not $ ['"'] `isPrefixOf` exe) && ' ' `elem` exe
+        then ['"'] <> exe <> ['"']
+        else exe
+    let cmd = exe' <> " " <> args
+    putStrLn $ "Running " <> cmd <> " in " <> wd
+    _ <- createProcess_ name $ shell cmd
+    pure ()
