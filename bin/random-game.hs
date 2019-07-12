@@ -17,25 +17,23 @@
 {-# LANGUAGE CPP, ScopedTypeVariables, LambdaCase, OverloadedStrings  #-}
 
 import           Control.Monad
-import           Data.Aeson
-import           Data.Aeson.Types
-import qualified Data.ByteString.Lazy as LBS
-import           Data.List
-import           Data.Maybe
 import           System.Directory
 import           System.Environment
 import           System.Exit
-import           System.FilePath
 import           System.IO
 import           System.Process
 import           System.Random
 import           Text.Regex
 
 #ifdef mingw32_HOST_OS
+import           Data.Aeson
+import           Data.Aeson.Types
+import qualified Data.ByteString.Lazy as LBS
+import           Data.List
+import           Data.Maybe
 import           Control.Exception
+import           System.FilePath
 import           System.Win32.Registry
-#else
-import           System.Environment
 #endif
 
 newtype SteamDir = SteamDir FilePath deriving (Show, Eq)
@@ -183,6 +181,7 @@ epicGames = do
 epicGames = undefined
 #endif
 
+#ifdef mingw32_HOST_OS
 lookupRegVal :: Eq a => a -> [(a, b, c)] -> Maybe b
 lookupRegVal k = \case
     []     -> Nothing
@@ -200,3 +199,4 @@ execute name wd exe args = do
     putStrLn $ "Running " <> cmd <> " in " <> wd
     _ <- createProcess_ name $ shell cmd
     pure ()
+#endif
