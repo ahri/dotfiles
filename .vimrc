@@ -30,6 +30,12 @@ if filereadable($HOME . "/.vim/autoload/plug.vim")
 	call plug#end()
 endif
 
+if has('termguicolors')
+	set termguicolors
+endif
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 if has('gui_running') || $TERM =~ "-256color$"
 	call DefaultColorscheme("tender")
 else
