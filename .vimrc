@@ -2,6 +2,13 @@ source ~/.vim/common.vim
 
 syntax on
 
+augroup vimrc_todo
+	au!
+	au syntax * syn match myTodo /\v<TODO:/
+		\ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link myTodo Todo
+
 set background=dark
 let macvim_skip_colorscheme=1
 silent! set macligatures
