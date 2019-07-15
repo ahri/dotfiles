@@ -63,6 +63,7 @@ writeDotFiles home root = do
     dotfiles <- liftIO
         $   D.listDirectory "."
         >>= pure . filter ("." `isPrefixOf`)
+        >>= pure . filter (/= ".git")
 
     liftIO . forM_ dotfiles $ \dotfile -> do
         isFile <- liftIO $ D.doesFileExist dotfile
