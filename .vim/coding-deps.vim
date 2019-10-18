@@ -1,7 +1,5 @@
 Plug 'airblade/vim-rooter' " working dir set to project root
 
-Plug 'chrisbra/NrrwRgn' " select a region and do :NR, then save to return
-
 Plug 'terryma/vim-expand-region'
 map K <Plug>(expand_region_expand)
 map J <Plug>(expand_region_shrink)
