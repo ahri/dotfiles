@@ -16,3 +16,11 @@ nix_profile="$HOME/.nix-profile/etc/profile.d/nix.sh"
 PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/bin:$PATH" # always override the rest of the path
+
+NPM_PACKAGES="$HOME/.npm-packages"
+export PATH="$NPM_PACKAGES/bin:$PATH"
+unset MANPATH
+export MANPATH="$NPM_PACKAGES/share/man:`manpath`"
+
+alias md-dir="cd ~/repos/mapdone-haste"
+alias md="~/repos/mapdone-haste/project.sh"
