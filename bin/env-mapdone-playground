@@ -18,25 +18,15 @@ key super+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 1 ]; do :; done
 key super+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 2 ]; do :; done
-key super+h
-key super+Return
-while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 3 ]; do :; done
-key super+r Up Up Return
-
-type "cd ~/repos/mapdone-haste; ./project.sh frontend watch"
-key Return
+chromium-browser --incognito http://localhost:1234 &
+while [ `xdotool search --onlyvisible --name "Chromium" | wc -l` -ne 1 ]; do :; done
+key shift+super+Right
+key super+r Right Return
 
 key super+Left
-type "cd ~/repos/mapdone-haste; ./project.sh backend watch"
+type "cd ~/repos/mapdone-haste; ./project.sh backend run-server"
 key Return
 
-key super+Up
-type "cd ~/repos/mapdone-haste; nvim"
-key Return
-sleep 1
-key space+o
-type client/main.hs
-key Return
-key space+o
-type server/main.hs
+key super+Down
+type "cd ~/repos/mapdone-haste; ./project.sh frontend dev-server"
 key Return
