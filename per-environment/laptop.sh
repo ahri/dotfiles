@@ -21,8 +21,10 @@ cat <<EOF > /usr/share/X11/xorg.conf.d/20-intel.conf
 Section "Device"
     Identifier "Intel Graphics"
     Driver "Intel"
-    Option "AccelMethod" "uxa"
     Option "DRI" "2"
+    Option "TearFree" "true"
+    # Option  "AccelMethod" "uxa"
+    # Option  "TripleBuffer" "true"
 EndSection
 EOF
 
