@@ -59,4 +59,4 @@ xgamma -gamma 0.8
 #gsettings set org.gnome.desktop.background picture-uri "file://$(dirname $(readlink -f "$0"))/per-environment/laptop-linux/stormboarder.png"
 feh --bg-scale "$(dirname $(readlink -f "$0"))/per-environment/laptop-linux/stormboarder.png"
 
-exec i3
+#exec i3
