@@ -35,3 +35,6 @@ function! s:DeleteBuffer()
         exec 'bd' bufn ==# '' ? path : bufn
         exec 'norm \<F5>'
 endfunction
+
+Plug 'mbbill/undotree'
+Plug 'chrisgrounds/vim-one'
