@@ -2,13 +2,6 @@ source ~/.vim/common.vim
 
 syntax on
 
-augroup vimrc_todo
-	au!
-	au syntax * syn match myTodo /\v<TODO:/
-		\ containedin=.*Comment,vimCommentTitle
-augroup END
-hi def link myTodo Todo
-
 set background=dark
 let macvim_skip_colorscheme=1
 silent! set macligatures
@@ -123,9 +116,18 @@ nmap <silent> <C-e> <Plug>LocationNext
 
 set completeopt=menuone,menu,longest " noinsert?
 
+" TODO: why both?
+
 if has('matchadd')
         augroup todo
                 autocmd!
                 autocmd BufEnter * call matchadd('TODO', '\(\t\|[\t ]\+$\)')
 	augroup END
 endif
+
+augroup vimrc_todo
+	au!
+	au syntax * syn match myTodo /\v<TODO:/
+		\ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link myTodo Todo
