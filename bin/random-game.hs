@@ -157,26 +157,30 @@ epicGames = do
 
     case lookupRegVal "AppDataPath" vals of
         Nothing -> pure mempty
-        Just dir -> let manifestsDir = joinPath [dir, "Manifests"]
-            in listDirectory manifestsDir
-                >>= (pure . (fmap $ \manifest -> joinPath [manifestsDir, manifest]) . filter (".item" `isSuffixOf`))
-                >>= traverse LBS.readFile
-                >>= (pure . \jsons -> do
-                        j <- jsons
-                        let mp = do
-                            (wd, exe, args) <- decode j
-                                >>= (parseMaybe $ withObject "EpicJsonManifest" $ \v -> (,,)
-                                        <$> v .: "InstallLocation"
-                                        <*> v .: "LaunchExecutable"
-                                        <*> v .: "LaunchCommand"
-                                    )
+        Just dir -> do
+            let manifestsDir = joinPath [dir, "Manifests"]
+            exists <- doesDirectoryExist manifestsDir
+            if not exists
+                then pure []
+                else listDirectory manifestsDir
+                    >>= (pure . (fmap $ \manifest -> joinPath [manifestsDir, manifest]) . filter (".item" `isSuffixOf`))
+                    >>= traverse LBS.readFile
+                    >>= (pure . \jsons -> do
+                            j <- jsons
+                            let mp = do
+                                (wd, exe, args) <- decode j
+                                    >>= (parseMaybe $ withObject "EpicJsonManifest" $ \v -> (,,)
+                                            <$> v .: "InstallLocation"
+                                            <*> v .: "LaunchExecutable"
+                                            <*> v .: "LaunchCommand"
+                                        )
 
-                            pure $ execute "epic" wd exe args
+                                pure $ execute "epic" wd exe args
 
-                        case mp of
-                            Nothing -> mempty
-                            Just p  -> pure p
-                    )
+                            case mp of
+                                Nothing -> mempty
+                                Just p  -> pure p
+                        )
 #else
 epicGames = undefined
 #endif
