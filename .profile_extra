@@ -24,3 +24,8 @@ export MANPATH="$NPM_PACKAGES/share/man:`manpath`"
 
 alias md-dir="cd ~/repos/mapdone-haste"
 alias md="~/repos/mapdone-haste/project.sh"
+
+if uname -a | grep -q microsoft; then
+	export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+	export LIBGL_ALWAYS_INDIRECT=1
+fi

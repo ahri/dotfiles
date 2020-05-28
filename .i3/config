@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod4
+set $mod Mod1
 
 bindsym $mod+Scroll_Lock exec lock
 
@@ -153,5 +153,8 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+focus_follows_mouse no
+for_window [class="[.]*"] floating disable
 
 exec ~/bin/startup

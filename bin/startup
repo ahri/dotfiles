@@ -1,5 +1,6 @@
 #!/bin/sh
 set -ue
+mod=alt
 
 key()
 {
@@ -14,21 +15,10 @@ type()
 
 ~/.xinitrc
 
-key super+1
-firefox &
-while [ `xdotool search --onlyvisible --name "Firefox" | wc -l` -ne 1 ]; do :; done
-
-key super+2
+key $mod+1
 env-mapdone
 
-key super+3
+key $mod+2
 env-mapdone-playground
 
-key super+4
-zeal &
-while [ `xdotool search --onlyvisible --name "Zeal" | wc -l` -ne 1 ]; do :; done
-
 keynav & # ctrl+; hjkl, shift+hjkl, space
-
-key super+1 # get rid of the red outlined desktop since firefox has loaded and wants attention
-key super+2

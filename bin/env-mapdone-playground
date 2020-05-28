@@ -1,5 +1,6 @@
 #!/bin/sh
 set -ue
+mod=alt
 
 key()
 {
@@ -13,21 +14,20 @@ type()
 }
 
 sleep 1
-key super+v
-key super+Return
+
+key $mod+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 1 ]; do :; done
-key super+Return
+type "cd ~/repos/mapdone; ./project.sh backend run-server"
+key Return
+
+key $mod+v
+key $mod+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 2 ]; do :; done
-chromium-browser --incognito http://localhost:1234 &
-while [ `xdotool search --onlyvisible --name "Chromium" | wc -l` -ne 1 ]; do :; done
-key F12
-key shift+super+Right
-key super+r Right Return
-
-key super+Left
-type "cd ~/repos/mapdone-haste; ./project.sh backend run-server"
+type "cd ~/repos/mapdone; ./project.sh frontend dev-server"
 key Return
 
-key super+Down
-type "cd ~/repos/mapdone-haste; ./project.sh frontend dev-server"
-key Return
+# chromium-browser --incognito http://localhost:1234 &
+# while [ `xdotool search --onlyvisible --name "Chromium" | wc -l` -ne 1 ]; do :; done
+# key F12
+# key shift+$mod+Right
+# key $mod+r Right Return

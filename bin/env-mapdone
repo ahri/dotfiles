@@ -1,5 +1,6 @@
 #!/bin/sh
 set -ue
+mod=alt
 
 key()
 {
@@ -13,30 +14,23 @@ type()
 }
 
 sleep 1
-key super+v
-key super+Return
+key $mod+v
+key $mod+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 1 ]; do :; done
-key super+Return
+key $mod+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 2 ]; do :; done
-key super+h
-key super+Return
+key $mod+h
+key $mod+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 3 ]; do :; done
-key super+r Up Up Return
+key $mod+r Up Up Return
 
-type "cd ~/repos/mapdone-haste; ./project.sh frontend watch"
-key Return
-
-key super+Left
-type "cd ~/repos/mapdone-haste; ./project.sh backend watch"
+type "cd ~/repos/mapdone; ./project.sh frontend watch"
 key Return
 
-key super+Up
-type "cd ~/repos/mapdone-haste; nvim"
+key $mod+Left
+type "cd ~/repos/mapdone; ./project.sh backend watch"
 key Return
-sleep 1
-key space+o
-type client/main.hs
-key Return
-key space+o
-type server/main.hs
+
+key $mod+Up
+type "cd ~/repos/mapdone; vim client/Main.hs server/Main.hs"
 key Return
