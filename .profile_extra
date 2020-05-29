@@ -10,12 +10,10 @@ alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 nix_profile="$HOME/.nix-profile/etc/profile.d/nix.sh"
-
 [ -f "$nix_profile" ] && . "$nix_profile"
 
 PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/bin:$PATH" # always override the rest of the path
 
 NPM_PACKAGES="$HOME/.npm-packages"
 export PATH="$NPM_PACKAGES/bin:$PATH"
@@ -26,3 +24,5 @@ if uname -a | grep -q microsoft; then
 	export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 	export LIBGL_ALWAYS_INDIRECT=1
 fi
+
+PATH="$HOME/bin:$PATH" # always override the rest of the path
