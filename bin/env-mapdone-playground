@@ -25,9 +25,3 @@ key $mod+Return
 while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 2 ]; do :; done
 type "cd ~/repos/mapdone; ./project.sh frontend dev-server"
 key Return
-
-# chromium-browser --incognito http://localhost:1234 &
-# while [ `xdotool search --onlyvisible --name "Chromium" | wc -l` -ne 1 ]; do :; done
-# key F12
-# key shift+$mod+Right
-# key $mod+r Right Return

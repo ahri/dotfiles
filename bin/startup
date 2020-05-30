@@ -15,10 +15,18 @@ type()
 
 ~/.xinitrc
 
+key $mod+2
+env-mapdone-playground
+
+key $mod+3
+google-chrome --incognito http://localhost:1234 &
+while [ `xdotool search --onlyvisible --name "Google Chrome" | wc -l` -ne 1 ]; do :; done
+key F12
+
 key $mod+1
 env-mapdone
 
-key $mod+2
-env-mapdone-playground
+key $mod+3
+key $mod+1
 
 keynav & # ctrl+; hjkl, shift+hjkl, space
