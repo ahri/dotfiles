@@ -15,23 +15,20 @@ if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
 	read -p "Add key to github then hit [enter]"
 fi
 
-sudo apt update && sudo apt install \
+sudo apt update && sudo apt install -y \
 	htop nmap \
 	i3 i3status unclutter qterminal xclip feh xdotool x11-xkb-utils keynav \
-	npm haskell-stack entr \
-	build-essential zlib1g-dev pkgconf libsodium-dev
+	build-essential haskell-stack docker.io
 
 curl https://nixos.org/nix/install | sh
 . ~/.nix-profile/etc/profile.d/nix.sh
-nix-env -iA nixpkgs.neovim nixpkgs.python3Packages.pynvim nixpkgs.nodejs nixpkgs.ripgrep
+nix-env -iA nixpkgs.neovim nixpkgs.python3Packages.pynvim nixpkgs.ripgrep
 
 mkdir -p ~/Downloads
 cd ~/Downloads
 wget --continue https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-wget --continue https://github.com/valderman/haste-compiler/releases/download/0.6.0.0/haste-compiler_0.6.0.0_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo dpkg -i haste-compiler_0.6.0.0_amd64.deb
-sudo apt install --fix-broken
+sudo apt install --fix-broken -y
 cd ..
 
 grep -q profile_extra ~/.profile || echo '. "$HOME/.profile_extra"' >> ~/.profile
@@ -47,7 +44,7 @@ cd ~/repos
 [ ! -d mapdone ] && git clone git@gitlab.com:methiant/mapdone.git
 [ ! -d haste-compiler ] && git clone https://github.com/valderman/haste-compiler
 (cd dotfiles && ./shake.hs && vim +PluginInstall +qall)
-(cd mapdone && ./project.sh clean && ./project.sh bundle)
+(cd mapdone && ./project.sh test)
 
 echo
 echo "Done!"
