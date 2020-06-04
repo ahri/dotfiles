@@ -18,25 +18,36 @@ fi
 sudo apt update && sudo apt install -y \
 	htop nmap \
 	i3 i3status unclutter qterminal xclip feh xdotool x11-xkb-utils keynav \
-	build-essential haskell-stack docker.io
+	build-essential haskell-stack zlib1g-dev
 
-curl https://nixos.org/nix/install | sh
-. ~/.nix-profile/etc/profile.d/nix.sh
-nix-env -iA nixpkgs.neovim nixpkgs.python3Packages.pynvim nixpkgs.ripgrep
+has()
+{
+	which "$1" > /dev/null 2>&1
+}
 
-mkdir -p ~/Downloads
-cd ~/Downloads
-wget --continue https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt install --fix-broken -y
-cd ..
+if ! has rg; then
+	curl https://nixos.org/nix/install | sh
+	. ~/.nix-profile/etc/profile.d/nix.sh
+	nix-env -iA nixpkgs.neovim nixpkgs.python3Packages.pynvim nixpkgs.ripgrep
+fi
+
+if ! has google-chrome; then
+	mkdir -p ~/Downloads
+	cd ~/Downloads
+	wget --continue https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	sudo dpkg -i google-chrome-stable_current_amd64.deb || true
+	sudo apt install --fix-broken -y
+	cd ..
+fi
 
 grep -q profile_extra ~/.profile || echo '. "$HOME/.profile_extra"' >> ~/.profile
 grep -q bash_extra ~/.bashrc || echo '. "$HOME/.bash_extra"' >> ~/.bashrc
 
-stack update
-stack upgrade
-stack install ghcid
+if ! has ghcid; then
+	stack update
+	stack upgrade
+	stack install ghcid
+fi
 
 mkdir -p ~/repos
 cd ~/repos
