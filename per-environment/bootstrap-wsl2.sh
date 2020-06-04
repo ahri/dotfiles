@@ -28,7 +28,7 @@ has()
 if ! has rg; then
 	curl https://nixos.org/nix/install | sh
 	. ~/.nix-profile/etc/profile.d/nix.sh
-	nix-env -iA nixpkgs.neovim nixpkgs.python3Packages.pynvim nixpkgs.ripgrep
+	nix-env -iA nixpkgs.neovim nixpkgs.python3Packages.pynvim nixpkgs.ripgrep nixpkgs.nodejs
 fi
 
 if ! has google-chrome; then
