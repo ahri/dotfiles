@@ -17,6 +17,6 @@ sleep 1
 
 key $mod+v
 key $mod+Return
-while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 2 ]; do :; done
+while [ `xdotool search --onlyvisible --name "Shell" | wc -l` -ne 1 ]; do :; done
 type "cd ~/repos/mapdone; ./project.sh frontend dev-server"
 key Return
