@@ -1,0 +1,722 @@
+# WIZTREE
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WizTree 3\n"
+"POT-Creation-Date: 2017-08-31 12:05\n"
+"PO-Revision-Date: 2020-01-22 14:06+1200\n"
+"Last-Translator: Dominic Dumée <webmaster@antibody-software.com>\n"
+"Language-Team: dadarek@hotmail.com\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: POT_file\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: WizTreeMain.pas:673
+msgid "Scanning..."
+msgstr "Сканиране..."
+
+#: WizTreeMain.pas:673
+#: WizTreeMain.pas:4286
+msgid "Folders"
+msgstr "Папки"
+
+#: WizTreeMain.pas:673
+#: WizTreeMain.pas:4283
+msgid "Files"
+msgstr "Файлове"
+
+#: WizTreeMain.pas:688
+msgid "Dumping file"
+msgstr "Дъмп файл"
+
+#: WizTreeMain.pas:688
+#: WizTreeMain.pas:953
+msgid "MB"
+msgstr "МБ"
+
+#: WizTreeMain.pas:950
+msgid "GB"
+msgstr "ГБ"
+
+#: WizTreeMain.pas:956
+msgid "KB"
+msgstr "КБ"
+
+#: WizTreeMain.pas:961
+msgid "Bytes"
+msgstr "Байта"
+
+#: WizTreeMain.pas:1141
+msgid "Files in"
+msgstr "файл(а)"
+
+#: WizTreeMain.pas:1143
+msgid "File in"
+msgstr "Файл в"
+
+#: WizTreeMain.pas:1691
+#: WizTreeMain.pas:1738
+msgid "Selected Files"
+msgstr "Избрани файловве"
+
+#: WizTreeMain.pas:1691
+#: WizTreeMain.pas:1738
+#: WizTreeMain.pas:3593
+msgid "Total Size"
+msgstr "Общ размер"
+
+#: WizTreeMain.pas:1874
+#: WizTreeMain.pas:1976
+#: WizTreeMain.pas:2033
+msgid "You are about to open"
+msgstr "Вие сте на път да отворите"
+
+#: WizTreeMain.pas:1875
+msgid "Command Prompt windows - are you sure?"
+msgstr "Прозорци на командния ред-сигурен ли сте?"
+
+#: WizTreeMain.pas:1977
+msgid "Explorer windows - are you sure?"
+msgstr "Прозорците на Explorer - сигурен ли си?"
+
+#: WizTreeMain.pas:2034
+msgid "files - are you sure?"
+msgstr "файлове - сигурни ли сте?"
+
+#. FileName := FDir;
+#. 2 = select directory
+#: WizTreeMain.pas:2147
+#: WizTreeMain.pas:2162
+#: WizTreeMain.pas:3041
+msgid "Select Folder"
+msgstr "Избери папка"
+
+#. YMMV
+#: WizTreeMain.pas:2149
+msgid "Select"
+msgstr "Избери"
+
+#: WizTreeMain.pas:2202
+msgid "File not found"
+msgstr "Файла не е намерен"
+
+#: WizTreeMain.pas:2326
+msgid "Error"
+msgstr "Грешка"
+
+#: WizTreeMain.pas:2351
+msgid "Sorting file list..."
+msgstr "Сортиране на списъка с файлове..."
+
+#: WizTreeMain.pas:2362
+msgid "Loading tree..."
+msgstr "Дървото се зарежда ..."
+
+#: WizTreeMain.pas:2406
+msgid "Scan complete in"
+msgstr "Сканирането е завършено за"
+
+#: WizTreeMain.pas:2408
+msgid "seconds"
+msgstr "сек"
+
+#: WizTreeMain.pas:2412
+msgid "canceled"
+msgstr "отменено"
+
+#: WizTreeMain.pas:2480
+msgid "Failed to update Windows Explorer context menu"
+msgstr "Неуспешно актуализиране на контекстното меню на Windows Explorer"
+
+#: WizTreeMain.pas:2560
+msgid "No MFT root found!"
+msgstr "Не е намерен MFT корен!"
+
+#. we have an update!
+#: WizTreeMain.pas:2640
+msgid "An update is available"
+msgstr "Налична нова версия"
+
+#: WizTreeMain.pas:2641
+msgid "Click on the \"View Update\" button to learn more."
+msgstr "Щракнете върху бутона Актуализирай, за да видите повече подробности."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2648
+msgid "No update found."
+msgstr "Няма актуализации, имате най-новата версия."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2660
+msgid "Error checking for updates:"
+msgstr "Грешка при проверка за актуализации:"
+
+#: WizTreeMain.pas:2836
+msgid "Please restart WizTree as Administrator to dump the MFT file"
+msgstr "За Дъмп MFT във файл Стартирайте като Администратор"
+
+#: WizTreeMain.pas:2844
+msgid "Please select an NTFS formatted drive."
+msgstr "Изберете диск с NTFS файлова система."
+
+#: WizTreeMain.pas:2869
+msgid "Dumping MFT file, please wait..."
+msgstr "Разтоварване на MFT файл, моля, изчакайте..."
+
+#: WizTreeMain.pas:2880
+msgid "MFT data dump complete."
+msgstr "MFT разтоварване на данни е завършено."
+
+#: WizTreeMain.pas:2884
+msgid "MFT data dumped to file"
+msgstr "MFT разтоварване на данни съхранен във файл"
+
+#: WizTreeMain.pas:2991
+msgid "64 bit"
+msgstr "64-бит"
+
+#: WizTreeMain.pas:2993
+msgid "32 bit"
+msgstr "32-бит"
+
+#: WizTreeMain.pas:3042
+msgid "MFT file"
+msgstr "MFT файл"
+
+#: WizTreeMain.pas:3487
+msgid "Loading file list..."
+msgstr "Зареждане на списък с файлове..."
+
+#: WizTreeMain.pas:3592
+msgid "files"
+msgstr "файл(а,ове)"
+
+#. lblTotalSpacePerc.Caption := '';
+#: WizTreeMain.pas:3636
+#: WizTreeMain.pas:3637
+#: WizTreeMain.pas:3658
+#: WizTreeMain.pas:3663
+#: WizTreeMain.pas:3666
+#: WizTreeMain.pas:3674
+#: WizTreeMain.pas:3675
+#: WizTreeMain.pas:3677
+#: WizTreeMain.pas:3679
+#: WizTreeMain.pas:3681
+#: WizTreeMain.pas:4268
+#: WizTreeMain.pas:4269
+#: WizTreeMain.pas:4270
+#: WizTreeMain.pas:4271
+#: WizTreeMain.pas:4272
+#: WizTreeMain.pas:4273
+#: WizTreeMain.pas:4274
+msgid "n/a"
+msgstr "н/и"
+
+#: WizTreeMain.pas:3648
+msgid "<Folder>"
+msgstr "<Папка>"
+
+#: WizTreeMain.pas:4228
+msgid "File"
+msgstr "Файл"
+
+#: WizTreeMain.pas:4229
+msgid "Options"
+msgstr "Опции"
+
+#: WizTreeMain.pas:4230
+#: WizTreeMain.pas:4260
+msgid "Scan"
+msgstr "Анализ"
+
+#: WizTreeMain.pas:4231
+msgid "New Instance"
+msgstr "Нова версия на програмата"
+
+#: WizTreeMain.pas:4232
+msgid "Explore Folder"
+msgstr "Покажи папката в Explorer"
+
+#: WizTreeMain.pas:4233
+msgid "Command Prompt Here"
+msgstr "Отворете Команден прозорец тук"
+
+#: WizTreeMain.pas:4234
+msgid "Copy Path"
+msgstr "Копирай пътя"
+
+#: WizTreeMain.pas:4235
+msgid "Delete (to Recycle Bin)"
+msgstr "Изтрий (в кошчето)"
+
+#: WizTreeMain.pas:4236
+msgid "Delete (No undelete possible)"
+msgstr "Изтриване (окончателно)"
+
+#: WizTreeMain.pas:4237
+msgid "Dump MFT File"
+msgstr "MFT Дъмп файл"
+
+#: WizTreeMain.pas:4238
+msgid "Exit"
+msgstr "Изход"
+
+#: WizTreeMain.pas:4240
+msgid "Display Dynamic values"
+msgstr "Показване на динамични стойности"
+
+#: WizTreeMain.pas:4241
+msgid "Display Byte values"
+msgstr "Показване на стойности в байтове"
+
+#: WizTreeMain.pas:4242
+msgid "Display KB values"
+msgstr "Показване на стойности в KB"
+
+#: WizTreeMain.pas:4243
+msgid "Display MB values"
+msgstr "Показване на стойности в МБ"
+
+#: WizTreeMain.pas:4244
+msgid "Display GB values"
+msgstr "Показване на стойности в ГБ"
+
+#: WizTreeMain.pas:4245
+msgid "Windows Explorer context menu"
+msgstr "Добави WizTree в контекстното меню на Explorer"
+
+#: WizTreeMain.pas:4246
+msgid "Always Run as Administrator"
+msgstr "Винаги Изпълнявай като администратор"
+
+#: WizTreeMain.pas:4248
+msgid "Language"
+msgstr "Език"
+
+#: WizTreeMain.pas:4250
+msgid "Restart as Administrator"
+msgstr "Рестартирайте като администратор"
+
+#: WizTreeMain.pas:4251
+msgid "WizTree requires \"Administrator\" rights to enable high speed scanning of NTFS hard drives and to access all system files and folders. Click on the \"Restart as Administrator\" button to enable Administrator rights."
+msgstr "За бързо сканиране на твърди дискове с NTFS и достъп до всички системни файлове и папки, WizTree се нуждае от административни права. За да направите това, „Стартирайте като администратор“."
+
+#: WizTreeMain.pas:4252
+msgid "Don't show this again"
+msgstr "Не показвай повече"
+
+#: WizTreeMain.pas:4254
+msgid "View Update"
+msgstr "Преглед на актуализацията"
+
+#: WizTreeMain.pas:4255
+msgid "Dismiss"
+msgstr "Отхвърляне"
+
+#: WizTreeMain.pas:4256
+msgid "Check for updates"
+msgstr "Провери за обновления"
+
+#: WizTreeMain.pas:4257
+msgid "Check for updates now"
+msgstr "Проверете за нова версия"
+
+#: WizTreeMain.pas:4259
+msgid "Select:"
+msgstr "Изберете:"
+
+#: WizTreeMain.pas:4261
+msgid "Cancel"
+msgstr "Отмяна"
+
+#: WizTreeMain.pas:4262
+msgid "Ready..."
+msgstr "Готов..."
+
+#: WizTreeMain.pas:4263
+msgid "Selection:"
+msgstr "Избор:"
+
+#: WizTreeMain.pas:4264
+msgid "Total Space:"
+msgstr "Общ обем:"
+
+#: WizTreeMain.pas:4265
+msgid "Space Used:"
+msgstr "Заето:"
+
+#: WizTreeMain.pas:4266
+msgid "Space Free:"
+msgstr "Свободно:"
+
+#: WizTreeMain.pas:4276
+msgid "Help us make WizTree better!"
+msgstr "Помогнете ни да направим WizTree по-добър!"
+
+#: WizTreeMain.pas:4278
+msgid "Tree View"
+msgstr "Дърво"
+
+#: WizTreeMain.pas:4280
+msgid "Folder"
+msgstr "Папка"
+
+#: WizTreeMain.pas:4281
+msgid "Percent of Parent"
+msgstr "Процент от родителя"
+
+#: WizTreeMain.pas:4282
+#: WizTreeMain.pas:4307
+msgid "Size"
+msgstr "Размер"
+
+#: WizTreeMain.pas:4284
+#: WizTreeMain.pas:4308
+msgid "Modified"
+msgstr "Променен"
+
+#: WizTreeMain.pas:4285
+#: WizTreeMain.pas:4309
+msgid "Attributes"
+msgstr "Атрибути"
+
+#: WizTreeMain.pas:4287
+msgid "Items"
+msgstr "Елременти"
+
+#: WizTreeMain.pas:4288
+#: WizTreeMain.pas:4310
+msgid "Allocated"
+msgstr "Разпределен"
+
+#: WizTreeMain.pas:4290
+msgid "File View"
+msgstr "Преглед на файлове"
+
+#: WizTreeMain.pas:4292
+msgid "File Search Filter:"
+msgstr "Филтър:"
+
+#: WizTreeMain.pas:4293
+msgid "Clear"
+msgstr "Изчисти"
+
+#: WizTreeMain.pas:4294
+msgid "Match file name only"
+msgstr "Съвпадение име на файл"
+
+#: WizTreeMain.pas:4295
+msgid "(Fast)"
+msgstr "(Бързо)"
+
+#: WizTreeMain.pas:4296
+msgid "Match entire path"
+msgstr "Съвпадение на целия път"
+
+#: WizTreeMain.pas:4297
+msgid "(Warning: can be slow!)"
+msgstr "(Внимание: може да е бавно!)"
+
+#: WizTreeMain.pas:4298
+msgid "Max files to display:"
+msgstr "Максимален бр. файлове:"
+
+#: WizTreeMain.pas:4300
+msgid "(Selecting ALL can be very slow!)"
+msgstr "(Избирането на всички може да бъде много бавно!)"
+
+#: WizTreeMain.pas:4301
+msgid "ALL"
+msgstr "ВСИЧКИ"
+
+#: WizTreeMain.pas:4303
+msgid "Total Files:"
+msgstr "Всичкси файлове:"
+
+#: WizTreeMain.pas:4305
+msgid "File Name"
+msgstr "Име на файл"
+
+#: WizTreeMain.pas:4306
+msgid "Percent of Drive"
+msgstr "Процент от диска"
+
+#: WizTreeMain.pas:4312
+msgid "About"
+msgstr "За програмата"
+
+#: WizTreeMain.pas:4314
+msgid "If you use WizTree commercially or you'd just like to support the freeware community then please make a donation by clicking on the Donate button at the top right of the screen. Thank you! :)"
+msgstr "Ако използвате WizTree с търговска цел или просто искате да подкрепите безплатната общност, моля направете дарение, като кликнете върху бутона Дарете в горния десен край на екрана. Благодаря! :)"
+
+#: WizTreeMain.pas:4316
+msgid "What is WizTree?"
+msgstr "Какво е WizTree?"
+
+#: WizTreeMain.pas:4317
+msgid "WizTree is the world's fastest disk space analyzer. It scans your hard drive and shows you which files and folders are using the most disk space."
+msgstr "WizTree е най-бързият анализатор на дисково пространство в света. Той сканира твърдия ви диск и ви показва кои файлове и папки използват най-много дисково пространство."
+
+#: WizTreeMain.pas:4318
+msgid "It does this in the FASTEST way possible - you simply won't find any other application of this type that's quicker! Use the information WizTree provides to quickly locate and remove \"space hogs\" from your hard drive."
+msgstr "Програмата е наистина МНОГО бърза - просто няма да намерите друго подобно приложение! Използвайте информационната на WizTree, осигуряваща бързо локализиране и премахване на \"консуматорите на място\" от твърдия диск."
+
+#: WizTreeMain.pas:4320
+msgid "WARNING: Take care not to remove any files that are required for the correct operation of your PC!"
+msgstr "ВНИМАНИЕ: Не трийте файлове, котио са нужни на вашата ОС за да работи правилно!!!"
+
+#: WizTreeMain.pas:4322
+msgid "What makes WizTree so fast?"
+msgstr "Защо WizTree работи толкова бързо?"
+
+#: WizTreeMain.pas:4324
+msgid "When scanning NTFS formatted hard drives (most modern hard drives use this format), WizTree reads the hard drive's Master File Table (MFT) directly from the disk."
+msgstr "При сканиране на NTFS форматирани твърди дискове (повечето съвременни твърди дискове), WizTree чете основната таблица на твърдия диск (MFT) директно от диска."
+
+#: WizTreeMain.pas:4325
+msgid "The MFT is a special hidden file used by the NTFS file system to keep track of all files and folders on a hard drive. Scanning for files this way completely bypasses the operating system (Windows) and provides a huge performance boost."
+msgstr "MFT е специален скрит файл, използван от файловата система NTFS, за да следи всички файлове и папки на твърдия диск. Сканирането за файлове по този начин напълно заобикаля операционната система (Windows) и осигурява огромно увеличение на производителността."
+
+#: WizTreeMain.pas:4327
+msgid "As of version 2.0, WizTree can now also scan non NTFS hard drives, network drives, USB drives, and individual directories."
+msgstr "От версия 2.0, WizTree вече може да сканира и NTFS твърди дискове, мрежови устройства, USB устройства и отделни директории."
+
+#: WizTreeMain.pas:4329
+msgid "Please visit the Antibody Software website for more great software, such as:"
+msgstr "Посетете уебсайта на Antibody Software и разгледайте другите ни програми:"
+
+#: WizTreeMain.pas:4330
+#: WizTreeMain.pas:4334
+msgid "(click for more information)"
+msgstr "(кликнете тук, за да научите повече)"
+
+#: WizTreeMain.pas:4331
+msgid "A powerful yet easy to use web gallery downloading tool. It supports most of the popular image hosting sites (such as flickr, facebook, Google image search, imgur, deviantart etc.)."
+msgstr "Инструмент за изтегляне на уеб галерии. Поддържа повечето от популярните сайтове за хостинг на изображения (flickr, facebook, търсене на изображения в Google, imgur, deviantart и др.)."
+
+#: WizTreeMain.pas:4332
+msgid "It doesn't require any complicated setup or project files - it just works."
+msgstr "Не изисква никакви сложни настройки или пинизи просто работи."
+
+#: WizTreeMain.pas:4335
+msgid "A keyboard enhancement utility that makes it easy to type accented and other special Unicode characters on a standard US/UK keyboard using easy to remember keyboard shortcuts."
+msgstr "Помощна програма, която улеснява въвеждането на ударения и други специални Unicode знаци на стандартната клавиатура с лесни за запомняне клавишни комбинации."
+
+#: WizTreeMain.pas:4336
+msgid "For example, to type an à (a with grave accent), you press Ctrl+` then press a. These shortcuts work from any Windows application."
+msgstr "Например, за да въведете à (с ударение), натиснете CTRL + ' и след това натиснете а. Тези клавишни комбинации работят от всяко приложение на Windows."
+
+#: SelectLanguage.pas:56
+#: supportercode.pas:239
+msgid "OK"
+msgstr "OK"
+
+#: supportercode.pas:143
+msgid "Invalid Key - Please try again."
+msgstr "Невалиден код. Моля, опитайте отново."
+
+#: supportercode.pas:144
+msgid "It is recommended that you copy and paste your supporter code."
+msgstr "Препоръчваме ви да копирате и поставите кода, вместо да го въвеждате ръчно."
+
+#: supportercode.pas:145
+msgid "Only use digits 0 to 9 and letters A to F."
+msgstr "Кодът може да съдържа само цифри и латински букви от A до F."
+
+#: supportercode.pas:219
+#: WizTreeMain.pas:6266
+msgid "Thank you for your support!"
+msgstr "Блогдаря за поддръжката!"
+
+#: supportercode.pas:220
+msgid "WizTree will now restart."
+msgstr "Програмата ще се рестартира."
+
+#: supportercode.pas:241
+#: WizTreeMain.pas:5286
+msgid "Enter Supporter Code"
+msgstr "Въведете кода на поддръжника"
+
+#: supportercode.pas:242
+msgid "Supporter Code"
+msgstr "Код на поддръжник"
+
+#. warning dialog title
+#: uVistaTaskDialog.pas:228
+msgid "Warning"
+msgstr "Внимание"
+
+#. confirmation dialog title
+#: uVistaTaskDialog.pas:233
+msgid "Confirmation"
+msgstr "Потвърждение"
+
+#. information dialog title
+#: uVistaTaskDialog.pas:243
+msgid "Information"
+msgstr "Информация"
+
+#: WizTreeMain.pas:1616
+msgid "(No Extension)"
+msgstr "(без разширение)"
+
+#: WizTreeMain.pas:5269
+msgid "File Type"
+msgstr "Тип файл"
+
+#: WizTreeMain.pas:5272
+msgid "Percent"
+msgstr "Процент"
+
+#: WizTreeMain.pas:5273
+msgid "Extension"
+msgstr "Разширение"
+
+#: WizTreeMain.pas:5276
+msgid "MFT Dump"
+msgstr "MFT разтоварване"
+
+#: WizTreeMain.pas:5276
+msgid "All Files"
+msgstr "Всички файлове"
+
+#: WizTreeMain.pas:5277
+msgid "Show Treemap"
+msgstr "Покажи графичната карта"
+
+#: WizTreeMain.pas:5278
+msgid "Show File Types"
+msgstr "Показване на типове файлове"
+
+#: WizTreeMain.pas:5279
+msgid "Reset tree expansion"
+msgstr "Нулиране на разширяването на дървото"
+
+#: WizTreeMain.pas:5281
+msgid "Select Parent"
+msgstr "Избор на елемент (корен)"
+
+#: WizTreeMain.pas:5282
+msgid "Reselect Child"
+msgstr "Повторно избиране на дъщерен елемент"
+
+#: WizTreeMain.pas:5283
+msgid "Help support WizTree development by making a donation"
+msgstr "Подкрепете развитието на WizTree чрез дарение"
+
+#: WizTreeMain.pas:5284
+msgid "(You can hide the Donate button by making a donation)"
+msgstr "(Можете да скриете бутона дари, като направите дарение)"
+
+#: WizTreeMain.pas:6883
+msgid "Show Allocated Size on Treemap"
+msgstr "Показване на разпределения размер на диска на картата"
+
+#: WizTreeMain.pas:6884
+msgid "Auto scan after making selection"
+msgstr "Автоматично сканиране след избор"
+
+#: WizTreeMain.pas:6886
+msgid "Zoom in Treemap"
+msgstr "Увеличи мащаба на графична карта"
+
+#: WizTreeMain.pas:6887
+msgid "Zoom out Treemap"
+msgstr "Намали мащаба на графична карта"
+
+#: exporttreemap.pas:57
+#: WizTreeMain.pas:7193
+msgid "Save Treemap Image as .png file"
+msgstr "Записване на графичната карта като PNG файл"
+
+#: exporttreemap.pas:58
+msgid "Save"
+msgstr "Запиши"
+
+#: exporttreemap.pas:60
+msgid "Width"
+msgstr "Ширина"
+
+#: exporttreemap.pas:61
+msgid "Height"
+msgstr "Височина"
+
+#: exporttreemap.pas:62
+msgid "Shades of Gray (single color)"
+msgstr "Нюанси на сивото"
+
+#: WizTreeMain.pas:7191
+msgid "Show Free Space on Treemap"
+msgstr "Покажи свободно място на картата"
+
+msgid "File already exists - overwrite?"
+msgstr "Файла съществува. Презаписване?"
+
+#: WizTreeMain.pas:3002
+#: WizTreeMain.pas:3217
+msgid "Generated by"
+msgstr "Създаден с помощта на"
+
+#: WizTreeMain.pas:3002
+#: WizTreeMain.pas:3217
+msgid "You can hide this message by making a donation"
+msgstr "Можете да скриете това съобщение, като направите дарение"
+
+#: WizTreeMain.pas:4452
+msgid "MFT Dump cancelled..."
+msgstr "MFT разтоварване отменено..."
+
+#: WizTreeMain.pas
+msgid "Export complete."
+msgstr "Експортирането завършено."
+
+#: WizTreeMain.pas:7815
+msgid "Copy file and size info to clipboard"
+msgstr "Копирайте информацията за файла и размера в клипборда"
+
+#: WizTreeMain.pas:7816
+msgid "Export to .CSV file"
+msgstr "Експортиране в .CSV файл"
+
+msgid "Colors"
+msgstr "Цветове"
+
+msgid "Default"
+msgstr "Възстанови"
+
+msgid "Color Blind"
+msgstr "Далтонизм"
+
+msgid "CSV file"
+msgstr "CSV файл"
+
+msgid "Select CSV file"
+msgstr "Изберете CSV файл"
+
+msgid "Failed to import CSV file"
+msgstr "Неуспешно импортиране на CSV файл"
+
+msgid "Color By"
+msgstr "Цвят по"
+
+msgid "Color"
+msgstr "Цвят"
+
+msgid "File Extension(s)"
+msgstr "Файлово разширение (я)"
+
+msgid "Export File Types to CSV file"
+msgstr ""
+
+
+msgid "Display TB values"
+msgstr ""
+
+msgid "TB"
+msgstr ""
+

@@ -1,0 +1,718 @@
+# WIZTREE
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WizTree 3\n"
+"POT-Creation-Date: 2017-08-31 12:05\n"
+"PO-Revision-Date: 2018-05-18 11:46+1200\n"
+"Last-Translator: Dominic Dumée <webmaster@antibody-software.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Team: \n"
+
+#: WizTreeMain.pas:673
+msgid "Scanning..."
+msgstr "검색하는 중..."
+
+#: WizTreeMain.pas:673
+#: WizTreeMain.pas:4286
+msgid "Folders"
+msgstr "폴더 개수"
+
+#: WizTreeMain.pas:673
+#: WizTreeMain.pas:4283
+msgid "Files"
+msgstr "파일 개수"
+
+#: WizTreeMain.pas:688
+msgid "Dumping file"
+msgstr "파일 덤프"
+
+#: WizTreeMain.pas:688
+#: WizTreeMain.pas:953
+msgid "MB"
+msgstr "MB"
+
+#: WizTreeMain.pas:950
+msgid "GB"
+msgstr "GB"
+
+#: WizTreeMain.pas:956
+msgid "KB"
+msgstr "KB"
+
+#: WizTreeMain.pas:961
+msgid "Bytes"
+msgstr "Bytes"
+
+#: WizTreeMain.pas:1141
+msgid "Files in"
+msgstr "개 파일 ("
+
+#: WizTreeMain.pas:1143
+msgid "File in"
+msgstr "개 파일 ("
+
+#: WizTreeMain.pas:1691
+#: WizTreeMain.pas:1738
+msgid "Selected Files"
+msgstr "선택한 파일 개수"
+
+#: WizTreeMain.pas:1691
+#: WizTreeMain.pas:1738
+#: WizTreeMain.pas:3593
+msgid "Total Size"
+msgstr "전체 크기"
+
+#: WizTreeMain.pas:1874
+#: WizTreeMain.pas:1976
+#: WizTreeMain.pas:2033
+msgid "You are about to open"
+msgstr "열려고 하는 게"
+
+#: WizTreeMain.pas:1875
+msgid "Command Prompt windows - are you sure?"
+msgstr "명령 프롬프트 창 - 확실한가요?"
+
+#: WizTreeMain.pas:1977
+msgid "Explorer windows - are you sure?"
+msgstr "탐색기 창 - 확실한가요?"
+
+#: WizTreeMain.pas:2034
+msgid "files - are you sure?"
+msgstr "개 파일입니다.  확실한가?"
+
+#. FileName := FDir;
+#. 2 = select directory
+#: WizTreeMain.pas:2147
+#: WizTreeMain.pas:2162
+#: WizTreeMain.pas:3041
+msgid "Select Folder"
+msgstr "폴더 선택"
+
+#. YMMV
+#: WizTreeMain.pas:2149
+msgid "Select"
+msgstr "선택"
+
+#: WizTreeMain.pas:2202
+msgid "File not found"
+msgstr "파일을 찾을 수 없습니다."
+
+#: WizTreeMain.pas:2326
+msgid "Error"
+msgstr "오류"
+
+#: WizTreeMain.pas:2351
+msgid "Sorting file list..."
+msgstr "파일 목록을 정렬하는 중..."
+
+#: WizTreeMain.pas:2362
+msgid "Loading tree..."
+msgstr "트리를 불러오는 중..."
+
+#: WizTreeMain.pas:2406
+msgid "Scan complete in"
+msgstr "검색 완료 시간:"
+
+#: WizTreeMain.pas:2408
+msgid "seconds"
+msgstr "초"
+
+#: WizTreeMain.pas:2412
+msgid "canceled"
+msgstr "취소됨"
+
+#: WizTreeMain.pas:2480
+msgid "Failed to update Windows Explorer context menu"
+msgstr "Windows 탐색기 컨텍스트 메뉴를 업데이트하지 못했습니다."
+
+#: WizTreeMain.pas:2560
+msgid "No MFT root found!"
+msgstr "MFT 루트가 없습니다!"
+
+#. we have an update!
+#: WizTreeMain.pas:2640
+msgid "An update is available"
+msgstr "업데이트가 사용 가능합니다!"
+
+#: WizTreeMain.pas:2641
+msgid "Click on the \"View Update\" button to learn more."
+msgstr "더 알아보려면, '업데이트 보기' 버튼을 누르세요."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2648
+msgid "No update found."
+msgstr "업데이트를 찾을 수 없습니다."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2660
+msgid "Error checking for updates:"
+msgstr "업데이트 확인 중 오류 발생:"
+
+#: WizTreeMain.pas:2836
+msgid "Please restart WizTree as Administrator to dump the MFT file"
+msgstr "MFT 파일을 덤프하려면, WizTree (을)를 관리자 권한으로 다시 시작하세요."
+
+#: WizTreeMain.pas:2844
+msgid "Please select an NTFS formatted drive."
+msgstr "NTFS (으)로 포맷된 드라이브를 선택하세요."
+
+#: WizTreeMain.pas:2869
+msgid "Dumping MFT file, please wait..."
+msgstr "MFT 파일을 덤프하고 있습니다.  기다리세요..."
+
+#: WizTreeMain.pas:2880
+msgid "MFT data dump complete."
+msgstr "MFT 데이터 덤프를 마쳤습니다."
+
+#: WizTreeMain.pas:2884
+msgid "MFT data dumped to file"
+msgstr "덤프된 MFT 데이터를 파일로..."
+
+#: WizTreeMain.pas:2991
+msgid "64 bit"
+msgstr "64 bit"
+
+#: WizTreeMain.pas:2993
+msgid "32 bit"
+msgstr "32 bit"
+
+#: WizTreeMain.pas:3042
+msgid "MFT file"
+msgstr "MFT 파일"
+
+#: WizTreeMain.pas:3487
+msgid "Loading file list..."
+msgstr "파일 목록을 불러오는 중..."
+
+#: WizTreeMain.pas:3592
+msgid "files"
+msgstr "개 파일,"
+
+#. lblTotalSpacePerc.Caption := '';
+#: WizTreeMain.pas:3636
+#: WizTreeMain.pas:3637
+#: WizTreeMain.pas:3658
+#: WizTreeMain.pas:3663
+#: WizTreeMain.pas:3666
+#: WizTreeMain.pas:3674
+#: WizTreeMain.pas:3675
+#: WizTreeMain.pas:3677
+#: WizTreeMain.pas:3679
+#: WizTreeMain.pas:3681
+#: WizTreeMain.pas:4268
+#: WizTreeMain.pas:4269
+#: WizTreeMain.pas:4270
+#: WizTreeMain.pas:4271
+#: WizTreeMain.pas:4272
+#: WizTreeMain.pas:4273
+#: WizTreeMain.pas:4274
+msgid "n/a"
+msgstr "없음"
+
+#: WizTreeMain.pas:3648
+msgid "<Folder>"
+msgstr "<폴더>"
+
+#: WizTreeMain.pas:4228
+msgid "File"
+msgstr "파일"
+
+#: WizTreeMain.pas:4229
+msgid "Options"
+msgstr "옵션"
+
+#: WizTreeMain.pas:4230
+#: WizTreeMain.pas:4260
+msgid "Scan"
+msgstr "검색"
+
+#: WizTreeMain.pas:4231
+msgid "New Instance"
+msgstr "새 인스턴스"
+
+#: WizTreeMain.pas:4232
+msgid "Explore Folder"
+msgstr "폴더 탐색"
+
+#: WizTreeMain.pas:4233
+msgid "Command Prompt Here"
+msgstr "여기에 명령 프롬프트 열기"
+
+#: WizTreeMain.pas:4234
+msgid "Copy Path"
+msgstr "경로 복사"
+
+#: WizTreeMain.pas:4235
+msgid "Delete (to Recycle Bin)"
+msgstr "삭제 (휴지통에...)"
+
+#: WizTreeMain.pas:4236
+msgid "Delete (No undelete possible)"
+msgstr "삭제 (복구 불가능)"
+
+#: WizTreeMain.pas:4237
+msgid "Dump MFT File"
+msgstr "MFT 파일 덤프"
+
+#: WizTreeMain.pas:4238
+msgid "Exit"
+msgstr "끝내기"
+
+#: WizTreeMain.pas:4240
+msgid "Display Dynamic values"
+msgstr "유동적인 값으로 표시"
+
+#: WizTreeMain.pas:4241
+msgid "Display Byte values"
+msgstr "Byte 값으로 표시"
+
+#: WizTreeMain.pas:4242
+msgid "Display KB values"
+msgstr "KB 값으로 표시"
+
+#: WizTreeMain.pas:4243
+msgid "Display MB values"
+msgstr "MB 값으로 표시"
+
+#: WizTreeMain.pas:4244
+msgid "Display GB values"
+msgstr "GB 값으로 표시"
+
+#: WizTreeMain.pas:4245
+msgid "Windows Explorer context menu"
+msgstr "Windows 탐색기 컨텍스트 메뉴"
+
+#: WizTreeMain.pas:4246
+msgid "Always Run as Administrator"
+msgstr "항상 '관리자 권한'으로 실행"
+
+#: WizTreeMain.pas:4248
+msgid "Language"
+msgstr "언어"
+
+#: WizTreeMain.pas:4250
+msgid "Restart as Administrator"
+msgstr "'관리자 권한'으로 다시 시작"
+
+#: WizTreeMain.pas:4251
+msgid "WizTree requires \"Administrator\" rights to enable high speed scanning of NTFS hard drives and to access all system files and folders. Click on the \"Restart as Administrator\" button to enable Administrator rights."
+msgstr "WizTree (은)는 NTFS 하드 드라이브에 대해 고속 검색을 사용하고 모든 시스템 파일 및 폴더에 접근하려면, '관리자' 권한이 필요합니다.  관리자 권한을 사용하려면, '관리자 권한으로 다시 시작' 버튼을 누르세요."
+
+#: WizTreeMain.pas:4252
+msgid "Don't show this again"
+msgstr "이걸 다시는 보이지 않기"
+
+#: WizTreeMain.pas:4254
+msgid "View Update"
+msgstr "업데이트 보기"
+
+#: WizTreeMain.pas:4255
+msgid "Dismiss"
+msgstr "취소"
+
+#: WizTreeMain.pas:4256
+msgid "Check for updates"
+msgstr "업데이트 확인"
+
+#: WizTreeMain.pas:4257
+msgid "Check for updates now"
+msgstr "지금 업데이트 확인"
+
+#: WizTreeMain.pas:4259
+msgid "Select:"
+msgstr "선택:"
+
+#: WizTreeMain.pas:4261
+msgid "Cancel"
+msgstr "취소"
+
+#: WizTreeMain.pas:4262
+msgid "Ready..."
+msgstr "준비..."
+
+#: WizTreeMain.pas:4263
+msgid "Selection:"
+msgstr "선택:"
+
+#: WizTreeMain.pas:4264
+msgid "Total Space:"
+msgstr "전체 공간:"
+
+#: WizTreeMain.pas:4265
+msgid "Space Used:"
+msgstr "사용 공간:"
+
+#: WizTreeMain.pas:4266
+msgid "Space Free:"
+msgstr "여유 공간:"
+
+#: WizTreeMain.pas:4276
+msgid "Help us make WizTree better!"
+msgstr "더 좋게 만들 수 있도록 도와주세요!"
+
+#: WizTreeMain.pas:4278
+msgid "Tree View"
+msgstr "트리 보기"
+
+#: WizTreeMain.pas:4280
+msgid "Folder"
+msgstr "폴더"
+
+#: WizTreeMain.pas:4281
+msgid "Percent of Parent"
+msgstr "상위 폴더 내 차지 비율"
+
+#: WizTreeMain.pas:4282
+#: WizTreeMain.pas:4307
+msgid "Size"
+msgstr "크기"
+
+#: WizTreeMain.pas:4284
+#: WizTreeMain.pas:4308
+msgid "Modified"
+msgstr "고친 때"
+
+#: WizTreeMain.pas:4285
+#: WizTreeMain.pas:4309
+msgid "Attributes"
+msgstr "특성"
+
+#: WizTreeMain.pas:4287
+msgid "Items"
+msgstr "항목 개수"
+
+#: WizTreeMain.pas:4288
+#: WizTreeMain.pas:4310
+msgid "Allocated"
+msgstr "할당된 크기"
+
+#: WizTreeMain.pas:4290
+msgid "File View"
+msgstr "파일 보기"
+
+#: WizTreeMain.pas:4292
+msgid "File Search Filter:"
+msgstr "파일 검색 필터:"
+
+#: WizTreeMain.pas:4293
+msgid "Clear"
+msgstr "지우기"
+
+#: WizTreeMain.pas:4294
+msgid "Match file name only"
+msgstr "파일 이름만 일치"
+
+#: WizTreeMain.pas:4295
+msgid "(Fast)"
+msgstr "(빠름)"
+
+#: WizTreeMain.pas:4296
+msgid "Match entire path"
+msgstr "전체 경로 일치"
+
+#: WizTreeMain.pas:4297
+msgid "(Warning: can be slow!)"
+msgstr "(경고: 느려질 수 있습니다!)"
+
+#: WizTreeMain.pas:4298
+msgid "Max files to display:"
+msgstr "표시할 최대 파일 개수:"
+
+#: WizTreeMain.pas:4300
+msgid "(Selecting ALL can be very slow!)"
+msgstr "('모두'를 선택하면, 겁나 느려질 수 있습니다!)"
+
+#: WizTreeMain.pas:4301
+msgid "ALL"
+msgstr "모두"
+
+#: WizTreeMain.pas:4303
+msgid "Total Files:"
+msgstr "전체 파일 개수:"
+
+#: WizTreeMain.pas:4305
+msgid "File Name"
+msgstr "파일 이름"
+
+#: WizTreeMain.pas:4306
+msgid "Percent of Drive"
+msgstr "드라이브 내 차지 비율"
+
+#: WizTreeMain.pas:4312
+msgid "About"
+msgstr "정보"
+
+#: WizTreeMain.pas:4314
+msgid "If you use WizTree commercially or you'd just like to support the freeware community then please make a donation by clicking on the Donate button at the top right of the screen. Thank you! :)"
+msgstr "WizTree (을)를 상업적으로 사용하거나 프리웨어 커뮤니티를 지원하고 싶은 경우, 화면의 오른쪽 위에 있는 '기부' 버튼을 눌러 기부해 주세요.  고맙습니다! :)"
+
+#: WizTreeMain.pas:4316
+msgid "What is WizTree?"
+msgstr "WizTree (이)가 뭔가요?"
+
+#: WizTreeMain.pas:4317
+msgid "WizTree is the world's fastest disk space analyzer. It scans your hard drive and shows you which files and folders are using the most disk space."
+msgstr "WizTree (은)는 세계에서 가장 빠른 디스크 공간 분석 도구입니다.  하드 드라이브를 검색하고 가장 많은 디스크 공간을 사용하는 파일 및 폴더를 보여줍니다."
+
+#: WizTreeMain.pas:4318
+msgid "It does this in the FASTEST way possible - you simply won't find any other application of this type that's quicker! Use the information WizTree provides to quickly locate and remove \"space hogs\" from your hard drive."
+msgstr "가능한한 가장 빠른 방법으로 이 작업을 수행합니다. - 이런 종류의 더 빠른 다른 응용 프로그램은 아마 쉽게 찾을 수 없을 겁니다!  WizTree (이)가 제공하는 정보를 사용해서, 하드 드라이브에서 'space hogs (겁나 큰 찌끄레기)'(을)를 빠르게 찾아 제거해 보세요."
+
+#: WizTreeMain.pas:4320
+msgid "WARNING: Take care not to remove any files that are required for the correct operation of your PC!"
+msgstr "경고: 사용자 컴퓨터의 올바른 작동을 위해 필요한 어떠한 파일도 제거하지 않도록 주의하세요!"
+
+#: WizTreeMain.pas:4322
+msgid "What makes WizTree so fast?"
+msgstr "WizTree (이)가 그렇게 빠른 이유가 뭔가요?"
+
+#: WizTreeMain.pas:4324
+msgid "When scanning NTFS formatted hard drives (most modern hard drives use this format), WizTree reads the hard drive's Master File Table (MFT) directly from the disk."
+msgstr "NTFS (으)로 포맷된 하드 드라이브 (대부분의 현대 하드 드라이브는 이 포맷을 사용함)를 검색할 때, WizTree (은)는 하드 드라이브의 마스터 파일 테이블 (MFT)을 디스크에서 직접 읽습니다."
+
+#: WizTreeMain.pas:4325
+msgid "The MFT is a special hidden file used by the NTFS file system to keep track of all files and folders on a hard drive. Scanning for files this way completely bypasses the operating system (Windows) and provides a huge performance boost."
+msgstr "MFT (은)는 하드 드라이브의 모든 파일 및 폴더에 대한 추적을 유지하기 위해 NTFS 파일 시스템에 의해 사용되는 특별한 숨김 속성의 파일입니다.  이 방법으로 파일을 검색하면, 운영 체제 (Windows) 완전히 무시하고 성능을 크게 향상시킬 수 있습니다."
+
+#: WizTreeMain.pas:4327
+msgid "As of version 2.0, WizTree can now also scan non NTFS hard drives, network drives, USB drives, and individual directories."
+msgstr "버전 2.0 부터, WizTree (은)는 NTFS (이)가 아닌 하드 드라이브, 네트워크 드라이브, USB 드라이브 및 개별 디렉토리 또한 검색할 수 있습니다."
+
+#: WizTreeMain.pas:4329
+msgid "Please visit the Antibody Software website for more great software, such as:"
+msgstr "다음의 멋진 소프트웨어에 대해서는 Antibody Software 웹사이트를 방문해 보세요:"
+
+#: WizTreeMain.pas:4330
+#: WizTreeMain.pas:4334
+msgid "(click for more information)"
+msgstr "(더 많은 정보는... 누르세요.)"
+
+#: WizTreeMain.pas:4331
+msgid "A powerful yet easy to use web gallery downloading tool. It supports most of the popular image hosting sites (such as flickr, facebook, Google image search, imgur, deviantart etc.)."
+msgstr "강력하면서도 사용하기 쉬운 웹 갤러리 다운로드 도구입니다.  인기있는 이미지 호스팅 사이트 (예: flickr, facebook, Google 이미지 검색, imgur, deviantart 등)의 대부분을 지원합니다."
+
+#: WizTreeMain.pas:4332
+msgid "It doesn't require any complicated setup or project files - it just works."
+msgstr "어떤 복잡한 설정이나 프로젝트 파일도 필요치 않고, 그냥 작동합니다."
+
+#: WizTreeMain.pas:4335
+msgid "A keyboard enhancement utility that makes it easy to type accented and other special Unicode characters on a standard US/UK keyboard using easy to remember keyboard shortcuts."
+msgstr "표준 US/UK 키보드에서 악센트 및 기타 특수 유니코드 문자 입력을 쉽게 해서 단축키 기억을 도와주는 키보드 향상 유틸리티입니다."
+
+#: WizTreeMain.pas:4336
+msgid "For example, to type an à (a with grave accent), you press Ctrl+` then press a. These shortcuts work from any Windows application."
+msgstr "예를 들어, à (억음 악센트)를 입력하려면, a (을)를 누르는 대신 Ctrl+` (을)를 누릅니다.  이러한 단축키는 모든 Windows 응용 프로그램에서 작동합니다."
+
+#: SelectLanguage.pas:56
+#: supportercode.pas:239
+msgid "OK"
+msgstr "확인"
+
+#: supportercode.pas:143
+msgid "Invalid Key - Please try again."
+msgstr "잘못된 키 - 다시 시도해 보세요."
+
+#: supportercode.pas:144
+msgid "It is recommended that you copy and paste your supporter code."
+msgstr "후원자 코드를 복사해서 붙여넣는 게 좋습니다."
+
+#: supportercode.pas:145
+msgid "Only use digits 0 to 9 and letters A to F."
+msgstr "숫자 0 ~ 9 및 문자 A ~ F 만 사용합니다."
+
+#: supportercode.pas:219
+#: WizTreeMain.pas:6266
+msgid "Thank you for your support!"
+msgstr "지원해 주셔서 고맙습니다!"
+
+#: supportercode.pas:220
+msgid "WizTree will now restart."
+msgstr "이제 WizTree (이)가 다시 시작됩니다."
+
+#: supportercode.pas:241
+#: WizTreeMain.pas:5286
+msgid "Enter Supporter Code"
+msgstr "후원자 코드 입력"
+
+#: supportercode.pas:242
+msgid "Supporter Code"
+msgstr "후원자 코드"
+
+#. warning dialog title
+#: uVistaTaskDialog.pas:228
+msgid "Warning"
+msgstr "경고"
+
+#. confirmation dialog title
+#: uVistaTaskDialog.pas:233
+msgid "Confirmation"
+msgstr "재차 물음"
+
+#. information dialog title
+#: uVistaTaskDialog.pas:243
+msgid "Information"
+msgstr "정보"
+
+#: WizTreeMain.pas:1616
+msgid "(No Extension)"
+msgstr "(확장자 없음)"
+
+#: WizTreeMain.pas:5269
+msgid "File Type"
+msgstr "파일 종류"
+
+#: WizTreeMain.pas:5272
+msgid "Percent"
+msgstr "비율"
+
+#: WizTreeMain.pas:5273
+msgid "Extension"
+msgstr "확장자"
+
+#: WizTreeMain.pas:5276
+msgid "MFT Dump"
+msgstr "MFT 덤프"
+
+#: WizTreeMain.pas:5276
+msgid "All Files"
+msgstr "모든 파일"
+
+#: WizTreeMain.pas:5277
+msgid "Show Treemap"
+msgstr "트리 지도 보이기"
+
+#: WizTreeMain.pas:5278
+msgid "Show File Types"
+msgstr "파일 종류 보이기"
+
+#: WizTreeMain.pas:5279
+msgid "Reset tree expansion"
+msgstr "트리 확장 초기화"
+
+#: WizTreeMain.pas:5281
+msgid "Select Parent"
+msgstr "부모 선택"
+
+#: WizTreeMain.pas:5282
+msgid "Reselect Child"
+msgstr "자식 다시 선택"
+
+#: WizTreeMain.pas:5283
+msgid "Help support WizTree development by making a donation"
+msgstr "기부해서 WizTree 개발을 지원해 주세요."
+
+#: WizTreeMain.pas:5284
+msgid "(You can hide the Donate button by making a donation)"
+msgstr "(기부를 하면, 이 버튼을 감출 수 있습니다.)"
+
+#: WizTreeMain.pas:6883
+msgid "Show Allocated Size on Treemap"
+msgstr "트리 지도에 할당된 크기 보이기"
+
+#: WizTreeMain.pas:6884
+msgid "Auto scan after making selection"
+msgstr "선택한 후, 자동으로 검색"
+
+#: WizTreeMain.pas:6886
+msgid "Zoom in Treemap"
+msgstr "트리 지도 확대"
+
+#: WizTreeMain.pas:6887
+msgid "Zoom out Treemap"
+msgstr "트리 지도 축소"
+
+#: exporttreemap.pas:57
+#: WizTreeMain.pas:7193
+msgid "Save Treemap Image as .png file"
+msgstr "트리 지도 이미지를 .PNG 파일로 저장"
+
+#: exporttreemap.pas:58
+msgid "Save"
+msgstr "저장"
+
+#: exporttreemap.pas:60
+msgid "Width"
+msgstr "너비"
+
+#: exporttreemap.pas:61
+msgid "Height"
+msgstr "높이"
+
+#: exporttreemap.pas:62
+msgid "Shades of Gray (single color)"
+msgstr "회색 (단색) 음영"
+
+#: WizTreeMain.pas:7191
+msgid "Show Free Space on Treemap"
+msgstr "트리 지도에 여유 공간 보이기"
+
+msgid "File already exists - overwrite?"
+msgstr "파일이 이미 있습니다.  덮어쓸 건가요?"
+
+#: WizTreeMain.pas:3002
+#: WizTreeMain.pas:3217
+msgid "Generated by"
+msgstr "다음에 의해 만들어짐:"
+
+#: WizTreeMain.pas:3002
+#: WizTreeMain.pas:3217
+msgid "You can hide this message by making a donation"
+msgstr "기부를 하므로써, 이 메시지를 감출 수 있습니다."
+
+#: WizTreeMain.pas:4452
+msgid "MFT Dump cancelled..."
+msgstr "MFT 덤프가 취소됐습니다..."
+
+#: WizTreeMain.pas
+msgid "Export complete."
+msgstr "내보내기가 완료됐습니다."
+
+#: WizTreeMain.pas:7815
+msgid "Copy file and size info to clipboard"
+msgstr "파일 및 크기 정보를 클립보드에 복사"
+
+#: WizTreeMain.pas:7816
+msgid "Export to .CSV file"
+msgstr ".CSV 파일로 내보내기"
+
+msgid "Colors"
+msgstr "그림 물감"
+
+msgid "Default"
+msgstr "태만"
+
+msgid "Color Blind"
+msgstr "색맹"
+
+msgid "CSV file"
+msgstr ""
+
+msgid "Select CSV file"
+msgstr ""
+
+msgid "Failed to import CSV file"
+msgstr ""
+
+msgid "Color By"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "File Extension(s)"
+msgstr ""
+
+msgid "Export File Types to CSV file"
+msgstr ""
+
+msgid "Display TB values"
+msgstr ""
+
+msgid "TB"
+msgstr ""
+

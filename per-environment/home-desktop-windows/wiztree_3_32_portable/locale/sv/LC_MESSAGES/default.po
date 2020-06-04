@@ -1,0 +1,685 @@
+# WIZTREE
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WizTree 3\n"
+"POT-Creation-Date: 2017-08-31 12:05\n"
+"PO-Revision-Date: 2020-01-24 06:58+0100\n"
+"Last-Translator: Magnus Beutner <magnus.beutner@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.13\n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+
+#: WizTreeMain.pas:673
+msgid "Scanning..."
+msgstr "Skannar..."
+
+#: WizTreeMain.pas:673 WizTreeMain.pas:4286
+msgid "Folders"
+msgstr "Mappar"
+
+#: WizTreeMain.pas:673 WizTreeMain.pas:4283
+msgid "Files"
+msgstr "Filer"
+
+#: WizTreeMain.pas:688
+msgid "Dumping file"
+msgstr "Dumpningsfil"
+
+#: WizTreeMain.pas:688 WizTreeMain.pas:953
+msgid "MB"
+msgstr "MB"
+
+#: WizTreeMain.pas:950
+msgid "GB"
+msgstr "GB"
+
+#: WizTreeMain.pas:956
+msgid "KB"
+msgstr "KB"
+
+#: WizTreeMain.pas:961
+msgid "Bytes"
+msgstr "Byte"
+
+#: WizTreeMain.pas:1141
+msgid "Files in"
+msgstr "Filer in"
+
+#: WizTreeMain.pas:1143
+msgid "File in"
+msgstr "Fil in"
+
+#: WizTreeMain.pas:1691 WizTreeMain.pas:1738
+msgid "Selected Files"
+msgstr "Valda Filer"
+
+#: WizTreeMain.pas:1691 WizTreeMain.pas:1738 WizTreeMain.pas:3593
+msgid "Total Size"
+msgstr "Total Storlek"
+
+#: WizTreeMain.pas:1874 WizTreeMain.pas:1976 WizTreeMain.pas:2033
+msgid "You are about to open"
+msgstr "Du håller på och öppnar"
+
+#: WizTreeMain.pas:1875
+msgid "Command Prompt windows - are you sure?"
+msgstr "Kommando-prompt fönster - är du säker?"
+
+#: WizTreeMain.pas:1977
+msgid "Explorer windows - are you sure?"
+msgstr "Utforskar fönster - är du säker?"
+
+#: WizTreeMain.pas:2034
+msgid "files - are you sure?"
+msgstr "filer - är du säker?"
+
+#. FileName := FDir;
+#. 2 = select directory
+#: WizTreeMain.pas:2147 WizTreeMain.pas:2162 WizTreeMain.pas:3041
+msgid "Select Folder"
+msgstr "Välj Mapp"
+
+#. YMMV
+#: WizTreeMain.pas:2149
+msgid "Select"
+msgstr "Välj"
+
+#: WizTreeMain.pas:2202
+msgid "File not found"
+msgstr "Fil ej funnen"
+
+#: WizTreeMain.pas:2326
+msgid "Error"
+msgstr "Fel"
+
+#: WizTreeMain.pas:2351
+msgid "Sorting file list..."
+msgstr "Sorterar fillista..."
+
+#: WizTreeMain.pas:2362
+msgid "Loading tree..."
+msgstr "Laddar träd..."
+
+#: WizTreeMain.pas:2406
+msgid "Scan complete in"
+msgstr "Skanning komplett inom"
+
+#: WizTreeMain.pas:2408
+msgid "seconds"
+msgstr "sekunder"
+
+#: WizTreeMain.pas:2412
+msgid "canceled"
+msgstr "avbruten"
+
+#: WizTreeMain.pas:2480
+msgid "Failed to update Windows Explorer context menu"
+msgstr "Misslyckades att uppdatera Windows Utforskare innehållsmeny"
+
+#: WizTreeMain.pas:2560
+msgid "No MFT root found!"
+msgstr "Ingen MFT root funnen!"
+
+#. we have an update!
+#: WizTreeMain.pas:2640
+msgid "An update is available"
+msgstr "En uppdatering är tillgänglig"
+
+#: WizTreeMain.pas:2641
+msgid "Click on the \"View Update\" button to learn more."
+msgstr "Klicka på knappen \"Visa Uppdateringar\" för mer info."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2648
+msgid "No update found."
+msgstr "Ingen uppdatering funnen."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2660
+msgid "Error checking for updates:"
+msgstr "Fel vid kontroll av updateringar:"
+
+#: WizTreeMain.pas:2836
+msgid "Please restart WizTree as Administrator to dump the MFT file"
+msgstr "Var god starta om WizTree som Administratör för att dumpa MFT filen"
+
+#: WizTreeMain.pas:2844
+msgid "Please select an NTFS formatted drive."
+msgstr "Välj en NTFS formaterad enhet."
+
+#: WizTreeMain.pas:2869
+msgid "Dumping MFT file, please wait..."
+msgstr "Dumpar MFT filen, var god vänta..."
+
+#: WizTreeMain.pas:2880
+msgid "MFT data dump complete."
+msgstr "MFT data dump komplett."
+
+#: WizTreeMain.pas:2884
+msgid "MFT data dumped to file"
+msgstr "MFT data dumpad till fil"
+
+#: WizTreeMain.pas:2991
+msgid "64 bit"
+msgstr "64 bit"
+
+#: WizTreeMain.pas:2993
+msgid "32 bit"
+msgstr "32 bit"
+
+#: WizTreeMain.pas:3042
+msgid "MFT file"
+msgstr "MFT fil"
+
+#: WizTreeMain.pas:3487
+msgid "Loading file list..."
+msgstr "Laddar fillista..."
+
+#: WizTreeMain.pas:3592
+msgid "files"
+msgstr "filer"
+
+#. lblTotalSpacePerc.Caption := '';
+#: WizTreeMain.pas:3636 WizTreeMain.pas:3637 WizTreeMain.pas:3658
+#: WizTreeMain.pas:3663 WizTreeMain.pas:3666 WizTreeMain.pas:3674
+#: WizTreeMain.pas:3675 WizTreeMain.pas:3677 WizTreeMain.pas:3679
+#: WizTreeMain.pas:3681 WizTreeMain.pas:4268 WizTreeMain.pas:4269
+#: WizTreeMain.pas:4270 WizTreeMain.pas:4271 WizTreeMain.pas:4272
+#: WizTreeMain.pas:4273 WizTreeMain.pas:4274
+msgid "n/a"
+msgstr "n/a"
+
+#: WizTreeMain.pas:3648
+msgid "<Folder>"
+msgstr "<Mapp>"
+
+#: WizTreeMain.pas:4228
+msgid "File"
+msgstr "Fil"
+
+#: WizTreeMain.pas:4229
+msgid "Options"
+msgstr "Alternativ"
+
+#: WizTreeMain.pas:4230 WizTreeMain.pas:4260
+msgid "Scan"
+msgstr "Skanna"
+
+#: WizTreeMain.pas:4231
+msgid "New Instance"
+msgstr "Ny Instans"
+
+#: WizTreeMain.pas:4232
+msgid "Explore Folder"
+msgstr "Utforska Mapp"
+
+#: WizTreeMain.pas:4233
+msgid "Command Prompt Here"
+msgstr "Kommando Prompt Här"
+
+#: WizTreeMain.pas:4234
+msgid "Copy Path"
+msgstr "Kopiera Sökväg"
+
+#: WizTreeMain.pas:4235
+msgid "Delete (to Recycle Bin)"
+msgstr "Radera (via Papperskorgen)"
+
+#: WizTreeMain.pas:4236
+msgid "Delete (No undelete possible)"
+msgstr "Radera (permanent)"
+
+#: WizTreeMain.pas:4237
+msgid "Dump MFT File"
+msgstr "Dumpa MFT Fil"
+
+#: WizTreeMain.pas:4238
+msgid "Exit"
+msgstr "Avsluta"
+
+#: WizTreeMain.pas:4240
+msgid "Display Dynamic values"
+msgstr "Visa Dynamiska värden"
+
+#: WizTreeMain.pas:4241
+msgid "Display Byte values"
+msgstr "Visa Byte värden"
+
+#: WizTreeMain.pas:4242
+msgid "Display KB values"
+msgstr "Visa KB värden"
+
+#: WizTreeMain.pas:4243
+msgid "Display MB values"
+msgstr "Visa MB värden"
+
+#: WizTreeMain.pas:4244
+msgid "Display GB values"
+msgstr "Visa GB värden"
+
+#: WizTreeMain.pas:4245
+msgid "Windows Explorer context menu"
+msgstr "Windows Utforskare innehållsmeny"
+
+#: WizTreeMain.pas:4246
+msgid "Always Run as Administrator"
+msgstr "Kör alltid som Administratör"
+
+#: WizTreeMain.pas:4248
+msgid "Language"
+msgstr "Språk"
+
+#: WizTreeMain.pas:4250
+msgid "Restart as Administrator"
+msgstr "Starta om som Administratör"
+
+#: WizTreeMain.pas:4251
+msgid "WizTree requires \"Administrator\" rights to enable high speed scanning of NTFS hard drives and to access all system files and folders. Click on the \"Restart as Administrator\" button to enable Administrator rights."
+msgstr "WizTree kräver \"Administratör\" rättigheter för att aktivera höghastighets-skanning av NTFS diskar och acessa alla system- filer och mappar. Klicka på \"Starta om som Administratör\" för att aktivera Administratör rättigheter."
+
+#: WizTreeMain.pas:4252
+msgid "Don't show this again"
+msgstr "Visa inte detta igen"
+
+#: WizTreeMain.pas:4254
+msgid "View Update"
+msgstr "Visa Uppdatering"
+
+#: WizTreeMain.pas:4255
+msgid "Dismiss"
+msgstr "Avvisa"
+
+#: WizTreeMain.pas:4256
+msgid "Check for updates"
+msgstr "Kontrollera uppdateringar"
+
+#: WizTreeMain.pas:4257
+msgid "Check for updates now"
+msgstr "Kontrollera uppdateringar nu"
+
+#: WizTreeMain.pas:4259
+msgid "Select:"
+msgstr "Välj:"
+
+#: WizTreeMain.pas:4261
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: WizTreeMain.pas:4262
+msgid "Ready..."
+msgstr "Redo..."
+
+#: WizTreeMain.pas:4263
+msgid "Selection:"
+msgstr "Selektion:"
+
+#: WizTreeMain.pas:4264
+msgid "Total Space:"
+msgstr "Totalt Utrymme:"
+
+#: WizTreeMain.pas:4265
+msgid "Space Used:"
+msgstr "Använt Utrymme:"
+
+#: WizTreeMain.pas:4266
+msgid "Space Free:"
+msgstr "Ledigt Utrymme:"
+
+#: WizTreeMain.pas:4276
+msgid "Help us make WizTree better!"
+msgstr "Hjälp oss göra WizTree bättre!"
+
+#: WizTreeMain.pas:4278
+msgid "Tree View"
+msgstr "Trädvy"
+
+#: WizTreeMain.pas:4280
+msgid "Folder"
+msgstr "Mapp"
+
+#: WizTreeMain.pas:4281
+msgid "Percent of Parent"
+msgstr "Procent av Förälder"
+
+#: WizTreeMain.pas:4282 WizTreeMain.pas:4307
+msgid "Size"
+msgstr "Storlek"
+
+#: WizTreeMain.pas:4284 WizTreeMain.pas:4308
+msgid "Modified"
+msgstr "Modifierad"
+
+#: WizTreeMain.pas:4285 WizTreeMain.pas:4309
+msgid "Attributes"
+msgstr "Attribut"
+
+#: WizTreeMain.pas:4287
+msgid "Items"
+msgstr "Delar"
+
+#: WizTreeMain.pas:4288 WizTreeMain.pas:4310
+msgid "Allocated"
+msgstr "Allokerat"
+
+#: WizTreeMain.pas:4290
+msgid "File View"
+msgstr "Filvy"
+
+#: WizTreeMain.pas:4292
+msgid "File Search Filter:"
+msgstr "Filsöknings Filter:"
+
+#: WizTreeMain.pas:4293
+msgid "Clear"
+msgstr "Rensa"
+
+#: WizTreeMain.pas:4294
+msgid "Match file name only"
+msgstr "Matcha endast filnamn"
+
+#: WizTreeMain.pas:4295
+msgid "(Fast)"
+msgstr "(Snabb)"
+
+#: WizTreeMain.pas:4296
+msgid "Match entire path"
+msgstr "Matcha hela sökvägen"
+
+#: WizTreeMain.pas:4297
+msgid "(Warning: can be slow!)"
+msgstr "(Varning: kan gå långsamt!)"
+
+#: WizTreeMain.pas:4298
+msgid "Max files to display:"
+msgstr "Max filer att visa:"
+
+#: WizTreeMain.pas:4300
+msgid "(Selecting ALL can be very slow!)"
+msgstr "(Val av ALLA kan gå mycket långsamt!)"
+
+#: WizTreeMain.pas:4301
+msgid "ALL"
+msgstr "ALLA"
+
+#: WizTreeMain.pas:4303
+msgid "Total Files:"
+msgstr "Filer Totalt:"
+
+#: WizTreeMain.pas:4305
+msgid "File Name"
+msgstr "Filnamn"
+
+#: WizTreeMain.pas:4306
+msgid "Percent of Drive"
+msgstr "Procent av Disk"
+
+#: WizTreeMain.pas:4312
+msgid "About"
+msgstr "Om"
+
+#: WizTreeMain.pas:4314
+msgid "If you use WizTree commercially or you'd just like to support the freeware community then please make a donation by clicking on the Donate button at the top right of the screen. Thank you! :)"
+msgstr "Om du använder WizTree kommersiellt eller bara vill stödja gratis programvara, vänligen donera genom att klicka på knappen \"Donate\" till höger överst i fönstret. Tack! :)"
+
+#: WizTreeMain.pas:4316
+msgid "What is WizTree?"
+msgstr "Vad är WizTree?"
+
+#: WizTreeMain.pas:4317
+msgid "WizTree is the world's fastest disk space analyzer. It scans your hard drive and shows you which files and folders are using the most disk space."
+msgstr "WizTree är världens snabbaste disk-utrymmes analysator. Den skannar dina diskar och visar dig vilka filer och mappar som använder mest utrymme."
+
+#: WizTreeMain.pas:4318
+msgid "It does this in the FASTEST way possible - you simply won't find any other application of this type that's quicker! Use the information WizTree provides to quickly locate and remove \"space hogs\" from your hard drive."
+msgstr "Den gör detta på det SNABBAST möjligaste sättet - du kommer helt enkelt inte att finna någon annan liknande applikation som gör det snabbare! Använd informationen WizTree ger för att snabbt lokalisera och ta bort \"utrymmes bufflar\" från din disk."
+
+#: WizTreeMain.pas:4320
+msgid "WARNING: Take care not to remove any files that are required for the correct operation of your PC!"
+msgstr "VARNING: Var noga med att inte ta bort filer som krävs för korrekt funktion av din PC!"
+
+#: WizTreeMain.pas:4322
+msgid "What makes WizTree so fast?"
+msgstr "Vad gör WizTree så snabb?"
+
+#: WizTreeMain.pas:4324
+msgid "When scanning NTFS formatted hard drives (most modern hard drives use this format), WizTree reads the hard drive's Master File Table (MFT) directly from the disk."
+msgstr "Vid skanning av NTFS formaterade diskar (moderna diskar använder vanligtvis detta format), läser WizTree diskens \"Master File Table\" (MFT) direkt från disken."
+
+#: WizTreeMain.pas:4325
+msgid "The MFT is a special hidden file used by the NTFS file system to keep track of all files and folders on a hard drive. Scanning for files this way completely bypasses the operating system (Windows) and provides a huge performance boost."
+msgstr "MFT är en speciell dold fil som används av NTFS filsystem för att hålla reda på alla filer och mappar på disken. Skanning av filer på detta sätt, att fullständigt förbigå operativsystemet (Windows), ger betydligt högre prestanda."
+
+#: WizTreeMain.pas:4327
+msgid "As of version 2.0, WizTree can now also scan non NTFS hard drives, network drives, USB drives, and individual directories."
+msgstr "Från och med version 2.0, kan WizTree nu också skanna icke NTFS diskar, nätverks diskar, USB diskar, och individuella mappar."
+
+#: WizTreeMain.pas:4329
+msgid "Please visit the Antibody Software website for more great software, such as:"
+msgstr "Välkommen att besöka Antibody Software hemsida för mer bra mjukvara, såsom:"
+
+#: WizTreeMain.pas:4330 WizTreeMain.pas:4334
+msgid "(click for more information)"
+msgstr "(klicka för mer information)"
+
+#: WizTreeMain.pas:4331
+msgid "A powerful yet easy to use web gallery downloading tool. It supports most of the popular image hosting sites (such as flickr, facebook, Google image search, imgur, deviantart etc.)."
+msgstr "Ett kraftfullt men ändå enkelt att använda, Web Galleri nedladdnings verktyg. Den supportar de flesta av de populära bildlagrings platser på nätet (som flickr, facebook, Google image search, imgur, deviantart etc.)."
+
+#: WizTreeMain.pas:4332
+msgid "It doesn't require any complicated setup or project files - it just works."
+msgstr "Den kräver inga komplicerade installationer eller direktiv - Den bara fungerar."
+
+#: WizTreeMain.pas:4335
+msgid "A keyboard enhancement utility that makes it easy to type accented and other special Unicode characters on a standard US/UK keyboard using easy to remember keyboard shortcuts."
+msgstr "Ett tangentbord-förbättrings verktyg som gör det enkelt att skriva accentuerade eller andra speciella Unicode tecken på ett standard tangentbord via enkla tangent-kombinationer."
+
+#: WizTreeMain.pas:4336
+msgid "For example, to type an à (a with grave accent), you press Ctrl+` then press a. These shortcuts work from any Windows application."
+msgstr "Till exampel, för att skriva à (a med accent), trycker du Ctrl+` sedan på \"a\". Dessa genvägar fungerar i alla Windows applikationer."
+
+#: SelectLanguage.pas:56 supportercode.pas:239
+msgid "OK"
+msgstr "OK"
+
+#: supportercode.pas:143
+msgid "Invalid Key - Please try again."
+msgstr "Ogiltig tangent - Försök igen."
+
+#: supportercode.pas:144
+msgid "It is recommended that you copy and paste your supporter code."
+msgstr "Det rekommenderas att du kopierar och klistrar in din supporter kod."
+
+#: supportercode.pas:145
+msgid "Only use digits 0 to 9 and letters A to F."
+msgstr "Använd endast siffror 0 till 9 och bokstäver A till F."
+
+#: supportercode.pas:219 WizTreeMain.pas:6266
+msgid "Thank you for your support!"
+msgstr "Tack för din support!"
+
+#: supportercode.pas:220
+msgid "WizTree will now restart."
+msgstr "WizTree kommer nu att starta om."
+
+#: supportercode.pas:241 WizTreeMain.pas:5286
+msgid "Enter Supporter Code"
+msgstr "Skriv in Supporter Kod"
+
+#: supportercode.pas:242
+msgid "Supporter Code"
+msgstr "Supporter Kod"
+
+#. warning dialog title
+#: uVistaTaskDialog.pas:228
+msgid "Warning"
+msgstr "Varning"
+
+#. confirmation dialog title
+#: uVistaTaskDialog.pas:233
+msgid "Confirmation"
+msgstr "Konfirmation"
+
+#. information dialog title
+#: uVistaTaskDialog.pas:243
+msgid "Information"
+msgstr "Information"
+
+#: WizTreeMain.pas:1616
+msgid "(No Extension)"
+msgstr "(Ingen Filändelse)"
+
+#: WizTreeMain.pas:5269
+msgid "File Type"
+msgstr "Filtyp"
+
+#: WizTreeMain.pas:5272
+msgid "Percent"
+msgstr "Procent"
+
+#: WizTreeMain.pas:5273
+msgid "Extension"
+msgstr "Filändelse"
+
+#: WizTreeMain.pas:5276
+msgid "MFT Dump"
+msgstr "MFT Dump"
+
+#: WizTreeMain.pas:5276
+msgid "All Files"
+msgstr "Alla Filer"
+
+#: WizTreeMain.pas:5277
+msgid "Show Treemap"
+msgstr "Visa Trädkarta"
+
+#: WizTreeMain.pas:5278
+msgid "Show File Types"
+msgstr "Visa Filtyper"
+
+#: WizTreeMain.pas:5279
+msgid "Reset tree expansion"
+msgstr "Återställ Trädexpansion"
+
+#: WizTreeMain.pas:5281
+msgid "Select Parent"
+msgstr "Välj Förälder"
+
+#: WizTreeMain.pas:5282
+msgid "Reselect Child"
+msgstr "Välj Barn igen"
+
+#: WizTreeMain.pas:5283
+msgid "Help support WizTree development by making a donation"
+msgstr "Supporta utveckling av WizTree via en donation"
+
+#: WizTreeMain.pas:5284
+msgid "(You can hide the Donate button by making a donation)"
+msgstr "(Du kan gömma knappen \"Donate\" genom att donera)"
+
+#: WizTreeMain.pas:6883
+msgid "Show Allocated Size on Treemap"
+msgstr "Visa Allokerad Storlek på Trädkarta"
+
+#: WizTreeMain.pas:6884
+msgid "Auto scan after making selection"
+msgstr "Skanna automatiskt efter val av alternativ"
+
+#: WizTreeMain.pas:6886
+msgid "Zoom in Treemap"
+msgstr "Zooma in Trädkarta"
+
+#: WizTreeMain.pas:6887
+msgid "Zoom out Treemap"
+msgstr "Zooma ut Trädkarta"
+
+#: exporttreemap.pas:57 WizTreeMain.pas:7193
+msgid "Save Treemap Image as .png file"
+msgstr "Spara Trädkartan som en PNG fil"
+
+#: exporttreemap.pas:58
+msgid "Save"
+msgstr "Spara"
+
+#: exporttreemap.pas:60
+msgid "Width"
+msgstr "Bredd"
+
+#: exporttreemap.pas:61
+msgid "Height"
+msgstr "Höjd"
+
+#: exporttreemap.pas:62
+msgid "Shades of Gray (single color)"
+msgstr "Skala av Grått (enfärgad)"
+
+#: WizTreeMain.pas:7191
+msgid "Show Free Space on Treemap"
+msgstr "Visa Ledigt Utrymme på Trädkarta"
+
+msgid "File already exists - overwrite?"
+msgstr "Filen finns redan. Skall den skrivas över?"
+
+#: WizTreeMain.pas:3002 WizTreeMain.pas:3217
+msgid "Generated by"
+msgstr "Skapad av"
+
+#: WizTreeMain.pas:3002 WizTreeMain.pas:3217
+msgid "You can hide this message by making a donation"
+msgstr "Du kan dölja detta meddelande genom att göra en donation"
+
+#: WizTreeMain.pas:4452
+msgid "MFT Dump cancelled..."
+msgstr "MFT Dump avbruten..."
+
+#: WizTreeMain.pas
+msgid "Export complete."
+msgstr "Export klar."
+
+#: WizTreeMain.pas:7815
+msgid "Copy file and size info to clipboard"
+msgstr "Kopiera fil och storleks information till Urklipp"
+
+#: WizTreeMain.pas:7816
+msgid "Export to .CSV file"
+msgstr "Exportera till CSV fil"
+
+msgid "Colors"
+msgstr "Färger"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Color Blind"
+msgstr "Färgblind"
+
+msgid "CSV file"
+msgstr "CSV fil"
+
+msgid "Select CSV file"
+msgstr "Välj CSV fil"
+
+msgid "Failed to import CSV file"
+msgstr "Misslyckades att importera CSV fil"
+
+msgid "Color By"
+msgstr "Färglägg efter"
+
+msgid "Color"
+msgstr "Färg"
+
+msgid "File Extension(s)"
+msgstr "Filtyp(er)"
+
+msgid "Export File Types to CSV file"
+msgstr "Exportera filtyper till CSV fil"
+
+msgid "Display TB values"
+msgstr ""
+
+msgid "TB"
+msgstr ""
+

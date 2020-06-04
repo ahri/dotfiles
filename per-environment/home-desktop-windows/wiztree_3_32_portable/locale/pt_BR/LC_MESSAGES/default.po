@@ -1,0 +1,686 @@
+# WIZTREE
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WizTree 3.16\n"
+"POT-Creation-Date: 2017-08-31 12:05\n"
+"PO-Revision-Date: 2020-01-23 03:56-0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"Language-Team: Master System PC\n"
+"Last-Translator: Dominic Dumée <webmaster@antibody-software.com>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: pt_BR\n"
+
+#: WizTreeMain.pas:673
+msgid "Scanning..."
+msgstr "Verificando..."
+
+#: WizTreeMain.pas:673 WizTreeMain.pas:4286
+msgid "Folders"
+msgstr "Pastas"
+
+#: WizTreeMain.pas:673 WizTreeMain.pas:4283
+msgid "Files"
+msgstr "Arquivos"
+
+#: WizTreeMain.pas:688
+msgid "Dumping file"
+msgstr "Arquivo Duplicado"
+
+#: WizTreeMain.pas:688 WizTreeMain.pas:953
+msgid "MB"
+msgstr "MB"
+
+#: WizTreeMain.pas:950
+msgid "GB"
+msgstr "GB"
+
+#: WizTreeMain.pas:956
+msgid "KB"
+msgstr "KB"
+
+#: WizTreeMain.pas:961
+msgid "Bytes"
+msgstr "Bytes"
+
+#: WizTreeMain.pas:1141
+msgid "Files in"
+msgstr "Arquivos em"
+
+#: WizTreeMain.pas:1143
+msgid "File in"
+msgstr "Arquivo em"
+
+#: WizTreeMain.pas:1691 WizTreeMain.pas:1738
+msgid "Selected Files"
+msgstr "Selecionar Arquivos"
+
+#: WizTreeMain.pas:1691 WizTreeMain.pas:1738 WizTreeMain.pas:3593
+msgid "Total Size"
+msgstr "Tamanho total"
+
+#: WizTreeMain.pas:1874 WizTreeMain.pas:1976 WizTreeMain.pas:2033
+msgid "You are about to open"
+msgstr "Você está prestes a abrir"
+
+#: WizTreeMain.pas:1875
+msgid "Command Prompt windows - are you sure?"
+msgstr "Prompt de comando - você tem certeza?"
+
+#: WizTreeMain.pas:1977
+msgid "Explorer windows - are you sure?"
+msgstr "Windows Explorer - você tem certeza?"
+
+#: WizTreeMain.pas:2034
+msgid "files - are you sure?"
+msgstr "arquivos - você tem certeza?"
+
+#. FileName := FDir;
+#. 2 = select directory
+#: WizTreeMain.pas:2147 WizTreeMain.pas:2162 WizTreeMain.pas:3041
+msgid "Select Folder"
+msgstr "Selecionar Pasta"
+
+#. YMMV
+#: WizTreeMain.pas:2149
+msgid "Select"
+msgstr "Selecionado"
+
+#: WizTreeMain.pas:2202
+msgid "File not found"
+msgstr "Arquivo não encontrado"
+
+#: WizTreeMain.pas:2326
+msgid "Error"
+msgstr "Erro"
+
+#: WizTreeMain.pas:2351
+msgid "Sorting file list..."
+msgstr "Classificação da lista de arquivos..."
+
+#: WizTreeMain.pas:2362
+msgid "Loading tree..."
+msgstr "Carregando..."
+
+#: WizTreeMain.pas:2406
+msgid "Scan complete in"
+msgstr "Verificação completa em"
+
+#: WizTreeMain.pas:2408
+msgid "seconds"
+msgstr "segundos"
+
+#: WizTreeMain.pas:2412
+msgid "canceled"
+msgstr "Cancelar"
+
+#: WizTreeMain.pas:2480
+msgid "Failed to update Windows Explorer context menu"
+msgstr "Falha ao atualizar o menu de contexto do Windows Explorer"
+
+#: WizTreeMain.pas:2560
+msgid "No MFT root found!"
+msgstr "Nenhuma raiz MFT encontrada!"
+
+#. we have an update!
+#: WizTreeMain.pas:2640
+msgid "An update is available"
+msgstr "Verificar Atualizações..."
+
+#: WizTreeMain.pas:2641
+msgid "Click on the \"View Update\" button to learn more."
+msgstr "Clique no botão \"Visualizar Atualização\" para saber mais."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2648
+msgid "No update found."
+msgstr "Você está usando a versão mais recente."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2660
+msgid "Error checking for updates:"
+msgstr "Erro ao verificar atualizações:"
+
+#: WizTreeMain.pas:2836
+msgid "Please restart WizTree as Administrator to dump the MFT file"
+msgstr "Reinicie o WizTree como administrador para despejar o arquivo MFT"
+
+#: WizTreeMain.pas:2844
+msgid "Please select an NTFS formatted drive."
+msgstr "Selecione uma unidade formatada NTFS."
+
+#: WizTreeMain.pas:2869
+msgid "Dumping MFT file, please wait..."
+msgstr "Lendo dados do arquivo MFT, aguarde..."
+
+#: WizTreeMain.pas:2880
+msgid "MFT data dump complete."
+msgstr "O despejo de dados MFT está completo."
+
+#: WizTreeMain.pas:2884
+msgid "MFT data dumped to file"
+msgstr "Dados do MFT despejados no arquivo"
+
+#: WizTreeMain.pas:2991
+msgid "64 bit"
+msgstr "64 bit"
+
+#: WizTreeMain.pas:2993
+msgid "32 bit"
+msgstr "32 bit"
+
+#: WizTreeMain.pas:3042
+msgid "MFT file"
+msgstr "Arquivo MFT"
+
+#: WizTreeMain.pas:3487
+msgid "Loading file list..."
+msgstr "Carregando lista de arquivos"
+
+#: WizTreeMain.pas:3592
+msgid "files"
+msgstr "arquivos"
+
+#. lblTotalSpacePerc.Caption := '';
+#: WizTreeMain.pas:3636 WizTreeMain.pas:3637 WizTreeMain.pas:3658
+#: WizTreeMain.pas:3663 WizTreeMain.pas:3666 WizTreeMain.pas:3674
+#: WizTreeMain.pas:3675 WizTreeMain.pas:3677 WizTreeMain.pas:3679
+#: WizTreeMain.pas:3681 WizTreeMain.pas:4268 WizTreeMain.pas:4269
+#: WizTreeMain.pas:4270 WizTreeMain.pas:4271 WizTreeMain.pas:4272
+#: WizTreeMain.pas:4273 WizTreeMain.pas:4274
+msgid "n/a"
+msgstr "n/a"
+
+#: WizTreeMain.pas:3648
+msgid "<Folder>"
+msgstr "<Pasta>"
+
+#: WizTreeMain.pas:4228
+msgid "File"
+msgstr "Arquivo"
+
+#: WizTreeMain.pas:4229
+msgid "Options"
+msgstr "Opções"
+
+#: WizTreeMain.pas:4230 WizTreeMain.pas:4260
+msgid "Scan"
+msgstr "Verificar"
+
+#: WizTreeMain.pas:4231
+msgid "New Instance"
+msgstr "Nova Janela"
+
+#: WizTreeMain.pas:4232
+msgid "Explore Folder"
+msgstr "Explorar pasta"
+
+#: WizTreeMain.pas:4233
+msgid "Command Prompt Here"
+msgstr "Prompt de comando "
+
+#: WizTreeMain.pas:4234
+msgid "Copy Path"
+msgstr "Copiar Caminho"
+
+#: WizTreeMain.pas:4235
+msgid "Delete (to Recycle Bin)"
+msgstr "Excluir (para Lixeira)"
+
+#: WizTreeMain.pas:4236
+msgid "Delete (No undelete possible)"
+msgstr "Excluir (Não será possível recuperar)"
+
+#: WizTreeMain.pas:4237
+msgid "Dump MFT File"
+msgstr "MFT arquivo de despejo"
+
+#: WizTreeMain.pas:4238
+msgid "Exit"
+msgstr "Sair"
+
+#: WizTreeMain.pas:4240
+msgid "Display Dynamic values"
+msgstr "Exibir valores dinâmicos"
+
+#: WizTreeMain.pas:4241
+msgid "Display Byte values"
+msgstr "Exibir valores em Byte"
+
+#: WizTreeMain.pas:4242
+msgid "Display KB values"
+msgstr "Exibir valores em KB"
+
+#: WizTreeMain.pas:4243
+msgid "Display MB values"
+msgstr "Exibir valores em MB"
+
+#: WizTreeMain.pas:4244
+msgid "Display GB values"
+msgstr "Exibir valores em GB"
+
+#: WizTreeMain.pas:4245
+msgid "Windows Explorer context menu"
+msgstr "Menu de contexto do Windows Explorer"
+
+#: WizTreeMain.pas:4246
+msgid "Always Run as Administrator"
+msgstr "Sempre Executar como Administrador"
+
+#: WizTreeMain.pas:4248
+msgid "Language"
+msgstr "Idioma"
+
+#: WizTreeMain.pas:4250
+msgid "Restart as Administrator"
+msgstr "Reiniciar como Adminstrador"
+
+#: WizTreeMain.pas:4251
+msgid "WizTree requires \"Administrator\" rights to enable high speed scanning of NTFS hard drives and to access all system files and folders. Click on the \"Restart as Administrator\" button to enable Administrator rights."
+msgstr "O WizTree requer direitos de \"Administrador\" para permitir a varredura de alta velocidade de discos rígidos NTFS e acessar todos os arquivos e pastas do sistema. Clique no botão \"Reiniciar como Administrador\" para habilitar os direitos de Administrador."
+
+#: WizTreeMain.pas:4252
+msgid "Don't show this again"
+msgstr "Não mostrar novamente."
+
+#: WizTreeMain.pas:4254
+msgid "View Update"
+msgstr "Ver Atualização"
+
+#: WizTreeMain.pas:4255
+msgid "Dismiss"
+msgstr "Dispensar"
+
+#: WizTreeMain.pas:4256
+msgid "Check for updates"
+msgstr "Verificar Atualização"
+
+#: WizTreeMain.pas:4257
+msgid "Check for updates now"
+msgstr "Verificar Atualização "
+
+#: WizTreeMain.pas:4259
+msgid "Select:"
+msgstr "Selecionar"
+
+#: WizTreeMain.pas:4261
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: WizTreeMain.pas:4262
+msgid "Ready..."
+msgstr "Verificando..."
+
+#: WizTreeMain.pas:4263
+msgid "Selection:"
+msgstr "Seleção:"
+
+#: WizTreeMain.pas:4264
+msgid "Total Space:"
+msgstr "Espaço Total:"
+
+#: WizTreeMain.pas:4265
+msgid "Space Used:"
+msgstr "Espaço Usado:"
+
+#: WizTreeMain.pas:4266
+msgid "Space Free:"
+msgstr "Espaço Livre:"
+
+#: WizTreeMain.pas:4276
+msgid "Help us make WizTree better!"
+msgstr "Faça sua Doação."
+
+#: WizTreeMain.pas:4278
+msgid "Tree View"
+msgstr "Visão geral"
+
+#: WizTreeMain.pas:4280
+msgid "Folder"
+msgstr "Pasta"
+
+#: WizTreeMain.pas:4281
+msgid "Percent of Parent"
+msgstr "Percentual"
+
+#: WizTreeMain.pas:4282 WizTreeMain.pas:4307
+msgid "Size"
+msgstr "Tamanho"
+
+#: WizTreeMain.pas:4284 WizTreeMain.pas:4308
+msgid "Modified"
+msgstr "Modificado"
+
+#: WizTreeMain.pas:4285 WizTreeMain.pas:4309
+msgid "Attributes"
+msgstr "Atributos"
+
+#: WizTreeMain.pas:4287
+msgid "Items"
+msgstr "Itens"
+
+#: WizTreeMain.pas:4288 WizTreeMain.pas:4310
+msgid "Allocated"
+msgstr "Alocado"
+
+#: WizTreeMain.pas:4290
+msgid "File View"
+msgstr "Visualização de arquivo"
+
+#: WizTreeMain.pas:4292
+msgid "File Search Filter:"
+msgstr "Filtro de pesquisa: "
+
+#: WizTreeMain.pas:4293
+msgid "Clear"
+msgstr "Limpar"
+
+#: WizTreeMain.pas:4294
+msgid "Match file name only"
+msgstr "Apenas nome de arquivo "
+
+#: WizTreeMain.pas:4295
+msgid "(Fast)"
+msgstr "(Rápido)"
+
+#: WizTreeMain.pas:4296
+msgid "Match entire path"
+msgstr "Caminho inteiro"
+
+#: WizTreeMain.pas:4297
+msgid "(Warning: can be slow!)"
+msgstr "(Aviso: pode ser lento!)"
+
+#: WizTreeMain.pas:4298
+msgid "Max files to display:"
+msgstr "Exibir ao máximo:"
+
+#: WizTreeMain.pas:4300
+msgid "(Selecting ALL can be very slow!)"
+msgstr "(Selecionar Todos pode ser muito lento!)"
+
+#: WizTreeMain.pas:4301
+msgid "ALL"
+msgstr "TODOS"
+
+#: WizTreeMain.pas:4303
+msgid "Total Files:"
+msgstr "Total de Arquivos:"
+
+#: WizTreeMain.pas:4305
+msgid "File Name"
+msgstr "Nome do Arquivo"
+
+#: WizTreeMain.pas:4306
+msgid "Percent of Drive"
+msgstr "Porcentagem de unidade"
+
+#: WizTreeMain.pas:4312
+msgid "About"
+msgstr "Sobre"
+
+#: WizTreeMain.pas:4314
+msgid "If you use WizTree commercially or you'd just like to support the freeware community then please make a donation by clicking on the Donate button at the top right of the screen. Thank you! :)"
+msgstr "Se você usa o WizTree comercialmente ou simplesmente gostaria de ajudar a comunidade freeware, então faça uma doação clicando no botão Doar no canto superior direito da tela. Obrigado! :)"
+
+#: WizTreeMain.pas:4316
+msgid "What is WizTree?"
+msgstr "O que é o WizTree?"
+
+#: WizTreeMain.pas:4317
+msgid "WizTree is the world's fastest disk space analyzer. It scans your hard drive and shows you which files and folders are using the most disk space."
+msgstr "O WizTree é o analisador de espaço em disco mais rápido do mundo. Ele varre o seu disco rígido e mostra quais arquivos e pastas estão usando a maior parte do espaço em disco."
+
+#: WizTreeMain.pas:4318
+msgid "It does this in the FASTEST way possible - you simply won't find any other application of this type that's quicker! Use the information WizTree provides to quickly locate and remove \"space hogs\" from your hard drive."
+msgstr "Ele faz isso da maneira mais rápida possível - você simplesmente não encontrará nenhuma outra aplicação desse tipo que seja mais rápida! Use as informações que o WizTree fornece para localizar e remover rapidamente \"pouco de espaço\" do seu disco rígido."
+
+#: WizTreeMain.pas:4320
+msgid "WARNING: Take care not to remove any files that are required for the correct operation of your PC!"
+msgstr "AVISO: Tenha cuidado para não remover os arquivos necessários para a operação correta do seu PC!"
+
+#: WizTreeMain.pas:4322
+msgid "What makes WizTree so fast?"
+msgstr "O que torna o WizTree tão rápido?"
+
+#: WizTreeMain.pas:4324
+msgid "When scanning NTFS formatted hard drives (most modern hard drives use this format), WizTree reads the hard drive's Master File Table (MFT) directly from the disk."
+msgstr "Ao digitalizar discos rígidos formatados em NTFS (a maioria dos discos rígidos modernos usam esse formato), o WizTree lê a Tabela de arquivos mestre (MFT) do disco rígido diretamente do disco."
+
+#: WizTreeMain.pas:4325
+msgid "The MFT is a special hidden file used by the NTFS file system to keep track of all files and folders on a hard drive. Scanning for files this way completely bypasses the operating system (Windows) and provides a huge performance boost."
+msgstr "O MFT é um arquivo oculto especial usado pelo sistema de arquivos NTFS para acompanhar todos os arquivos e pastas em um disco rígido. A digitalização de arquivos dessa forma ignora completamente o sistema operacional (Windows) e fornece um enorme aumento de desempenho."
+
+#: WizTreeMain.pas:4327
+msgid "As of version 2.0, WizTree can now also scan non NTFS hard drives, network drives, USB drives, and individual directories."
+msgstr "A partir da versão 2.0, o WizTree também pode digitalizar discos rígidos não NTFS, unidades de rede, unidades USB e diretórios individuais."
+
+#: WizTreeMain.pas:4329
+msgid "Please visit the Antibody Software website for more great software, such as:"
+msgstr "Visite o site Software Antibody para obter um software excelente, como:"
+
+#: WizTreeMain.pas:4330 WizTreeMain.pas:4334
+msgid "(click for more information)"
+msgstr "(click para mais informações)"
+
+#: WizTreeMain.pas:4331
+msgid "A powerful yet easy to use web gallery downloading tool. It supports most of the popular image hosting sites (such as flickr, facebook, Google image search, imgur, deviantart etc.)."
+msgstr "Uma poderosa e fácil ferramenta de usar,para download da galeria da web. Ele suporta a maioria dos populares sites de hospedagem de imagens (como flickr, facebook, pesquisa de imagens do Google, imgur, deviantart etc.)."
+
+#: WizTreeMain.pas:4332
+msgid "It doesn't require any complicated setup or project files - it just works."
+msgstr "Não requer qualquer configuração complicada ou arquivos de projeto - apenas funcional."
+
+#: WizTreeMain.pas:4335
+msgid "A keyboard enhancement utility that makes it easy to type accented and other special Unicode characters on a standard US/UK keyboard using easy to remember keyboard shortcuts."
+msgstr "Um utilitário de aprimoramento de teclado que facilita o tipo de caracteres acentuados e outros caracteres Unicode especiais em um teclado US/UK padrão, usando atalhos de teclado fáceis de lembrar."
+
+#: WizTreeMain.pas:4336
+msgid "For example, to type an à (a with grave accent), you press Ctrl+` then press a. These shortcuts work from any Windows application."
+msgstr "Por exemplo, para digitar um (com acento grave), você pressiona Ctrl + `, então pressione a. Esses atalhos funcionam a partir de qualquer aplicativo do Windows."
+
+#: SelectLanguage.pas:56 supportercode.pas:239
+msgid "OK"
+msgstr "OK"
+
+#: supportercode.pas:143
+msgid "Invalid Key - Please try again."
+msgstr "Chave inválida - tente novamente."
+
+#: supportercode.pas:144
+msgid "It is recommended that you copy and paste your supporter code."
+msgstr "Recomenda-se que copie e cole seu código."
+
+#: supportercode.pas:145
+msgid "Only use digits 0 to 9 and letters A to F."
+msgstr "Use apenas os dígitos de 0 a 9 e as letras A a F."
+
+#: supportercode.pas:219 WizTreeMain.pas:6266
+msgid "Thank you for your support!"
+msgstr "Obrigado pelo seu apoio!"
+
+#: supportercode.pas:220
+msgid "WizTree will now restart."
+msgstr "O WizTree reiniciará agora."
+
+#: supportercode.pas:241 WizTreeMain.pas:5286
+msgid "Enter Supporter Code"
+msgstr "Digite o Código de Compra"
+
+#: supportercode.pas:242
+msgid "Supporter Code"
+msgstr "Código de Compra"
+
+#. warning dialog title
+#: uVistaTaskDialog.pas:228
+msgid "Warning"
+msgstr "Atenção"
+
+#. confirmation dialog title
+#: uVistaTaskDialog.pas:233
+msgid "Confirmation"
+msgstr "Confirmação"
+
+#. information dialog title
+#: uVistaTaskDialog.pas:243
+msgid "Information"
+msgstr "Informação"
+
+#: WizTreeMain.pas:1616
+msgid "(No Extension)"
+msgstr "(Sem extensão)"
+
+#: WizTreeMain.pas:5269
+msgid "File Type"
+msgstr "Tipo de Arquivo"
+
+#: WizTreeMain.pas:5272
+msgid "Percent"
+msgstr "Porcentagem"
+
+#: WizTreeMain.pas:5273
+msgid "Extension"
+msgstr "Extensão"
+
+#: WizTreeMain.pas:5276
+msgid "MFT Dump"
+msgstr "O despejo de dados MFT está completo."
+
+#: WizTreeMain.pas:5276
+msgid "All Files"
+msgstr "Todos Arquivos"
+
+#: WizTreeMain.pas:5277
+msgid "Show Treemap"
+msgstr "Mostrar Treemap"
+
+#: WizTreeMain.pas:5278
+msgid "Show File Types"
+msgstr "Mostrar tipos de arquivo"
+
+#: WizTreeMain.pas:5279
+msgid "Reset tree expansion"
+msgstr "Redefinir a expansão do menu"
+
+#: WizTreeMain.pas:5281
+msgid "Select Parent"
+msgstr "Seleção principal"
+
+#: WizTreeMain.pas:5282
+msgid "Reselect Child"
+msgstr "Iniciar Seleção"
+
+#: WizTreeMain.pas:5283
+msgid "Help support WizTree development by making a donation"
+msgstr "Ajude a apoiar o desenvolvimento do WizTree fazendo uma doação"
+
+#: WizTreeMain.pas:5284
+msgid "(You can hide the Donate button by making a donation)"
+msgstr "(Você pode esconder o botão Doar fazendo uma doação)"
+
+#: WizTreeMain.pas:6883
+msgid "Show Allocated Size on Treemap"
+msgstr "Mostrar tamanho alocado no Treemap"
+
+#: WizTreeMain.pas:6884
+msgid "Auto scan after making selection"
+msgstr "Digitalização automática depois de fazer a seleção"
+
+#: WizTreeMain.pas:6886
+msgid "Zoom in Treemap"
+msgstr "Mais Zoom Treemap"
+
+#: WizTreeMain.pas:6887
+msgid "Zoom out Treemap"
+msgstr "Menos Zoom Treemap"
+
+#: exporttreemap.pas:57 WizTreeMain.pas:7193
+msgid "Save Treemap Image as .png file"
+msgstr "Salvar a imagem Treemap como arquivo .png"
+
+#: exporttreemap.pas:58
+msgid "Save"
+msgstr "Salvar"
+
+#: exporttreemap.pas:60
+msgid "Width"
+msgstr "Largura"
+
+#: exporttreemap.pas:61
+msgid "Height"
+msgstr "Altura"
+
+#: exporttreemap.pas:62
+msgid "Shades of Gray (single color)"
+msgstr "Tons de cinza (cor única)"
+
+#: WizTreeMain.pas:7191
+msgid "Show Free Space on Treemap"
+msgstr "Mostrar espaço livre em Treemap"
+
+msgid "File already exists - overwrite?"
+msgstr "O arquivo já existe - subistituí-lo?"
+
+#: WizTreeMain.pas:3002 WizTreeMain.pas:3217
+msgid "Generated by"
+msgstr "Gerado por"
+
+#: WizTreeMain.pas:3002 WizTreeMain.pas:3217
+msgid "You can hide this message by making a donation"
+msgstr "Você pode esconder esta mensagem fazendo uma doação"
+
+#: WizTreeMain.pas:4452
+msgid "MFT Dump cancelled..."
+msgstr "MFT Dump cancelado..."
+
+#: WizTreeMain.pas
+msgid "Export complete."
+msgstr "Exportação completa."
+
+#: WizTreeMain.pas:7815
+msgid "Copy file and size info to clipboard"
+msgstr "Copie informações de arquivo e tamanho para a área de transferência"
+
+#: WizTreeMain.pas:7816
+msgid "Export to .CSV file"
+msgstr "Exportado para arquivo .CSV"
+
+msgid "Colors"
+msgstr "Cores"
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Color Blind"
+msgstr "Daltônico"
+
+msgid "CSV file"
+msgstr "Arquivo CSV"
+
+msgid "Select CSV file"
+msgstr "Selecionar arquivo CSV"
+
+msgid "Failed to import CSV file"
+msgstr "Falha ao importar CSV"
+
+msgid "Color By"
+msgstr "Cor por"
+
+msgid "Color"
+msgstr "Cor"
+
+msgid "File Extension(s)"
+msgstr "Extensões de arquivo(s)"
+
+msgid "Export File Types to CSV file"
+msgstr "Exportar tipos de arquivo para arquivo CSV"
+
+msgid "Display TB values"
+msgstr ""
+
+msgid "TB"
+msgstr ""
+

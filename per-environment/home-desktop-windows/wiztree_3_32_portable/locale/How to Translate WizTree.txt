@@ -1,0 +1,4 @@
+WizTree supports multiple languages. If your language is not supported you can 
+create your own translation by following the instructions available here:
+
+http://antibody-software.com/how-to-translate-wiztree-into-other-languages/

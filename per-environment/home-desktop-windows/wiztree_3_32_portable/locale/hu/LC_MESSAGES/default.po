@@ -1,0 +1,685 @@
+# WIZTREE
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WizTree 3\n"
+"POT-Creation-Date: 2017-08-31 12:05\n"
+"PO-Revision-Date: 2018-09-04 13:45+0200\n"
+"Last-Translator: Dominic Dumée <webmaster@antibody-software.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"Language-Team: niltwill@protonmail.com\n"
+"Language: hu_HU\n"
+
+#: WizTreeMain.pas:673
+msgid "Scanning..."
+msgstr "Vizsgálat folyamatban..."
+
+#: WizTreeMain.pas:673 WizTreeMain.pas:4286
+msgid "Folders"
+msgstr "Könyvtárak"
+
+#: WizTreeMain.pas:673 WizTreeMain.pas:4283
+msgid "Files"
+msgstr "Fájlok"
+
+#: WizTreeMain.pas:688
+msgid "Dumping file"
+msgstr "Fájl kimentése"
+
+#: WizTreeMain.pas:688 WizTreeMain.pas:953
+msgid "MB"
+msgstr "MB"
+
+#: WizTreeMain.pas:950
+msgid "GB"
+msgstr "GB"
+
+#: WizTreeMain.pas:956
+msgid "KB"
+msgstr "KB"
+
+#: WizTreeMain.pas:961
+msgid "Bytes"
+msgstr "Byte-ok"
+
+#: WizTreeMain.pas:1141
+msgid "Files in"
+msgstr "Fájlok a"
+
+#: WizTreeMain.pas:1143
+msgid "File in"
+msgstr "Fájl a"
+
+#: WizTreeMain.pas:1691 WizTreeMain.pas:1738
+msgid "Selected Files"
+msgstr "Kiválasztott fájlok"
+
+#: WizTreeMain.pas:1691 WizTreeMain.pas:1738 WizTreeMain.pas:3593
+msgid "Total Size"
+msgstr "Teljes méret"
+
+#: WizTreeMain.pas:1874 WizTreeMain.pas:1976 WizTreeMain.pas:2033
+msgid "You are about to open"
+msgstr "Azon vagy, hogy megnyisd a"
+
+#: WizTreeMain.pas:1875
+msgid "Command Prompt windows - are you sure?"
+msgstr "parancssort - biztos vagy ebben?"
+
+#: WizTreeMain.pas:1977
+msgid "Explorer windows - are you sure?"
+msgstr "az Intézőt - biztos vagy ebben?"
+
+#: WizTreeMain.pas:2034
+msgid "files - are you sure?"
+msgstr "fájlokat - biztos vagy ebben?"
+
+#. FileName := FDir;
+#. 2 = select directory
+#: WizTreeMain.pas:2147 WizTreeMain.pas:2162 WizTreeMain.pas:3041
+msgid "Select Folder"
+msgstr "Könyvtár kiválasztása"
+
+#. YMMV
+#: WizTreeMain.pas:2149
+msgid "Select"
+msgstr "Válassz"
+
+#: WizTreeMain.pas:2202
+msgid "File not found"
+msgstr "Fájl nem található"
+
+#: WizTreeMain.pas:2326
+msgid "Error"
+msgstr "Hiba"
+
+#: WizTreeMain.pas:2351
+msgid "Sorting file list..."
+msgstr "Fájl lista rendezése..."
+
+#: WizTreeMain.pas:2362
+msgid "Loading tree..."
+msgstr "Ágrajz betöltése..."
+
+#: WizTreeMain.pas:2406
+msgid "Scan complete in"
+msgstr "A vizsgálat befejeződött"
+
+#: WizTreeMain.pas:2408
+msgid "seconds"
+msgstr "másodperc alatt"
+
+#: WizTreeMain.pas:2412
+msgid "canceled"
+msgstr "meg lett szakítva"
+
+#: WizTreeMain.pas:2480
+msgid "Failed to update Windows Explorer context menu"
+msgstr "Nem sikerült a Windows Intéző helyi menüjét frissíteni"
+
+#: WizTreeMain.pas:2560
+msgid "No MFT root found!"
+msgstr "Nem található MFT gyökér!"
+
+#. we have an update!
+#: WizTreeMain.pas:2640
+msgid "An update is available"
+msgstr "Elérhető egy frissítés"
+
+#: WizTreeMain.pas:2641
+msgid "Click on the \"View Update\" button to learn more."
+msgstr "Kattints a \"Frissítés megtekintése\" gombra további információért."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2648
+msgid "No update found."
+msgstr "Nem található frissítés."
+
+#. if tag set then display error if any
+#: WizTreeMain.pas:2660
+msgid "Error checking for updates:"
+msgstr "Hiba a frissítés ellenőrzése közben:"
+
+#: WizTreeMain.pas:2836
+msgid "Please restart WizTree as Administrator to dump the MFT file"
+msgstr "Kérlek indítsd újra a WizTree-t rendszergazdai jogosultsággal, hogy az MFT fájlt kimentsd"
+
+#: WizTreeMain.pas:2844
+msgid "Please select an NTFS formatted drive."
+msgstr "Kérlek válassz ki egy NTFS fájlrendszerrel formázott meghajtót."
+
+#: WizTreeMain.pas:2869
+msgid "Dumping MFT file, please wait..."
+msgstr "Az MFT fájl kimentése, kérlek légy türelemmel..."
+
+#: WizTreeMain.pas:2880
+msgid "MFT data dump complete."
+msgstr "MFT adat sikeresen kinyerve."
+
+#: WizTreeMain.pas:2884
+msgid "MFT data dumped to file"
+msgstr "MFT adat fájlba mentve"
+
+#: WizTreeMain.pas:2991
+msgid "64 bit"
+msgstr "64 bit"
+
+#: WizTreeMain.pas:2993
+msgid "32 bit"
+msgstr "32 bit"
+
+#: WizTreeMain.pas:3042
+msgid "MFT file"
+msgstr "MFT fájl"
+
+#: WizTreeMain.pas:3487
+msgid "Loading file list..."
+msgstr "A fájl lista betöltése..."
+
+#: WizTreeMain.pas:3592
+msgid "files"
+msgstr "fájlok"
+
+#. lblTotalSpacePerc.Caption := '';
+#: WizTreeMain.pas:3636 WizTreeMain.pas:3637 WizTreeMain.pas:3658
+#: WizTreeMain.pas:3663 WizTreeMain.pas:3666 WizTreeMain.pas:3674
+#: WizTreeMain.pas:3675 WizTreeMain.pas:3677 WizTreeMain.pas:3679
+#: WizTreeMain.pas:3681 WizTreeMain.pas:4268 WizTreeMain.pas:4269
+#: WizTreeMain.pas:4270 WizTreeMain.pas:4271 WizTreeMain.pas:4272
+#: WizTreeMain.pas:4273 WizTreeMain.pas:4274
+msgid "n/a"
+msgstr "nincs adat"
+
+#: WizTreeMain.pas:3648
+msgid "<Folder>"
+msgstr "<Könyvtár>"
+
+#: WizTreeMain.pas:4228
+msgid "File"
+msgstr "Fájl"
+
+#: WizTreeMain.pas:4229
+msgid "Options"
+msgstr "Beállítások"
+
+#: WizTreeMain.pas:4230 WizTreeMain.pas:4260
+msgid "Scan"
+msgstr "Vizsgálat"
+
+#: WizTreeMain.pas:4231
+msgid "New Instance"
+msgstr "Új folyamat"
+
+#: WizTreeMain.pas:4232
+msgid "Explore Folder"
+msgstr "Könyvtár megvizsgálása"
+
+#: WizTreeMain.pas:4233
+msgid "Command Prompt Here"
+msgstr "Parancssor megnyitása itt"
+
+#: WizTreeMain.pas:4234
+msgid "Copy Path"
+msgstr "Útvonal másolása"
+
+#: WizTreeMain.pas:4235
+msgid "Delete (to Recycle Bin)"
+msgstr "Törlés (a lomtárba)"
+
+#: WizTreeMain.pas:4236
+msgid "Delete (No undelete possible)"
+msgstr "Törlés (visszaállítás lehetősége nélkül)"
+
+#: WizTreeMain.pas:4237
+msgid "Dump MFT File"
+msgstr "MFT fájl kinyerése"
+
+#: WizTreeMain.pas:4238
+msgid "Exit"
+msgstr "Kilépés"
+
+#: WizTreeMain.pas:4240
+msgid "Display Dynamic values"
+msgstr "Jelenítse meg a dinamikus értéket"
+
+#: WizTreeMain.pas:4241
+msgid "Display Byte values"
+msgstr "Jelenítse meg a byte értéket"
+
+#: WizTreeMain.pas:4242
+msgid "Display KB values"
+msgstr "Jelenítse meg a KB értéket"
+
+#: WizTreeMain.pas:4243
+msgid "Display MB values"
+msgstr "Jelenítse meg a MB értéket"
+
+#: WizTreeMain.pas:4244
+msgid "Display GB values"
+msgstr "Jelenítse meg a GB értéket"
+
+#: WizTreeMain.pas:4245
+msgid "Windows Explorer context menu"
+msgstr "Windows Intéző helyi menü"
+
+#: WizTreeMain.pas:4246
+msgid "Always Run as Administrator"
+msgstr "Mindig rendszergazdaként futtassa"
+
+#: WizTreeMain.pas:4248
+msgid "Language"
+msgstr "Nyelv"
+
+#: WizTreeMain.pas:4250
+msgid "Restart as Administrator"
+msgstr "Újraindítás adminként"
+
+#: WizTreeMain.pas:4251
+msgid "WizTree requires \"Administrator\" rights to enable high speed scanning of NTFS hard drives and to access all system files and folders. Click on the \"Restart as Administrator\" button to enable Administrator rights."
+msgstr "A WizTree rendszergazdai jogosultságot igényel, hogy gyors sebességgel átvizsgálja az NTFS merevlemezt és hozzáférjen minden rendszerfájlhoz és könyvtárhoz. Kattints az \"Újraindítás adminként\" gombra a rendszergazdai jogok engedélyezéséhez."
+
+#: WizTreeMain.pas:4252
+msgid "Don't show this again"
+msgstr "Ne mutassa ezt újra"
+
+#: WizTreeMain.pas:4254
+msgid "View Update"
+msgstr "Frissítés megtekintése"
+
+#: WizTreeMain.pas:4255
+msgid "Dismiss"
+msgstr "Elutasítás"
+
+#: WizTreeMain.pas:4256
+msgid "Check for updates"
+msgstr "Frissítések ellenőrzése"
+
+#: WizTreeMain.pas:4257
+msgid "Check for updates now"
+msgstr "Most ellenőrizze a frissítéseket"
+
+#: WizTreeMain.pas:4259
+msgid "Select:"
+msgstr "Válassz:"
+
+#: WizTreeMain.pas:4261
+msgid "Cancel"
+msgstr "Mégse"
+
+#: WizTreeMain.pas:4262
+msgid "Ready..."
+msgstr "Kész..."
+
+#: WizTreeMain.pas:4263
+msgid "Selection:"
+msgstr "Választás:"
+
+#: WizTreeMain.pas:4264
+msgid "Total Space:"
+msgstr "Kapacitás:"
+
+#: WizTreeMain.pas:4265
+msgid "Space Used:"
+msgstr "Foglalt terület:"
+
+#: WizTreeMain.pas:4266
+msgid "Space Free:"
+msgstr "Szabad terület:"
+
+#: WizTreeMain.pas:4276
+msgid "Help us make WizTree better!"
+msgstr "Segíts jobbá tenni a WizTree-t!"
+
+#: WizTreeMain.pas:4278
+msgid "Tree View"
+msgstr "Faszerkezetes nézet"
+
+#: WizTreeMain.pas:4280
+msgid "Folder"
+msgstr "Könyvtár"
+
+#: WizTreeMain.pas:4281
+msgid "Percent of Parent"
+msgstr "A szülő százaléka"
+
+#: WizTreeMain.pas:4282 WizTreeMain.pas:4307
+msgid "Size"
+msgstr "Méret"
+
+#: WizTreeMain.pas:4284 WizTreeMain.pas:4308
+msgid "Modified"
+msgstr "Módosult"
+
+#: WizTreeMain.pas:4285 WizTreeMain.pas:4309
+msgid "Attributes"
+msgstr "Attribútumok"
+
+#: WizTreeMain.pas:4287
+msgid "Items"
+msgstr "Tételek"
+
+#: WizTreeMain.pas:4288 WizTreeMain.pas:4310
+msgid "Allocated"
+msgstr "Hozzárendelve"
+
+#: WizTreeMain.pas:4290
+msgid "File View"
+msgstr "Fájlnézet"
+
+#: WizTreeMain.pas:4292
+msgid "File Search Filter:"
+msgstr "Fájlkeresési szűrő:"
+
+#: WizTreeMain.pas:4293
+msgid "Clear"
+msgstr "Kitisztít"
+
+#: WizTreeMain.pas:4294
+msgid "Match file name only"
+msgstr "Csak a fájlnevet nézze"
+
+#: WizTreeMain.pas:4295
+msgid "(Fast)"
+msgstr "(Gyors)"
+
+#: WizTreeMain.pas:4296
+msgid "Match entire path"
+msgstr "A teljes útvonalat nézze"
+
+#: WizTreeMain.pas:4297
+msgid "(Warning: can be slow!)"
+msgstr "(Figyelmeztetés: lassú lehet!)"
+
+#: WizTreeMain.pas:4298
+msgid "Max files to display:"
+msgstr "Max fájl a megjelenítéshez:"
+
+#: WizTreeMain.pas:4300
+msgid "(Selecting ALL can be very slow!)"
+msgstr "(Az ÖSSZES kiválasztása nagyon lassú lehet!)"
+
+#: WizTreeMain.pas:4301
+msgid "ALL"
+msgstr "ÖSSZES"
+
+#: WizTreeMain.pas:4303
+msgid "Total Files:"
+msgstr "Összes fájl:"
+
+#: WizTreeMain.pas:4305
+msgid "File Name"
+msgstr "Fájlnév"
+
+#: WizTreeMain.pas:4306
+msgid "Percent of Drive"
+msgstr "A meghajtó százaléka"
+
+#: WizTreeMain.pas:4312
+msgid "About"
+msgstr "Névjegy"
+
+#: WizTreeMain.pas:4314
+msgid "If you use WizTree commercially or you'd just like to support the freeware community then please make a donation by clicking on the Donate button at the top right of the screen. Thank you! :)"
+msgstr "Ha szeretnéd a WizTree-t kereskedelmileg használni, vagy ha csupán a freeware közösséget szeretnéd támogatni, akkor kérlek adományozz a \"Donate\" gombra kattintva a program jobb felső sarkában. Köszönjük! :)"
+
+#: WizTreeMain.pas:4316
+msgid "What is WizTree?"
+msgstr "Mi a WizTree?"
+
+#: WizTreeMain.pas:4317
+msgid "WizTree is the world's fastest disk space analyzer. It scans your hard drive and shows you which files and folders are using the most disk space."
+msgstr "A WizTree a világ leggyorsabb merevlemez vizsgálója. Megvizsgálja a merevlemezed és megmutatja, hogy milyen fájlok és könyvtárak foglalják a legtöbb helyet a lemezen."
+
+#: WizTreeMain.pas:4318
+msgid "It does this in the FASTEST way possible - you simply won't find any other application of this type that's quicker! Use the information WizTree provides to quickly locate and remove \"space hogs\" from your hard drive."
+msgstr "Ezt a lehető LEGGYORSABB módon teszi meg - egyszerűen nem fogsz egy másik ilyen alkalmazást se találni, ami gyorsabb! Használd a WizTree által nyújtott infót arra, hogy gyorsan megtaláld és eltávolítsd a \"helyzabáló dolgokat\" a merevlemezedről."
+
+#: WizTreeMain.pas:4320
+msgid "WARNING: Take care not to remove any files that are required for the correct operation of your PC!"
+msgstr "FIGYELEM: Gondoskodj arról, hogy ne távolíts egy olyan fájlt se, ami szükséges a számítógéped megfelelő működéséhez!"
+
+#: WizTreeMain.pas:4322
+msgid "What makes WizTree so fast?"
+msgstr "Mi teszi a WizTree-t annyira gyorssá?"
+
+#: WizTreeMain.pas:4324
+msgid "When scanning NTFS formatted hard drives (most modern hard drives use this format), WizTree reads the hard drive's Master File Table (MFT) directly from the disk."
+msgstr "Mikor az NTFS formázott meghajtókat vizsgálja (a legtöbb modern meghajtó ezt a formátumot használja), akkor a WizTree a merevlemez mesterfájltábláját (MFT) olvassa be közvetlenül a lemezről."
+
+#: WizTreeMain.pas:4325
+msgid "The MFT is a special hidden file used by the NTFS file system to keep track of all files and folders on a hard drive. Scanning for files this way completely bypasses the operating system (Windows) and provides a huge performance boost."
+msgstr "Az MFT egy különleges, rejtett fájl, amit az NTFS fájlrendszer arra használ, hogy számon tartson minden fájlt és könyvtárt a merevlemezen. Az ily módon történő fájlkeresés teljesen elkerüli az operációs rendszert (a Windows-t) és óriási teljesítményjavulást biztosít."
+
+#: WizTreeMain.pas:4327
+msgid "As of version 2.0, WizTree can now also scan non NTFS hard drives, network drives, USB drives, and individual directories."
+msgstr "A 2.0 verziótól kezdve, a WizTree képes arra is, hogy megvizsgálja a nem NTFS meghajtókat, hálózati meghajtókat, USB meghajtókat, és egyéni könyvtárakat."
+
+#: WizTreeMain.pas:4329
+msgid "Please visit the Antibody Software website for more great software, such as:"
+msgstr "Kérlek látogasd meg az Antibody Software weboldalt további szoftverekért, mint pl.:"
+
+#: WizTreeMain.pas:4330 WizTreeMain.pas:4334
+msgid "(click for more information)"
+msgstr "(kattints további információért)"
+
+#: WizTreeMain.pas:4331
+msgid "A powerful yet easy to use web gallery downloading tool. It supports most of the popular image hosting sites (such as flickr, facebook, Google image search, imgur, deviantart etc.)."
+msgstr "Egy erőteljes, de könnyen használható webgaléria letöltő eszköz. Támogatja a legtöbb népszerű képmegosztó oldalt (mint a Flickr, Facebook, Google képkereső, ImgUr, Deviantart, stb.)."
+
+#: WizTreeMain.pas:4332
+msgid "It doesn't require any complicated setup or project files - it just works."
+msgstr "Nem igényel semmilyen bonyolult telepítést vagy projekt fájlt - ez egyszerűen csak működik."
+
+#: WizTreeMain.pas:4335
+msgid "A keyboard enhancement utility that makes it easy to type accented and other special Unicode characters on a standard US/UK keyboard using easy to remember keyboard shortcuts."
+msgstr "Egy billentyűzet bővítő alkalmazás, ami könnyűvé teszi azt, hogy ékezetes és egyéb speciális Unicode karaktereket gépeljünk be egy szabványos amerikai vagy angol billentyűzeten, könnyen megjegyezhető billentyűkombinációkkal."
+
+#: WizTreeMain.pas:4336
+msgid "For example, to type an à (a with grave accent), you press Ctrl+` then press a. These shortcuts work from any Windows application."
+msgstr "Például, hogy begépeld azt, hogy: à (a betű, visszafelé dőlő ékezettel), nyomd meg a Ctrl+` billentyűkombinációt és aztán az a billentyűt. Ezek a billentyűkombinációk bármilyen Windows-os alkalmazásból működnek."
+
+#: SelectLanguage.pas:56 supportercode.pas:239
+msgid "OK"
+msgstr "OK"
+
+#: supportercode.pas:143
+msgid "Invalid Key - Please try again."
+msgstr "Érvénytelen kulcs - kérlek próbáld újra."
+
+#: supportercode.pas:144
+msgid "It is recommended that you copy and paste your supporter code."
+msgstr "Ajánlott a támogatói kódodat kimásolni és beilleszteni."
+
+#: supportercode.pas:145
+msgid "Only use digits 0 to 9 and letters A to F."
+msgstr "Csak a 0-9 számjegyeket és az A-F betűket használd."
+
+#: supportercode.pas:219 WizTreeMain.pas:6266
+msgid "Thank you for your support!"
+msgstr "Köszönjük a támogatásodat!"
+
+#: supportercode.pas:220
+msgid "WizTree will now restart."
+msgstr "A WizTree most újra fog indulni."
+
+#: supportercode.pas:241 WizTreeMain.pas:5286
+msgid "Enter Supporter Code"
+msgstr "Írd be a támogatói kódodat"
+
+#: supportercode.pas:242
+msgid "Supporter Code"
+msgstr "Támogatói kód"
+
+#. warning dialog title
+#: uVistaTaskDialog.pas:228
+msgid "Warning"
+msgstr "Figyelmeztetés"
+
+#. confirmation dialog title
+#: uVistaTaskDialog.pas:233
+msgid "Confirmation"
+msgstr "Megerősítés"
+
+#. information dialog title
+#: uVistaTaskDialog.pas:243
+msgid "Information"
+msgstr "Információ"
+
+#: WizTreeMain.pas:1616
+msgid "(No Extension)"
+msgstr "(nincs kiterjesztés)"
+
+#: WizTreeMain.pas:5269
+msgid "File Type"
+msgstr "Fájltípus"
+
+#: WizTreeMain.pas:5272
+msgid "Percent"
+msgstr "Százalék"
+
+#: WizTreeMain.pas:5273
+msgid "Extension"
+msgstr "Kiterjesztés"
+
+#: WizTreeMain.pas:5276
+msgid "MFT Dump"
+msgstr "MFT mentés"
+
+#: WizTreeMain.pas:5276
+msgid "All Files"
+msgstr "Minden fájl"
+
+#: WizTreeMain.pas:5277
+msgid "Show Treemap"
+msgstr "A fastruktúra-térkép megjelenítése"
+
+#: WizTreeMain.pas:5278
+msgid "Show File Types"
+msgstr "A fájltípusok megjelenítése"
+
+#: WizTreeMain.pas:5279
+msgid "Reset tree expansion"
+msgstr "A fastruktúra alaphelyzetbe állítása"
+
+#: WizTreeMain.pas:5281
+msgid "Select Parent"
+msgstr "A szülő kiválasztása"
+
+#: WizTreeMain.pas:5282
+msgid "Reselect Child"
+msgstr "A gyerek újraválasztása"
+
+#: WizTreeMain.pas:5283
+msgid "Help support WizTree development by making a donation"
+msgstr "Segíts a WizTree fejlesztésében azzal, hogy adományozol"
+
+#: WizTreeMain.pas:5284
+msgid "(You can hide the Donate button by making a donation)"
+msgstr "(Elrejtheted a \"Donate\" gombot azzal, hogy adományozol)"
+
+#: WizTreeMain.pas:6883
+msgid "Show Allocated Size on Treemap"
+msgstr "A hozzárendelt méret mutatása a fastruktúra-térképen"
+
+#: WizTreeMain.pas:6884
+msgid "Auto scan after making selection"
+msgstr "Automatikus vizsgálat a választás után"
+
+#: WizTreeMain.pas:6886
+msgid "Zoom in Treemap"
+msgstr "A fastruktúra-térkép nagyítása"
+
+#: WizTreeMain.pas:6887
+msgid "Zoom out Treemap"
+msgstr "A fastruktúra-térkép kicsinyítése"
+
+#: exporttreemap.pas:57 WizTreeMain.pas:7193
+msgid "Save Treemap Image as .png file"
+msgstr "A fastruktúra-térkép kép .png fájlként való mentése"
+
+#: exporttreemap.pas:58
+msgid "Save"
+msgstr "Mentés"
+
+#: exporttreemap.pas:60
+msgid "Width"
+msgstr "Szélesség"
+
+#: exporttreemap.pas:61
+msgid "Height"
+msgstr "Magasság"
+
+#: exporttreemap.pas:62
+msgid "Shades of Gray (single color)"
+msgstr "A szürke árnyalatai (egyszín)"
+
+#: WizTreeMain.pas:7191
+msgid "Show Free Space on Treemap"
+msgstr "Mutassa meg a szabad területet a fastruktúra-térképen"
+
+msgid "File already exists - overwrite?"
+msgstr "A fájl már létezik - felülírjam?"
+
+#: WizTreeMain.pas:3002 WizTreeMain.pas:3217
+msgid "Generated by"
+msgstr "Generálva"
+
+#: WizTreeMain.pas:3002 WizTreeMain.pas:3217
+msgid "You can hide this message by making a donation"
+msgstr "Elrejtheted ezt az üzenetet azzal, ha adományozol"
+
+#: WizTreeMain.pas:4452
+msgid "MFT Dump cancelled..."
+msgstr "Az MFT kimentés megszakítva..."
+
+#: WizTreeMain.pas
+msgid "Export complete."
+msgstr "Az exportálás sikeres."
+
+#: WizTreeMain.pas:7815
+msgid "Copy file and size info to clipboard"
+msgstr "A fájlt és méret információt másolja a vágólapra"
+
+#: WizTreeMain.pas:7816
+msgid "Export to .CSV file"
+msgstr ".CSV fájlba való exportálás"
+
+msgid "Colors"
+msgstr "Színek"
+
+msgid "Default"
+msgstr "Alapértelmezett"
+
+msgid "Color Blind"
+msgstr "Színvak"
+
+msgid "CSV file"
+msgstr "CSV fájl"
+
+msgid "Select CSV file"
+msgstr "CSV fájl kiválasztása"
+
+msgid "Failed to import CSV file"
+msgstr "Nem sikerült importálni a CSV fájlt"
+
+msgid "Color By"
+msgstr "Színezés"
+
+msgid "Color"
+msgstr "Szín"
+
+msgid "File Extension(s)"
+msgstr "Fájl kiterjesztés(ek)"
+
+msgid "Export File Types to CSV file"
+msgstr ""
+
+msgid "Display TB values"
+msgstr ""
+
+msgid "TB"
+msgstr ""
+
