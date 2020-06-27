@@ -1,0 +1,3 @@
+#!/bin/sh
+ps ax | awk '$5 != "/init" && $5 != "-bash" && $5 != "ps" && $5 != "awk" && $5 != "/bin/sh" { system("kill " $1) }' 2> /dev/null
+docker ps | awk '/mapdone-dev/ { system("docker rm -vf " $1) }'

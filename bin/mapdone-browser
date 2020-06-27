@@ -1,0 +1,2 @@
+#!/bin/sh
+google-chrome --incognito http://localhost:1234
