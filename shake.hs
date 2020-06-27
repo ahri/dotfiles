@@ -130,10 +130,9 @@ writeBinDir home root = do
         removeFilesAfter "_build" ["//*"]
 
 homedir :: IO FilePath
-homedir = E.getEnv home
-  where home = if isWindows
-        then "USERPROFILE"
-        else "HOME"
+homedir = E.getEnv $ if isWindows
+    then "USERPROFILE"
+    else "HOME"
 
 type FilePathFrom = FilePath
 type FilePathTo   = FilePath
