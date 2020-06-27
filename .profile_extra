@@ -9,6 +9,8 @@ export EDITOR="`which vim`"
 alias ssh-insecure="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp-insecure="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
+export PATH="/snap/bin:/usr/local/bin:/usr/bin:/bin"
+
 nix_profile="$HOME/.nix-profile/etc/profile.d/nix.sh"
 [ -f "$nix_profile" ] && . "$nix_profile"
 
