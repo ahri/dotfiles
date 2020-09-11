@@ -4,7 +4,9 @@ set -ue
 screen_width=1920
 screen_height=1080
 
-vnc_top_height=64
+tightvnc_top_height=64
+realvnc_top_height=34
+vnc_top_height=$realvnc_top_height
 windows_bar_height=60
 
 x11_width=$screen_width
