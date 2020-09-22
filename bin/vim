@@ -1,6 +1,6 @@
 #!/bin/sh
-if which nvim > /dev/null; then
+if command -v nvim > /dev/null; then
 	nvim "$@"
 else
-	vim "$@"
+	/usr/bin/vim "$@"
 fi
