@@ -1,68 +1,11 @@
 {
-    "vim.disableAnnoyingNeovimMessage": true,
-    "editor.fontFamily": "'Fira Code', Consolas, 'Droid Sans Mono', 'Courier New', monospace",
+    // pretty
+    "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
-    "editor.lineNumbers": "relative",
-    "workbench.colorTheme": "Monokai",
-    "alignment.chars": {
-        ":": {
-            "spaceBefore": 0,
-            "spaceAfter": 1
-        },
-        "::": {
-            "spaceBefore": 0,
-            "spaceAfter": 0
-        },
-        "=": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "===": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "==": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "=>": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "->": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "+=": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "-=": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "*=": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "/=": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        },
-        "++": {
-            "spaceBefore": 1,
-            "spaceAfter": 1
-        }
-    },
-    "window.zoomLevel": 0,
-    "vim.disableExtension": false,
-    "editor.renderIndentGuides": false,
-    "extensions.ignoreRecommendations": false,
+    "files.hotExit": "onExitAndWindowClose",
 
-    "TodoParser": {
-        "folderExclude": ["node_modules", ".vscode", ".git", ".stack-work"],
-        "showInProblems": false,
-        "markers": ["NOTE:", "REMINDER:", ["FIXME", "Warning"]],
-        "autoDefaultMarkers": true
-    }
+    // don't scroll so far off the bottom
+    "editor.padding.bottom": 100,
+    "editor.scrollBeyondLastLine": false,
+    "extensions.ignoreRecommendations": false,
 }
