@@ -7,7 +7,7 @@ set -ue
 ubuntu="apt-transport-https ca-certificates software-properties-common gnupg lsb-release"
 misc="htop curl wget lshw man less openssh-client nmap"
 build="build-essential cmake git libtinfo-dev zlib1g-dev"
-console_dev="neovim dvtm"
+console_dev="neovim dvtm jq"
 snaps="spotify"
 snaps_classic="code intellij-idea-community" # stuff that needs access to whole filesystem
 
@@ -15,8 +15,9 @@ if [ -z "$DISPLAY" ]; then
         windowing=""
 else
         windowing="xinit x11-xserver-utils unclutter qterminal xclip"
-	windowing="$windowing evince chromium-browser firefox"
+	windowing="$windowing evince chromium-browser firefox vlc"
 	windowing="$windowing libglib2.0-bin libgtk2.0-0"
+	windowing="$windowing zeal"
 fi
 
 packages="$misc $build $console_dev $windowing"
