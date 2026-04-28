@@ -7,13 +7,23 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-keys=""
+authorized_keys="$HOME/.ssh/authorized_keys"
+new_keys=""
+
 while [ $# -gt 0 ]; do
     github_user="$1"
-    keys="$keys`curl -s https://github.com/$github_user.keys | sed "s/$/ github.com\/$github_user/"`"
+    keys=$(curl -s "https://github.com/$github_user.keys" | sed "s/$/ github.com\/$github_user/")
+    new_keys="${new_keys}${keys}
+"
     shift
 done
 
-if [ `echo -n "$keys" | wc -l` -gt 0 ]; then
-    echo "$keys" > $HOME/.ssh/authorized_keys
+old_keys="`cat "$authorized_keys" 2>/dev/null || true`"
+
+# avoid disk write
+if [ ! "$new_keys" = "$old_keys" ]; then
+    temp_file="`mktemp`"
+    echo "$new_keys" > "$temp_file"
+    # atomic replace
+    mv "$temp_file" "$authorized_keys"
 fi
